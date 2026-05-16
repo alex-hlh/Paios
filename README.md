@@ -2,6 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Version](https://img.shields.io/badge/version-v1.0.0-green)]()
+<br>[中文](README.zh-CN.md)
 
 AIOS transforms your AI coding agent from a forgetful assistant into a disciplined engineering collaborator. It combines the **skill chain** pattern from [Superpowers](https://github.com/obra/superpowers) with the **spec/change management** system from [OpenSpec](https://github.com/Fission-AI/OpenSpec), augmented with 80 actionable engineering rules based on OWASP, Google Code Review, and language community standards.
 
@@ -465,6 +466,22 @@ cd your-project
 ```
 
 ---
+
+## Acknowledgments
+
+AIOS builds on the ideas and patterns of several groundbreaking projects:
+
+- **[Superpowers](https://github.com/obra/superpowers)** by Jesse Vincent — The skill chain pattern (brainstorm → plan → build → review → finish) that inspired our 8-skill workflow. The Red Flags anti-rationalization table, adversarial pressure testing, and "skills as mandatory" philosophy come directly from Superpowers' battle-tested approach.
+
+- **[OpenSpec](https://github.com/Fission-AI/OpenSpec)** by Fission AI — The spec/change management model (specs as source of truth, changes as delta proposals, archive workflow) and the OPSX fluid actions paradigm shaped our `pai:spec` and `pai:done` skills.
+
+- **[OWASP Cheat Sheet Series](https://cheatsheetseries.owasp.org/)** — Our security, error handling, and logging rules (27 rules) are derived from OWASP's authoritative guidance on input validation, XSS prevention, SQL injection, password storage, error handling, logging, and file upload security.
+
+- **[Google Code Review Standards](https://google.github.io/eng-practices/)** — The 3D review model (completeness, correctness, coherence) and style guidelines (function length, naming, comments) are adapted from Google's engineering practices.
+
+- **[Conventional Commits](https://www.conventionalcommits.org/)** — v1.0.0 specification for structured commit messages.
+
+- **[Prettier](https://prettier.io/)** / **[PEP 8](https://peps.python.org/pep-0008/)** / **[Effective Go](https://go.dev/doc/effective_go)** / **[Rust Style Guide](https://doc.rust-lang.org/nightly/style-guide/)** — Each preset profile is based on the de facto standard formatting tool or style guide of its language community.
 
 ## License
 

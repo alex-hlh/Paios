@@ -2,6 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Version](https://img.shields.io/badge/version-v1.0.0-green)]()
+<br>[English](README.md)
 
 AIOS 将你的 AI 编码助手从健忘的帮手升级为有纪律的工程协作伙伴。融合 [Superpowers](https://github.com/obra/superpowers) 的**技能链**模式、[OpenSpec](https://github.com/Fission-AI/OpenSpec) 的 **Spec/Change 管理**体系，并基于 OWASP、Google Code Review 和各语言社区标准内置了 **80 条可执行的工程规则**。
 
@@ -468,6 +469,22 @@ cd your-project
 ```
 
 ---
+
+## 致谢
+
+AIOS 建立在以下先驱项目的基础之上：
+
+- **[Superpowers](https://github.com/obra/superpowers)** by Jesse Vincent — 技能链模式（brainstorm → plan → build → review → finish）启发了我们的 8 技能工作流。Red Flags 防合理化表、对抗性压力测试、"技能即强制"理念均直接来自 Superpowers 的实战验证。
+
+- **[OpenSpec](https://github.com/Fission-AI/OpenSpec)** by Fission AI — Spec/Change 管理模型（spec 为真相源、change 为 delta 提案、归档工作流）和 OPSX 流体操作范式塑造了我们的 `pai:spec` 和 `pai:done` 技能。
+
+- **[OWASP Cheat Sheet Series](https://cheatsheetseries.owasp.org/)** — 我们的安全、错误处理和日志规范（27 条规则）源自 OWASP 在输入验证、XSS 防护、SQL 注入、密码存储、错误处理、日志记录、文件上传安全方面的权威指南。
+
+- **[Google Code Review Standards](https://google.github.io/eng-practices/)** — 三维审查模型（完整性、正确性、一致性）和风格指南（函数长度、命名、注释）借鉴自 Google 工程实践。
+
+- **[Conventional Commits](https://www.conventionalcommits.org/)** — 结构化提交信息的 v1.0.0 规范。
+
+- **[Prettier](https://prettier.io/)** / **[PEP 8](https://peps.python.org/pep-0008/)** / **[Effective Go](https://go.dev/doc/effective_go)** / **[Rust Style Guide](https://doc.rust-lang.org/nightly/style-guide/)** — 每个预设档案均基于该语言社区的事实标准格式化工具或风格指南。
 
 ## 许可证
 

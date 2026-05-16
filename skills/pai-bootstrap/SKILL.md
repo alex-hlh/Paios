@@ -614,6 +614,7 @@ bootstrap → design → (amend) → spec → build → (debug / review) → don
 | 你的情况 | 操作 |
 |---------|------|
 | 全新项目，想用 AIOS 管全程 | `npx @huahu/paios init` → 重启 AI → 说需求 |
+| **有项目计划书，想系统执行** | **重启 AI → 说"根据这份计划书设计" → 粘贴/附上文档 → pai:design 导入模式** |
 | 已有项目，想适配现有代码 | `/pai:retro` → AI 自动检测技术栈和风格 → 生成配置 |
 | 已有 AIOS 项目，刚打开 | 无需操作，`pai:bootstrap` 自动加载 |
 | 已有项目，只想用调试功能 | 直接说"帮我调试"，`pai:debug` 独立可用 |

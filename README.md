@@ -72,6 +72,7 @@ cd your-project
 ./path/to/Paios/scripts/aios.sh init        # macOS/Linux
 .\path\to\Paios\scripts\aios.ps1 init       # Windows
 ./path/to/Paios/scripts/aios.sh init --defaults  # Skip prompts
+```
 
 ### 3. Start coding
 

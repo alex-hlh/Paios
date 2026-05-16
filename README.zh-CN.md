@@ -42,23 +42,28 @@ AIOS 通过在每个会话中注入**记忆、规则和流程**来解决：
 
 ## 快速开始
 
-### 1. 安装技能包
+### 1. 安装
 
-**OpenCode：**
-```json
-// opencode.json
-{ "plugin": ["aios@git+https://github.com/alex-hlh/Paios.git"] }
+**npx（推荐，无需安装）：**
+```bash
+npx @huahu/paios init
 ```
 
-**Claude Code：**
+**或全局安装：**
+```bash
+npm install -g @huahu/paios
+paios init
+```
+
+**OpenCode 插件：**
+```json
+{ "plugin": ["paios@git+https://github.com/alex-hlh/Paios.git"] }
+```
+
+**Claude Code 插件：**
 ```bash
 /plugin marketplace add alex-hlh/aios-marketplace
-/plugin install paios@paios-marketplace
-```
-
-**手动安装（全平台通用）：**
-```bash
-git clone https://github.com/alex-hlh/Paios.git
+/plugin install paios@aios-marketplace
 ```
 
 ### 2. 初始化项目

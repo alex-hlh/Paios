@@ -1,4 +1,5 @@
-# Dependencies
+# NPM
+.npmrc
 node_modules/
 .pnpm-store/
 

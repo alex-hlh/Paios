@@ -42,36 +42,47 @@ AIOS solves this by injecting **memory, rules, and process** into every session:
 
 ## Quick Start
 
-### 1. Install the skill pack
+### 1. Install
 
-**OpenCode:**
-```json
-// opencode.json
-{ "plugin": ["aios@git+https://github.com/alex-hlh/Paios.git"] }
+**npx (recommended — no install required):**
+```bash
+npx @huahu/paios init
 ```
 
-**Claude Code:**
+**Or install globally:**
+```bash
+npm install -g @huahu/paios
+paios init
+```
+
+**OpenCode plugin:**
+```json
+{ "plugin": ["paios@git+https://github.com/alex-hlh/Paios.git"] }
+```
+
+**Claude Code plugin:**
 ```bash
 /plugin marketplace add alex-hlh/aios-marketplace
 /plugin install paios@aios-marketplace
 ```
 
-**Manual (any platform):**
-```bash
-git clone https://github.com/alex-hlh/Paios.git
-```
-
 ### 2. Initialize your project
 
-**Automatic (recommended):** After installing the plugin, restart your AI tool. `pai:bootstrap` detects the missing `ai/` directory and offers to initialize — just answer a few questions and AI does the rest.
+**Automatic (recommended):** After installing the AI tool plugin, restart. `pai:bootstrap` detects the missing `ai/` directory and offers to initialize — just answer a few questions and AI does the rest.
 
-**Manual:** Use the CLI script for CI/CD or batch setup:
-
+**npx / CLI (for CI/CD or batch setup):**
 ```bash
-cd your-project
-./path/to/Paios/scripts/aios.sh init        # macOS/Linux
-.\path\to\Paios\scripts\aios.ps1 init       # Windows
-./path/to/Paios/scripts/aios.sh init --defaults  # Skip prompts
+npx @huahu/paios init                  # Interactive
+npx @huahu/paios init --defaults       # All defaults
+npx @huahu/paios init --tech node,react
+npx @huahu/paios status
+npx @huahu/paios update
+```
+
+**Global install:**
+```bash
+npm install -g @huahu/paios
+paios init
 ```
 
 ### 3. Start coding
@@ -303,27 +314,19 @@ To customize: edit `ai/config.yaml` after init, or answer the interactive prompt
 ## CLI Commands
 
 ```bash
-# Interactive initialization (one question, rest press Enter)
-aios init
-
-# Skip all prompts, auto-detect preset
-aios init --defaults
-aios init --defaults --tech node,react
-
-# Specify a preset
-aios init --preset python --name "MyAPI"
-
-# View current project state
-aios status
-
-# Check for updates, add new rule templates
-aios update
+# Interactive initialization
+npx @huahu/paios init
+npx @huahu/paios init --defaults
+npx @huahu/paios init --defaults --tech node,react
+npx @huahu/paios init --preset python --name "MyAPI"
+npx @huahu/paios status
+npx @huahu/paios update
 ```
 
-### `aios init` Interactive Flow
+### `npx paios init` Interactive Flow
 
 ```
-$ aios init
+$ npx @huahu/paios init
 
   Primary language [node/python/go/rust/java/universal]: node
   Preset: node-typescript

@@ -47,7 +47,7 @@ triggers:
 
 **只审查本次 task 涉及的变更文件。** 不检查无关文件和预先存在的问题。
 
-## 三步审查
+## 四步审查
 
 ### 步骤 1: 完整性检查 (Completeness)
 
@@ -57,6 +57,9 @@ triggers:
 - [ ] 对应的 spec requirement 是否全部实现？
 - [ ] spec 中定义的 Scenario 是否都有对应测试？（检查边界情况）
 - [ ] 是否有遗漏的场景？
+- [ ] 如果是当前 change 的最后一个 task，检查：
+  - [ ] .gitignore 是否存在（排除 __pycache__/*.pyc/.pytest_cache/node_modules）
+  - [ ] 声明过的资源文件（GIF、图标、配置模板）是否存在
 
 ### 步骤 2: 正确性检查 (Correctness)
 
@@ -65,6 +68,7 @@ triggers:
 - [ ] 边界条件是否处理？（空值、空列表、极大/极小值）
 - [ ] 是否存在明显的性能问题？（N+1 查询、不必要的循环）
 - [ ] 是否有安全风险？（注入、敏感信息泄露）
+- [ ] 所有公开函数是否处理 None/null 输入？
 
 ### 步骤 3: 合规性检查 (Compliance)
 
@@ -75,6 +79,20 @@ triggers:
 - [ ] **代码风格**：检查是否符合 `ai/config.yaml` 的 conventions.code
 - [ ] **命名规范**：检查是否符合 `ai/config.yaml` 的 conventions.naming
 - [ ] **测试规范**：检查是否符合 `ai/rules/test-rules.yaml`
+- [ ] **依赖声明**：代码中的 import 是否在 requirements.txt / package.json / Cargo.toml 中有声明？（实现方式：扫描变更文件中的 import 语句，与依赖文件交叉比对）
+- [ ] **死代码**：是否有定义了但未被调用的函数或未使用的 import？
+
+### 步骤 4: 集成完整性检查 (Integration)
+
+**仅在当前 task 是集成类型或模块数量 ≥ 3 时执行：**
+
+- [ ] 所有 producer 模块的输出是否被 consumer 模块消费？
+  - 检查方法：扫描 consumer 代码中是否存在 producer 的 import 或调用
+- [ ] main.py / 入口点是否装配了所有模块？
+- [ ] 信号（signal）、事件（event）是否全部连接？
+- [ ] 端到端流水线路径是否存在断裂？
+- [ ] 接口/契约在不同模块间是否一致？
+  - 例：producer 返回 `(x, y)` 但 consumer 接收 `[x, y]`
 
 ## 审查结果分类
 

@@ -85,10 +85,22 @@ Next: Task 2.1 - JWT token utility
 1. **写入中断恢复点**：更新 `ai/state/current.md` → `当前 TDD 状态: green`
 2. 写**最少**的代码让测试通过——不要多写一行
 3. 遵循 `ai/config.yaml` 的 conventions.code 和 conventions.naming
-3. 遵循 `ai/rules/arch-rules.yaml` 的架构约束
-4. 遵循 `ai/rules/style-rules.yaml` 的代码风格
-5. 运行测试，确认通过（GREEN）
-6. 如果测试不通过 → 最简单的修改，不要猜测，逐个修复
+4. 遵循 `ai/rules/arch-rules.yaml` 的架构约束
+5. 遵循 `ai/rules/style-rules.yaml` 的代码风格
+6. 运行测试，确认通过（GREEN）
+7. 如果测试不通过 → 最简单的修改，不要猜测，逐个修复
+8. **防御性编程检查**（GREEN 阶段完成时执行，非测试 task 跳过）：
+
+```
++-- Defensive Checklist
+|
++-- [ ] 所有公开函数是否处理 None/空值输入？
++-- [ ] 配置文件缺失时的默认行为？
++-- [ ] 第三方库 import 失败时的降级策略？
++-- [ ] 边界值（空列表、极值、0）是否有处理？
+
+如检查未通过，不修改已通过的测试，而是测试通过后追加防御性代码。
+```
 
 ### REFACTOR: 改进代码
 
@@ -143,6 +155,47 @@ RED: 3  |  GREEN: 5  |  REFACTOR: 2  |  PENDING: 5
 - 每个 task 的 RED/GREEN/REFACTOR 循环完成时，更新一次进度条
 - 如果同一 task 触发了 pai:debug，在 debug 完成后更新
 - 进度条颜色暗示：`===` = 已完成，`   ` = 未完成
+
+### 集成类型 Task（跨模块连接）
+
+检测 tasks.md 中是否有 ≥3 个独立模块分类（如 1.x, 2.x, 3.x）。
+
+如果有，在**所有模块 TDD 循环完成后**，自动追加一个**集成分类 task**（注意：这个 task 不由 `pai:spec` 预生成，而是在 build 阶段动态识别并追加）：
+
+```
++-- 发现 3 个独立模块 → 需要集成
+|
+\-- N. 集成与引导 (GLUE PHASE)
+    +-- N.1 实现应用入口点 (main.py)
+    |    组件装配 + 信号连接
+    +-- N.2 端到端流水线
+    |    capture → recognize → decide → display
+    \-- N.3 端到端集成测试
+```
+
+**集成 task 特殊规则：**
+- 粒度允许 10-15 分钟（非标准的 2-5 分钟）
+- 不需要严格 TDD（但测试仍应存在）
+- 触发 `pai:review` 时，特殊标注为集成审查
+
+### 基础设施检查清单
+
+基础设施 task（如 "创建目录结构"、"生成配置文件"）完成后，额外检查：
+
+```
++-- Infrastructure Checklist
+|
++-- [ ] .gitignore 是否生成？
+|     排除: __pycache__/*.pyc/.pytest_cache/node_modules/.env
++-- [ ] pyproject.toml / package.json / Cargo.toml 是否存在？
+|     (消除 sys.path.insert / NODE_PATH hack)
++-- [ ] requirements.txt 或等效依赖文件？
+|     (覆盖所有实际 import 的第三方依赖)
++-- [ ] 首个可运行测试能否通过？
+|     (验证基础设施完整性)
+```
+
+如果项目根目录下没有 `.gitignore`，在第一个 task 完成后自动生成。
 
 ## 编码规范（全程遵守）
 

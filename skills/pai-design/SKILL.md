@@ -211,6 +211,23 @@ src/
         └──→ [Token Utility] ──────→ [Middleware] ──────────┘
 ```
 
+**信号连接图模板（事件驱动/Qt/PyQt/Signal 项目）：**
+```
+Signal Wiring:
+  modeSelector.modeChanged(str) ──→ app._applyMode(mode)
+  hotkeys.analyzeTriggered ────────→ app._onAnalyze()
+  detector.gameActivated ──────────→ app._onGameActivated()
+     │
+     └─→ stealth.activate()
+           │
+           ├─→ petWindow.hide()
+           └─→ icon.hide()
+  stealth.stealthActivated ────────→ app._onStealthOn()
+     │
+     ├─→ petWindow.hide()
+     └─→ icon.hide()
+```
+
 **使用规则：**
 - 每个设计节**至少包含一个 ASCII 图**（架构图、数据流图或模块关系图）
 - 图放在文字之前："先看图，再看文字"
@@ -265,64 +282,32 @@ src/
 ### 阶段 7: 用户审查
 提示用户审查 `ai/changes/<change-name>/proposal.md` 和 `design.md`，确认后进入下一阶段。
 
-## 需求变更处理（开发中途新增功能）
+## 交付策略建议
 
-> **推荐入口**: 开发中途的需求变更，优先使用 `/pai:amend` — 它会检测当前 change 状态并推荐策略。本节仅在 `pai:amend` 不可用时作为后备。
-
-任何时候用户提出新需求，先检查当前是否已有活跃 change：
-
-### 策略 1: 追加到当前 Change（小变更，同领域）
-
-新需求与当前 change 高度相关 → 更新已有文档 + 重新生成 spec：
-
-```
-1. 更新 proposal.md → 追加 scope 条目
-2. 更新 design.md → 补充新增模块设计
-3. 追加 `[ ] <新 task>` 到现有 tasks.md（或重新运行 pai:spec）
-4. 继续 pai:build
-
-适用: "登录功能再加个验证码" / "用户模型加个头像字段"
-```
-
-### 策略 2: 新建并行 Change（独立功能）
-
-新需求独立于当前 work → 创建新 change，并行推进：
-
-```
-1. 用 {file-edit} 在 ai/state/current.md 标记当前 change 进度
-2. 启动新的 pai:design → 生成独立 change 目录
-3. 两个 change 并行：ai/state/current.md 记录多 change
-4. 归档时 pai:done 自动检测 spec 冲突
-
-适用: 正在做登录，又接到"做权限管理" / "做缓存层"
-```
-
-### 策略 3: 延期（超大 / 不确定）
-
-新需求明确但规模过大 → 记录到 roadmap，不立即启动：
-
-```
-1. 用 {file-edit} 追加到 ai/state/roadmap.md 下一版本
-2. 继续当前 change
-
-适用: "顺便把整个权限系统重构" / "这个功能需要微服务拆分"
-```
-
-### 用户不确定时：询问
+设计确认后、生成 spec 前，提供一种渐进式交付路线图选择：
 
 ```
 +============================================+
-|  SCOPE CHANGE                              |
+|  DELIVERY STRATEGY                          |
 +============================================+
-|  Current:  add-user-login [3/8 tasks done] |
-|  New:      add-2fa                         |
 |                                            |
-|  How to handle?                            |
-|  A) Same domain → append to current change |
-|  B) Independent → new parallel change       |
-|  C) Defer → record in roadmap              |
+|  建议分 2 轮实现:                           |
+|                                            |
+|  Round 1 — 骨架验证 (可运行原型)             |
+|    main.py + 1个核心流水线 + 1个UI组件      |
+|    不做的: 配置持久化、边缘情况、全部UI       |
+|    目的: 尽早验证架构可行性                   |
+|                                            |
+|  Round 2 — 功能补全                         |
+|    剩余模块 + 集成 + 配置持久化 + 边界处理    |
+|                                             |
+|  A) 按 Round 1→2 分两轮（推荐）              |
+|  B) 一次性完成所有                            |
+|  C) 自定义拆分                               |
 +============================================+
 ```
+
+如果用户选择分轮交付，`pai:spec` 生成 tasks.md 时按轮的粒度分组，第 1 轮完成后即可触发 `pai:done` 归档，下次 change 再做第 2 轮。
 
 ## 设计原则
 

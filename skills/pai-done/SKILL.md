@@ -94,6 +94,28 @@ triggers:
 - 将完成的 tasks 移到 DONE 区域
 - 如果 DONE 区域积累超过 10 项，归档到下方归档区
 
+### 步骤 5.5: 软性未完成项检查
+
+归档前检查以下"软性项"（不阻断归档，但输出提醒）：
+
+```
++-- Soft Completion Check
+|
++-- [ ] .gitignore 是否存在？
++-- [ ] pyproject.toml / package.json 是否存在？
++-- [ ] 所有声明的资源文件（GIF、图标、配置模板）是否存在于正确路径？
++-- [ ] 依赖文件（requirements.txt / Cargo.toml）是否覆盖所有实际 import？
+```
+
+如果以上有未完成项，输出提醒但不阻止归档：
+
+```
+⚠️ 软性检查发现以下未完成项:
+  - .gitignore 不存在 (将导致 __pycache__ 被提交)
+  - assets/pets/ 目录为空 (声明的资源文件未填充)
+  - 建议在一个独立的 change 中处理
+```
+
 ### 步骤 6: 提示 Git 操作
 
 根据 `ai/config.yaml` 的 `conventions.git.commit_style` 生成 commit 建议：
@@ -148,6 +170,12 @@ git commit -m "feat(<domain>): <change-description>"
 |  [x] 3.1 Login page              RED/GREEN|
 |  [x] 3.2 Error handling          RED/GREEN|
 |  [x] 3.3 Integration test        RED/GREEN|
+|                                            |
++-- Unresolved Issues (from review) --------+
+|                                            |
+|  ⚠️ Warning: classifier.py unused import   |
+|  ⚠️ Minor:  assets/pets/ directory empty   |
+|  ℹ️  Note:  bubble arrow coords hardcoded  |
 |                                            |
 +-- Archive ---------------------------------+
 |                                            |

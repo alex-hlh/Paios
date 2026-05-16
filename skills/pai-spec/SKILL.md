@@ -77,6 +77,79 @@ triggers:
 - 需求描述行为而非实现——不写类名、函数名、框架选择
 - 新增 spec domain（如 `auth/`）时自动创建对应目录
 
+### 步骤 2.5: 自动补全缺失需求类型
+
+Delta spec 生成后，检查以下模式并自动追加需求。这些需求跨越单个 domain，确保系统完整性。
+
+**检测 1：多 domain 集成需求**
+
+如果 domains 数量 ≥ 3 或 requirement 数量 ≥ 6，追加：
+
+```markdown
+## ADDED Requirements
+
+### Requirement: 跨模块流水线集成
+系统 MUST 实现完整的端到端流水线，串联所有模块。
+检测方式：如果存在 3 个以上 domains，必须生成一个集成 requirement。
+
+#### Scenario: 端到端执行
+- GIVEN 系统所有模块已实现
+- WHEN 触发完整流水线
+- THEN 数据按定义顺序流经每个模块
+- AND 最终结果正确输出
+```
+
+**检测 2：配置持久化需求**
+
+如果任何 spec 中出现 `apiKey`、`config`、`settings`、`budget`、`API Key` 等关键词，追加：
+
+```markdown
+### Requirement: 配置持久化
+系统 MUST 将用户配置（API Key、预算、模式选择等）持久化到本地文件。
+系统 MUST 启动时自动读取并恢复上一次的配置。
+
+#### Scenario: 配置保存与恢复
+- GIVEN 用户修改了配置项（如 API Key）
+- WHEN 系统关闭或重启
+- THEN 配置被正确保存并恢复
+
+#### Scenario: 配置缺失
+- GIVEN 首次启动，无配置文件
+- WHEN 系统初始化配置模块
+- THEN 使用默认值启动
+- AND 提示用户补全必要配置
+```
+
+**检测 3：应用入口点需求**
+
+如果 requirement 总数 ≥ 5，追加：
+
+```markdown
+### Requirement: 应用引导
+系统 MUST 提供统一入口点（如 main.py），初始化所有组件、建立连接、启动生命周期。
+
+#### Scenario: 正常启动
+- GIVEN 所有模块已就绪
+- WHEN 用户启动应用
+- THEN 入口点装配所有组件
+- AND 应用进入可用状态
+```
+
+**检测 4：资源文件需求**
+
+如果任何 spec 中出现 `GIF`、`动画`、`图标`、`QLabel`、`QMovie`、`resources` 等关键词，追加：
+
+```markdown
+### Requirement: 资源文件
+系统 MUST 包含运行时需要的资源文件（GIF、图标等），并正确加载。
+
+#### Scenario: 资源加载
+- GIVEN 资源文件存在于预期路径
+- WHEN 应用加载资源
+- THEN 所有资源正确显示
+- AND 资源缺失时优雅降级
+```
+
 ### 步骤 3: 生成 Tasks
 
 在 `ai/changes/<change-name>/tasks.md` 写入实施清单：

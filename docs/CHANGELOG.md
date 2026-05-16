@@ -3,7 +3,7 @@
 ## v1.0.0 (2026-05-16)
 
 ### Added
-- 8 个核心技能：bootstrap / design / spec / build / debug / review / done / reflect
+- 13 个核心技能：bootstrap / init / retro / docs / design / amend / spec / build / debug / review / done / reflect / status
 - 6 个预设配置档案：node-typescript / python / go / rust / java / universal
 - 80 条项目规则（9 个文件）：hard / arch / security / error / logging / api / git / style / test
 - 8 条全局 L1 红线

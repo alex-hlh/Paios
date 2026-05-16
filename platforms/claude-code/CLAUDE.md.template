@@ -14,7 +14,11 @@
 ### 可用技能
 
 - `pai:bootstrap` — 启动引导、加载规则和状态
+- `pai:init` — 项目初始化
+- `pai:retro` — 已有项目逆向适配
+- `pai:docs` — 项目文档生成
 - `pai:design` — 需求讨论和设计
+- `pai:amend` — 开发中途需求变更
 - `pai:spec` — Spec/Change 管理
 - `pai:build` — TDD 开发
 - `pai:debug` — 系统调试

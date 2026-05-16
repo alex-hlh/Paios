@@ -607,7 +607,7 @@ AIOS 当前运行在互补模式 (complementary)。
 
 ## 技能链
 
-bootstrap → design → spec → build → (debug / review) → done → reflect
+bootstrap → design → (amend) → spec → build → (debug / review) → done → reflect
 
 ## 使用场景速查
 
@@ -625,7 +625,7 @@ bootstrap → design → spec → build → (debug / review) → done → reflec
 
 所有 `pai:*` 技能支持两种调用方式：
 
-1. **链式自动触发**（standalone 模式）：按 bootstrap → design → spec → build → ... 自动进入下一环
+1. **链式自动触发**（standalone 模式）：按 bootstrap → design → (amend) → spec → build → ... 自动进入下一环
 2. **独立手动调用**：任何技能都可以通过 `/pai:xxx` 命令或自然语言直接调用。
 
 ### 独立调用依赖与降级规则
@@ -635,6 +635,7 @@ bootstrap → design → spec → build → (debug / review) → done → reflec
 | **pai:init** | 无 | — | ✅ |
 | **pai:bootstrap** | 无（无 ai/ 则引导 init） | — | ✅ |
 | **pai:design** | 无 | `ai/config.yaml` → universal 预设 | ✅ |
+| **pai:amend** | 活跃 change (ai/state/current.md) | 无活跃 change → 降级为 pai:design | ✅ |
 | **pai:debug** | 无 | `ai/rules/` → 仅跳过反模式记录 | ✅ |
 | **pai:review** | 无 | `ai/rules/` → 仅检查通用原则 | ✅ |
 | **pai:reflect** | 无 | `ai/memory/` → 仅输出不记录 | ✅ |

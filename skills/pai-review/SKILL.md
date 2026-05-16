@@ -68,25 +68,42 @@ triggers:
 ### OK（通过）
 - 所有检查通过
 
-## 输出格式
+## 输出格式（ASCII 可视化）
+
+使用以下格式展示审查结果，便于快速识别问题区域：
 
 ```
-审查结果: <change-name> — Task <task-id>
++------------------------------------------+
+|  REVIEW: add-user-login — Task 1.1        |
++------------------------------------------+
+| COMPLETENESS  |  spec scenarios: 3/3 ✅   |
+|               |  test coverage:  1/1 ✅   |
++---------------+--------------------------+
+| CORRECTNESS   |  logic: valid   ✅       |
+|               |  edge cases:    2/3 ⚠️   |
+|               |  security:      OK  ✅   |
++---------------+--------------------------+
+| COMPLIANCE    |  L1 (red lines): 8/8 ✅  |
+|               |  L2 (arch):     14/14 ✅  |
+|               |  L3 (style):    15/16 ⚠️ |
+|               |  git rules:      6/6  ✅  |
+|               |  test rules:    10/10 ✅  |
++---------------+--------------------------+
+| SUMMARY                                 |
++------------------------------------------+
+|  Critical: 0  |  Warning: 1  |  Pass: 6  |
++------------------------------------------+
 
-COMPLETENESS: ✅/⚠️/❌
-  <具体发现>
+Result: PASS (with warnings) — continue to next task.
+```
 
-CORRECTNESS: ✅/⚠️/❌
-  <具体发现>
-
-COMPLIANCE: ✅/⚠️/❌
-  L1: ✅ | L2: ✅ | L3: ⚠️ (1 warning)
-  <具体发现>
-
-SUMMARY
-─────────────────────
-Critical: 0 | Warning: 1 | OK: 5
-继续下一个 task: ✅ 是 / ❌ 否（需修复后重审）
+**简单版（小 task 时使用）：**
+```
+=== REVIEW Task 1.1 ===
+Completeness:  OK      Correctness: OK
+Compliance:    ⚠️ 1 warning (style S008: function >50 lines)
+Critical: 0  |  Warning: 1
+>> Continue to next task
 ```
 
 ## 完成后

@@ -99,6 +99,54 @@ git commit -m "feat(<domain>): <change-description>"
 
 **绝对不执行 git push/merge/deploy 操作。**
 
+### 完成看板（ASCII 可视化）
+
+在 git 提示之后、`pai:reflect` 之前，输出 ASCII 完成看板：
+
+```
++============================================+
+|          CHANGE COMPLETE                    |
++============================================+
+|                                            |
+|  Change:     add-user-login                |
+|  Domain:     auth                          |
+|  Spec:       ai/specs/auth/spec.md         |
+|  Tests:      23/23 PASS  ✅               |
+|  Rules:      80/80 compliance  ✅          |
+|                                            |
++-- Spec Changes ---------------------------+
+|                                            |
+|  ADDED:     3 requirements                 |
+|  MODIFIED:  0                              |
+|  REMOVED:   0                              |
+|                                            |
++-- Tasks ----------------------------------+
+|                                            |
+|  [x] 1.1 Create User model       RED/GREEN|
+|  [x] 1.2 Add validation          RED/GREEN|
+|  [x] 2.1 JWT token util          RED/GREEN|
+|  [x] 2.2 Auth middleware         RED/GREEN|
+|  [x] 2.3 Login endpoint          RED/GREEN|
+|  [x] 3.1 Login page              RED/GREEN|
+|  [x] 3.2 Error handling          RED/GREEN|
+|  [x] 3.3 Integration test        RED/GREEN|
+|                                            |
++-- Archive ---------------------------------+
+|                                            |
+|  Location: archive/2026-05-16-user-login/ |
+|                                            |
++============================================+
+```
+
+**简单版（变更较小时使用）：**
+```
+=== CHANGE COMPLETE ===
+change:   add-user-login
+tests:    23/23 PASS
+rules:    80/80 compliance
+archive:  archive/2026-05-16-user-login/
+```
+
 ### 步骤 7: 触发 pai:reflect
 
 归档完成后自动触发 `pai:reflect` 进行自我反思。

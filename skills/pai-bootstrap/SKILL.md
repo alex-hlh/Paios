@@ -412,19 +412,60 @@ AIOS 当前运行在互补模式 (complementary)。
 ```
 </MODE-AWARE>
 
-### 步骤 10: 输出就绪摘要
+### 步骤 10: 输出就绪摘要（ASCII 仪表盘）
+
+如果项目有当前活跃的 change，输出详细仪表盘：
 
 ```
-AIOS 就绪
-平台: {platform}
-共存模式: {coexistence_mode} (standalone / complementary)
-项目: {project.name} | 预设: {preset}
-当前 change: {current_change 或 "无"}
-下一个 task: {next_task 或 "无"}
-阻塞项: {blockers 或 "无"}
-已加载规则: {rule_count} 条 (L1 + L2 + L3)
++============================================+
+|          AIOS 就绪                          |
++============================================+
+|                                            |
+|  Platform:  OpenCode                       |
+|  Mode:      standalone                     |
+|  Project:   MyApp                          |
+|  Preset:    node-typescript                |
+|                                            |
++-- Current Change: add-user-login ----------+
+|                                            |
+|  Tasks:    [#######         ]  45%         |
+|  (5/11 complete)                           |
+|                                            |
+|  [x] 1.1 User model                        |
+|  [x] 1.2 Validation                        |
+|  [x] 2.1 JWT util                          |
+|  [ ] 2.2 Auth middleware    ← NEXT         |
+|  [ ] 2.3 Login endpoint                    |
+|  [ ] 3.1-3.3 (4 tasks)                     |
+|                                            |
+|  Blocker:  Awaiting JWT_SECRET env config   |
+|                                            |
++-- Rules Loaded -----------------------------+
+|                                            |
+|  L1 (red lines):    8/8    ✅              |
+|  L2 (arch/security):  53/54   ⚠️ 1 skipped|
+|  L3 (style/test):   26/26  ✅              |
+|                                            |
++-- Next Actions -----------------------------+
+|                                            |
+|  1. Start Task 2.2: Auth middleware         |
+|  2. Or update ai/config.yaml if blocked    |
+|                                            |
++============================================+
 ```
 
+如果项目无活跃 change，输出简版：
+
+```
++------------------------------------+
+|  AIOS Ready                        |
++------------------------------------+
+|  Platform: OpenCode  |  Mode: standalone  |
+|  Project: MyApp      |  Preset: node...  |
+|  Rules:  80/80 loaded   ✅                |
+|  Change: none — say what you want to build |
++------------------------------------+
+```
 ---
 
 ## 规则引用

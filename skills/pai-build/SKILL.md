@@ -63,6 +63,44 @@ triggers:
 1. 用 {file-edit} 将 tasks.md 中对应 task 的 `- [ ]` 改为 `- [x]`
 2. **立即触发 pai:review** 审查本次 task 的代码
 
+### 进度展示
+
+每次勾选 task 后，在输出中显示 ASCII 进度条，让用户一目了然进展：
+
+**进度条模板：**
+```
+[===                    ] 15%  (2/13 tasks)    ███░░░░░░░░░░░░░░░░░
+```
+
+**完整进度看板示例：**
+```
+Change: add-user-login
++--------------------------------------+
+| 1. User Model              [RED/GREEN]|  [===========           ] 45%
+| 2. Auth Logic              [PENDING]  |
+| 3. Token Utility           [PENDING]  |
+| 4. Login API               [PENDING]  |
+| 5. Middleware              [DONE]     |  [====================   ] 90%
+| 6. Login Page              [DONE]     |
+| 7. Error Handling          [PENDING]  |
+| 8. Integration Test        [PENDING]  |
++--------------------------------------+
+Overall: [=====               ] 25%  (2/8 tasks)
+
+Next: Task 3 - Token Utility
+```
+
+**简单版（适用于 task 数量少时）：**
+```
+Progress: [##########          ] 50%  (5/10 tasks)
+RED: 3  |  GREEN: 5  |  REFACTOR: 2  |  PENDING: 5
+```
+
+**展示时机：**
+- 每个 task 的 RED/GREEN/REFACTOR 循环完成时，更新一次进度条
+- 如果同一 task 触发了 pai:debug，在 debug 完成后更新
+- 进度条颜色暗示：`===` = 已完成，`   ` = 未完成
+
 ## 编码规范（全程遵守）
 
 从 `ai/config.yaml` 注入：

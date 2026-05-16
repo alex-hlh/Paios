@@ -83,10 +83,69 @@ triggers:
 - 让用户选择方向
 
 ### 阶段 4: 分节展示设计
-- 每节 200-300 字
+
+展示设计时**必须使用 ASCII 图表辅助可视化**，不要只靠文字描述。以下是各类图表的模板：
+
+**架构图模板：**
+```
++------------------+     +------------------+     +------------------+
+|   Browser/Client  |     |    API Gateway    |     |   Auth Service    |
+|  (React/Next.js)  |---->|  (Express/FastAPI)|---->|   (JWT/Session)   |
++------------------+     +------------------+     +------------------+
+         |                        |                          |
+         |                        v                          v
+         |               +------------------+     +------------------+
+         |               |   App Server     |     |   DB / Cache     |
+         +-------------->|  (Business Logic) |---->|  (PostgreSQL +   |
+                         +------------------+     |   Redis)         |
+                                                  +------------------+
+```
+
+**数据流图模板：**
+```
+User Action            API Request            Service              Response
+    |                     |                      |                    |
+    |  1. POST /login     |                      |                    |
+    |-------------------->|                      |                    |
+    |                     |  2. validate + query  |                    |
+    |                     |--------------------->|                    |
+    |                     |                      |  3. query DB       |
+    |                     |                      |------------------>|
+    |                     |                      |  4. user data      |
+    |                     |                      |<------------------|
+    |                     |  5. result + token   |                    |
+    |                     |<---------------------|                    |
+    |  6. 200 { user,     |                      |                    |
+    |      token }        |                      |                    |
+    |<--------------------|                      |                    |
+```
+
+**组件/模块关系图模板：**
+```
+src/
++-- components/          +-- pages/              +-- hooks/
+|   +-- Header/          |   +-- Login/          |   +-- useAuth/
+|   |   +-- Header.tsx   |   |   +-- page.tsx    |   |   +-- useAuth.ts
+|   |   +-- Nav.tsx      |   |   +-- form.tsx    |   +-- useCart/
+|   +-- Footer/          |   +-- Dashboard/      |       +-- useCart.ts
++-- utils/               +-- api/                +-- styles/
+    +-- validators.ts        +-- client.ts            +-- globals.css
+                             +-- auth.ts
+```
+
+**任务依赖图（复杂场景）:**
+```
+   [User Model] ──→ [Auth Logic] ──→ [Login API] ──→ [Integration Test]
+        │                                                   │
+        └──→ [Token Utility] ──────→ [Middleware] ──────────┘
+```
+
+**使用规则：**
+- 每个设计节**至少包含一个 ASCII 图**（架构图、数据流图或模块关系图）
+- 图放在文字之前："先看图，再看文字"
+- 设计确认时，逐节展示："这部分看起来对吗？"
+- 每节 200-300 字 + 1 个 ASCII 图
 - 覆盖：架构、组件、数据流、错误处理、测试
-- 每节确认："这部分看起来对吗？"
-- 随时准备回头澄清
 
 ### 阶段 5: 写入设计文档
 用户确认后，写入 `ai/changes/<change-name>/`：

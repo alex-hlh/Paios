@@ -46,18 +46,18 @@ AIOS solves this by injecting **memory, rules, and process** into every session:
 **OpenCode:**
 ```json
 // opencode.json
-{ "plugin": ["aios@git+https://github.com/<user>/aios-skill-pack.git"] }
+{ "plugin": ["aios@git+https://github.com/alex-hlh/Paios.git"] }
 ```
 
 **Claude Code:**
 ```bash
-/plugin marketplace add <user>/aios-marketplace
-/plugin install aios@aios-marketplace
+/plugin marketplace add alex-hlh/aios-marketplace
+/plugin install paios@aios-marketplace
 ```
 
 **Manual (any platform):**
 ```bash
-git clone https://github.com/<user>/aios-skill-pack.git
+git clone https://github.com/alex-hlh/Paios.git
 ```
 
 ### 2. Initialize your project
@@ -66,10 +66,10 @@ git clone https://github.com/<user>/aios-skill-pack.git
 cd your-project
 
 # macOS / Linux
-./path/to/aios-skill-pack/scripts/aios.sh init
+./path/to/Paios/scripts/aios.sh init
 
 # Windows
-.\path\to\aios-skill-pack\scripts\aios.ps1 init
+.\path\to\Paios\scripts\aios.ps1 init
 ```
 
 Follow the interactive prompts (or use `--defaults` to skip). AIOS detects your tech stack and applies sensible defaults.
@@ -432,36 +432,36 @@ In complementary mode, AIOS acts as a **background rules engine**:
 
 Add to `opencode.json` (project or global):
 ```json
-{ "plugin": ["aios@git+https://github.com/<user>/aios-skill-pack.git"] }
+{ "plugin": ["aios@git+https://github.com/alex-hlh/Paios.git"] }
 ```
 
 To pin a version:
 ```json
-{ "plugin": ["aios@git+https://github.com/<user>/aios-skill-pack.git#v1.0.0"] }
+{ "plugin": ["aios@git+https://github.com/alex-hlh/Paios.git#v1.0.0"] }
 ```
 
 **Windows:** If git-backed plugin install fails, use npm:
 ```powershell
-npm install aios-skill-pack@git+https://github.com/<user>/aios-skill-pack.git --prefix "$HOME\.config\opencode"
+npm install Paios@git+https://github.com/alex-hlh/Paios.git --prefix "$HOME\.config\opencode"
 ```
-Then in `opencode.json`: `{ "plugin": ["~/.config/opencode/node_modules/aios-skill-pack"] }`
+Then in `opencode.json`: `{ "plugin": ["~/.config/opencode/node_modules/Paios"] }`
 
 ### Claude Code
 
 Register the marketplace and install:
 ```bash
-/plugin marketplace add <user>/aios-marketplace
-/plugin install aios@aios-marketplace
+/plugin marketplace add alex-hlh/aios-marketplace
+/plugin install paios@aios-marketplace
 ```
 
 ### Manual (all platforms)
 
 ```bash
-git clone https://github.com/<user>/aios-skill-pack.git
+git clone https://github.com/alex-hlh/Paios.git
 cd your-project
-./path/to/aios-skill-pack/scripts/aios.sh init   # macOS/Linux
+./path/to/Paios/scripts/aios.sh init   # macOS/Linux
 # or
-.\path\to\aios-skill-pack\scripts\aios.ps1 init  # Windows
+.\path\to\Paios\scripts\aios.ps1 init  # Windows
 ```
 
 ---

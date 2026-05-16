@@ -9,8 +9,8 @@
 ### 方式 1：通过 AIOS 市场
 
 ```bash
-/plugin marketplace add <user>/aios-marketplace
-/plugin install aios@aios-marketplace
+/plugin marketplace add alex-hlh/aios-marketplace
+/plugin install paios@aios-marketplace
 ```
 
 重启 Claude Code。
@@ -20,13 +20,13 @@
 将仓库克隆到 `~/.claude/plugins/`：
 
 ```bash
-git clone https://github.com/<user>/aios-skill-pack.git ~/.claude/plugins/aios
+git clone https://github.com/alex-hlh/Paios.git ~/.claude/plugins/paios
 ```
 
 在项目的 `CLAUDE.md` 或全局 CLAUDE.md 中添加：
 
 ```markdown
-@~/.claude/plugins/aios/skills/pai-bootstrap/SKILL.md
+@~/.claude/plugins/paios/skills/pai-bootstrap/SKILL.md
 ```
 
 ## 验证
@@ -37,7 +37,7 @@ git clone https://github.com/<user>/aios-skill-pack.git ~/.claude/plugins/aios
 
 ```
 $ cd my-project
-$ bash path/to/aios-skill-pack/scripts/aios.sh init
+$ bash path/to/paios/scripts/aios.sh init
 ```
 
 ## 更新
@@ -45,5 +45,5 @@ $ bash path/to/aios-skill-pack/scripts/aios.sh init
 安装后 Claude Code 会自动拉取最新版本。如需锁版本：
 
 ```bash
-git -C ~/.claude/plugins/aios checkout v1.0.0
+git -C ~/.claude/plugins/paios checkout v1.0.0
 ```

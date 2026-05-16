@@ -7,7 +7,7 @@
 ## 第一节：顶层目录结构
 
 ```
-aios-skill-pack/
+Paios/
 ├── skills/                              # 核心：全部 AI 技能定义
 │   ├── pai-bootstrap/
 │   │   └── SKILL.md                     # 元技能（启动引导、压力测试、Red Flags）
@@ -627,7 +627,7 @@ $ aios update
 ### 核心仓库
 
 ```
-https://github.com/<user>/aios-skill-pack
+https://github.com/alex-hlh/Paios
 ```
 
 ### 三种安装方式

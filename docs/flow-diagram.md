@@ -17,7 +17,7 @@
 │                                                             │
 │  方式 B: Claude Code 插件                                      │
 │  ┌─────────────────────────────────────────────────────┐    │
-│  │ 1. /plugin marketplace add user/aios-marketplace     │    │
+│  │ 1. /plugin marketplace add alex-hlh/paios-marketplace  │    │
 │  │ 2. /plugin install aios@aios-marketplace             │    │
 │  │ 3. 重启 Claude Code                                   │    │
 │  │ 4. 技能自动注册 ✅                                     │    │
@@ -25,7 +25,7 @@
 │                                                             │
 │  方式 C: 手动安装 (全平台)                                      │
 │  ┌─────────────────────────────────────────────────────┐    │
-│  │ 1. git clone https://github.com/user/aios.git        │    │
+│  │ 1. git clone https://github.com/alex-hlh/Paios.git     │    │
 │  │ 2. cd my-project                                     │    │
 │  │ 3. ./path/to/aios/scripts/aios init                  │    │
 │  │ 4. 手动配置技能目录                                    │    │

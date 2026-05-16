@@ -10,7 +10,7 @@
 
 ```json
 {
-  "plugin": ["aios@git+https://github.com/<user>/aios-skill-pack.git"]
+  "plugin": ["aios@git+https://github.com/alex-hlh/Paios.git"]
 }
 ```
 
@@ -22,7 +22,7 @@
 
 ```
 $ cd my-project
-$ path/to/aios-skill-pack/scripts/aios init
+$ path/to/Paios/scripts/aios init
 ```
 
 完成初始化后，项目的 `ai/` 目录已被创建。下次启动 OpenCode 时，`pai:bootstrap` 会自动加载项目状态。
@@ -31,7 +31,7 @@ $ path/to/aios-skill-pack/scripts/aios init
 
 ```json
 {
-  "plugin": ["aios@git+https://github.com/<user>/aios-skill-pack.git#v1.0.0"]
+  "plugin": ["aios@git+https://github.com/alex-hlh/Paios.git#v1.0.0"]
 }
 ```
 
@@ -42,13 +42,13 @@ $ path/to/aios-skill-pack/scripts/aios init
 如果 OpenCode 的 git-backed 插件安装失败，使用系统 npm 安装：
 
 ```powershell
-npm install aios-skill-pack@git+https://github.com/<user>/aios-skill-pack.git --prefix "$HOME\.config\opencode"
+npm install Paios@git+https://github.com/alex-hlh/Paios.git --prefix "$HOME\.config\opencode"
 ```
 
 然后在 `opencode.json` 中：
 
 ```json
 {
-  "plugin": ["~/.config/opencode/node_modules/aios-skill-pack"]
+  "plugin": ["~/.config/opencode/node_modules/Paios"]
 }
 ```

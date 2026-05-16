@@ -25,6 +25,30 @@ triggers:
 
 ## 四步法
 
+每次开始调试时，首先用 ASCII 图展示调试路径：
+
+```
++-- DEBUG: <错误简述>
+|
++-- Step 1: REPRODUCE
+|    +-- Run: <test command>
+|    \-- Status: [PASS / FAIL repeatable]
+|
++-- Step 2: LOCATE (binary search)
+|    +-- Stack trace points: <file>:<line>
+|    +-- Check list: variables / boundaries / race condition
+|    \-- Hypothesis: <what might be wrong>
+|
++-- Step 3: PROPOSE FIX
+|    +-- Root cause: <found>
+|    +-- Fix: <description>
+|    \-- Side effects: <none / ...>
+|
+\-- Step 4: VERIFY
+     +-- Run: <test command>
+     \-- Result: [PASS / FAIL]
+```
+
 ### 步骤 1: 复现问题
 
 - 阅读完整的错误信息和堆栈跟踪

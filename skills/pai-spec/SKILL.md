@@ -84,6 +84,27 @@ triggers:
 - 从测试先行的角度排列：基础设施 → 测试 → 实现 → 集成
 - 所有文件路径使用 `ai/` 或项目相对路径前缀
 
+写入 tasks.md 后，同时向用户展示 ASCII 任务树，便于理解任务依赖和执行顺序：
+
+```
++-- add-user-login: Task Tree
+|
++-- 1. Infrastructure        [2 tasks]
+|   +-- 1.1 Create User model
+|   \-- 1.2 Add data validation
+|
++-- 2. Auth Logic            [3 tasks]
+|   +-- 2.1 JWT token utility
+|   +-- 2.2 Auth middleware
+|   \-- 2.3 Login endpoint
+|
+\-- 3. Integration           [3 tasks]
+    +-- 3.1 Login page
+    +-- 3.2 Error handling
+    \-- 3.3 End-to-end test
+
+Total: 8 tasks  |  Estimated: 30-45 min
+
 ### 步骤 4: 写入变更时间戳
 
 在 `ai/changes/<change-name>/.openspec.yaml` 写入：
@@ -101,13 +122,27 @@ domains:
 ### 步骤 5: 输出摘要
 
 ```
-Spec 已生成
-Change: <change-name>
-Domain: <domain>
-新增 Requirements: N 个
-修改 Requirements: N 个
-移除 Requirements: N 个
-Tasks: N 个
++============================================+
+|          SPEC 已生成                        |
++============================================+
+|                                            |
+|  Change:       add-user-login              |
+|  Domain:       auth                        |
+|  Requirements: 3 ADDED / 0 MOD / 0 REMOVE  |
+|  Scenarios:    6                           |
+|  Tasks:        8                           |
+|                                            |
++-- Spec Structure --------------------------+
+|                                            |
+|  ai/specs/auth/spec.md      (new)          |
+|  ai/changes/add-user-login/                |
+|    +-- proposal.md                         |
+|    +-- design.md                           |
+|    +-- tasks.md                            |
+|    +-- spec/auth/spec.md   (delta)         |
+|    \-- .openspec.yaml                      |
+|                                            |
++============================================+
 ```
 
 ## 规格格式检查

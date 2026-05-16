@@ -73,16 +73,44 @@ pai:design → pai:spec → pai:build → (pai:debug / pai:review) → pai:done
 
 ## 输出摘要
 
-向用户展示反思结果：
+向用户展示反思结果，使用 ASCII 复盘面板：
 
 ```
-{change-name} 复盘总结:
++============================================+
+|          CHANGE RETROSPECTIVE               |
++============================================+
+|                                            |
+|  Change:    add-user-login                 |
+|  Duration:  2h 15m (8 tasks)               |
+|                                            |
++-- Process Adherence -----------------------+
+|                                            |
+|  design:    OK  |  spec:    OK             |
+|  build:     OK  |  debug:   N/A            |
+|  review:    OK  |  done:    OK             |
+|                                            |
++-- Surprises -------------------------------+
+|                                            |
+|  1. JWT expiresIn default was unclear      |
+|  2. TypeORM migration order needed tweak   |
+|                                            |
++-- Improvement Suggestions -----------------+
+|                                            |
+|  - Add JWT expiry to spec template         |
+|  - Improve pai:design database guidance    |
+|                                            |
++============================================+
+|  Recorded: ai/memory/decisions.md          |
++============================================+
+```
 
-流程执行: {概述}
-意外情况: {概述}
-技能改进: {建议}
-
-已记录到 ai/memory/decisions.md
+**简单版（无意外情况时）：**
+```
+=== RETROSPECTIVE: add-user-login ===
+Process:  OK (no deviations)
+Surprises: 0
+Improvements: none
+Recorded: ai/memory/decisions.md
 ```
 
 ## 注意

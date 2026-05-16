@@ -25,6 +25,27 @@ triggers:
 
 ## TDD 循环 — 每个 Task 执行一次
 
+每次开始构建前，先用 {file-read} 读取 `ai/changes/<change-name>/tasks.md` 获取当前进度，然后向用户展示任务状态板：
+
+```
++-- add-user-login: Build Progress
+|
+|  [x] 1.1 Create User model           DONE
+|  [x] 1.2 Add data validation         DONE
+|  [ ] 2.1 JWT token utility           ← NOW
+|  [ ] 2.2 Auth middleware             PENDING
+|  [ ] 2.3 Login endpoint              PENDING
+|  [ ] 3.1 Login page                  PENDING
+|  [ ] 3.2 Error handling              PENDING
+|  [ ] 3.3 End-to-end test             PENDING
+|
++----------------------------------------
+Progress: [##              ] 25%  (2/8)
+Next: Task 2.1 - JWT token utility
+```
+
+然后进入当前 task 的 RED → GREEN → REFACTOR 循环。
+
 ### RED: 写测试（先！）
 
 1. 从 `ai/changes/<change-name>/tasks.md` 取下一个未完成的 task

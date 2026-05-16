@@ -12,6 +12,21 @@ triggers:
 
 # Build (pai:build)
 
+## 独立调用检查
+
+如果通过 `/pai:build` 独立调用（非链式触发），先检查依赖：
+
+```
+检查前置条件:
+  [ ] ai/changes/<name>/tasks.md      → 必须。缺失则提示：请先完成 pai:spec
+  [ ] ai/config.yaml                  → 可选。无则使用 universal 预设
+  [ ] ai/rules/                       → 可选。无则仅使用全局 L1 红线
+
+依赖不满足时输出:
+  "pai:build 需要 tasks.md 文件。请先运行 pai:spec 生成任务清单，
+   或手动提供 tasks.md 文件路径（格式: - [ ] 1.1 <任务描述>）。"
+```
+
 ## 核心规则
 
 <HARD-GATE>

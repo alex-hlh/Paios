@@ -11,6 +11,25 @@ triggers:
 
 # Reflect (pai:reflect)
 
+## Standalone Usage
+
+`pai:reflect` 可以独立回顾任何阶段的工作，不要求已完成完整 change。
+
+```
+依赖检查 (独立调用):
+  [ ] ai/memory/decisions.md  → 可选。有则追加记录，无则仅口头输出
+  [ ] 回顾对象                  → 任意。一个 change / 一个 task / 一次调试 / 一次审查
+
+降级行为:
+  - 无 ai/memory/ → 复盘结果仅展示不持久化，建议运行 pai:init 初始化
+  - 无 change 上下文 → 询问用户"你想复盘什么？" 支持任意主题
+
+独立调用示例:
+  - /pai:reflect → "回顾本次会话的工作"
+  - "复盘一下刚才的调试经历"
+  - "总结这个功能的设计决策"
+```
+
 ## 流程
 
 ### 步骤 1: 回顾本次 Change 完整过程

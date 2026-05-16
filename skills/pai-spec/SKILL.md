@@ -12,6 +12,22 @@ triggers:
 
 # Spec & Change (pai:spec)
 
+## 独立调用检查
+
+如果通过 `/pai:spec` 或自然语言直接调用（非链式触发），先检查依赖：
+
+```
+检查前置条件:
+  [ ] ai/changes/<name>/proposal.md   → 必须。缺失则提示：请先完成 pai:design
+  [ ] ai/changes/<name>/design.md     → 必须。缺失则提示：请先完成 pai:design
+  [ ] ai/specs/                       → 可选。无则假设无现有 spec，只生成 ADDED
+  [ ] ai/config.yaml                  → 可选。无则使用 universal 预设
+
+依赖不满足时输出:
+  "pai:spec 需要 design 阶段的输出。请先运行 pai:design 完成需求设计，
+   或提供已有的 proposal + design 文件路径。"
+```
+
 ## 流程
 
 ### 步骤 1: 读取上下文

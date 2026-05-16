@@ -12,6 +12,24 @@ triggers:
 
 # Done (pai:done)
 
+## 独立调用检查
+
+如果通过 `/pai:done` 独立调用（非链式触发），先检查依赖：
+
+```
+检查前置条件:
+  [ ] ai/changes/<name>/               → 必须存在且 tasks.md 全部 [x]
+  [ ] ai/changes/<name>/tasks.md     → 必须所有 task 已勾选
+  [ ] ai/changes/<name>/specs/       → 必须包含 delta spec
+  [ ] ai/specs/                       → 可选。无则直接创建
+
+依赖不满足时输出:
+  "pai:done 需要完成以下条件:
+   - 所有 tasks.md 中的任务已勾选 [x]
+   - delta spec 已生成
+   当前 tasks.md 进度: X/Y 完成。请继续 pai:build 完成剩余任务。"
+```
+
 ## 前序检查
 
 在执行归档前确认：

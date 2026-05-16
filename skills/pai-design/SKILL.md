@@ -17,6 +17,23 @@ triggers:
 
 # Design (pai:design)
 
+## Standalone Usage
+
+`pai:design` 可以独立使用，即使项目未初始化也能工作。
+
+```
+依赖检查 (独立调用):
+  [ ] ai/config.yaml    → 可选。有则遵循项目规范，无则使用 universal 预设
+  [ ] ai/rules/         → 可选。有则在设计中已知约束，无则仅提醒通用原则
+  [ ] ai/specs/         → 可选。有则检查是否需要 MODIFIED，无则假设全部 ADDED
+  [ ] ai/changes/       → 可选。无则自动创建 ai/changes/ 目录
+
+降级行为:
+  - 无 ai/ 目录 → 仍可完成设计讨论，写入时询问用户输出路径
+  - 无 ai/config.yaml → 默认: conventional commits, 2空格, double引号, kebab-case
+  - 无 ai/specs/ → 提示 "这是首个 spec，所有需求均为 ADDED"
+```
+
 ## 核心规则
 
 <HARD-GATE>

@@ -16,6 +16,21 @@ triggers:
 
 # Debug (pai:debug)
 
+## Standalone Usage
+
+`pai:debug` 可以完全独立使用，不需要 `ai/` 目录或任何前置流程。
+
+```
+依赖检查 (独立调用):
+  [ ] ai/rules/         → 可选。有则对照规则检查，无则跳过
+  [ ] ai/memory/        → 可选。有则记录反模式，无则仅口头提示
+  [ ] 项目代码/测试      → 必须。需要可运行的代码或测试来复现问题
+
+降级行为:
+  - 无 ai/rules/ → 使用通用错误检查模式 (8 种常见模式)
+  - 无 ai/memory/ → "建议记录此反模式到 ai/memory/anti-patterns.md" 但跳过写入
+```
+
 ## 核心规则
 
 <HARD-GATE>

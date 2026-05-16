@@ -155,6 +155,7 @@ pai:bootstrap → pai:design → pai:spec → pai:build → (pai:debug / pai:rev
 | 技能 | 触发条件 | 做什么 |
 |------|---------|--------|
 | **pai:bootstrap** | 会话启动（自动） | 10 步启动：环境扫描、L1 红线、平台映射、Red Flags、压力测试、版本检查、**自动初始化（如需）**、状态加载、80 条规则注入、配置注入、技能链声明 |
+| **pai:retro** | "aios retro" / "分析项目" | 对已有项目逆向分析。扫描代码/配置文件 → 自动检测技术栈、代码风格、commit 规范 → 生成 `ai/` 目录，不修改项目代码。 |
 | **pai:init** | 手动触发 / bootstrap 重定向 | 交互式项目初始化。选择预设 → 确认默认配置 → 生成完整 `ai/` 目录。与 bootstrap 自动初始化逻辑一致。 |
 | **pai:design** | 用户提出新功能/修改需求 | 探索项目上下文 → 一次一问澄清需求（5 个必问维度，详见 [pai-design](skills/pai-design/SKILL.md)）→ 提出 2-3 方案对比利弊 → 分节展示设计逐节确认 → 写入 `proposal.md` + `design.md`。**设计未确认前不写代码。** |
 | **pai:spec** | 设计确认后 | 读当前 specs → 生成 delta spec（ADDED/MODIFIED/REMOVED + Given/When/Then 场景）→ 生成 `tasks.md`（2-5 分钟粒度）→ 写入变更时间戳 |

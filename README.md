@@ -85,6 +85,16 @@ npm install -g @huahu/paios
 paios init
 ```
 
+**Retrofit an existing project:** Run `pai:retro` to auto-detect tech stack, code style, commit conventions from your existing code, then generate `ai/` without touching your code:
+
+```
+You: "/pai:retro"
+AI:  [pai:retro] Scanning project...
+     Detected: Node.js + TypeScript, viTest, 2-space indent, single quotes
+     Confirm? [Y/n]
+     ✓ ai/ generated (92 rules, config matched to your existing style)
+```
+
 ### 3. Start coding
 
 Restart your AI tool. On the next session, `pai:bootstrap` auto-activates, loads your project state, injects 80 rules, and declares the skill chain. Just describe what you want to build.
@@ -164,6 +174,7 @@ Three coexistence modes handle other skill packs automatically:
 | Skill | Trigger | What It Does |
 |-------|---------|--------------|
 | **pai:bootstrap** | Session start (auto) | 10-step startup: env scan, L1 rules, platform mapping, Red Flags, pressure test, version check, **auto-init if needed**, state load, 80 rules injection, config injection, skill chain declaration |
+| **pai:retro** | "aios retro" / "analyze project" | Reverse-engineers an existing project. Scans code/style files → auto-detects tech stack, conventions → generates `ai/` without modifying code. |
 | **pai:init** | Manual trigger or bootstrap redirect | Interactive project initialization. Select preset → confirm defaults → generates entire `ai/` directory. Same logic as bootstrap auto-init. |
 | **pai:design** | "Add / build / design / implement X" | Explores project context → asks clarifying questions one at a time (5 mandatory dimensions, see [pai-design](skills/pai-design/SKILL.md)) → proposes 2-3 approaches with trade-offs → presents design in sections for incremental approval → writes `proposal.md` + `design.md`. **No code before design approval.** |
 | **pai:spec** | Design approved | Reads current specs → generates delta spec (ADDED/MODIFIED/REMOVED using Given/When/Then scenarios) → generates `tasks.md` (2-5 min granularity) → writes change timestamp for conflict detection |

@@ -7,8 +7,9 @@
   "marketplace": "paios-marketplace",
   "skills": [
     "skills/pai-bootstrap",
+    "skills/pai-init",
     "skills/pai-design",
-    "skills/pai-spec", 
+    "skills/pai-spec",
     "skills/pai-build",
     "skills/pai-debug",
     "skills/pai-review",

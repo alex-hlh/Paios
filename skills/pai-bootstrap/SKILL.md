@@ -194,13 +194,127 @@ aios:
 </PRESSURE-TEST>
 ```
 
-### 步骤 5: 版本兼容检查
+### 步骤 5: 项目初始化检查与自动初始化
 
-检查项目根目录是否存在 `ai/.version`：
+检查项目根目录是否存在 `ai/` 目录：
 
-- 如果不存在 `ai/` 目录 → 提示："本项目未初始化 AIOS。是否运行 `aios init` 初始化？"
-- 如果 `ai/.version` 版本与 `{SKILL_PACK_VERSION}` 不匹配 → 提示："项目 AIOS 版本 (X) 与当前技能包版本 (Y) 不一致，建议运行 `aios update`"
-- 如果版本一致 → 正常继续
+#### 5A. 如果 `ai/` 目录不存在 → 自动初始化
+
+不要简单地提示用户运行脚本。按以下流程**使用 AI 自身的工具完成初始化**：
+
+1. 询问用户预设语言/技术栈：
+
+```
+本项目尚未初始化 AIOS 工程环境。
+
+选择预设技术栈即可自动完成初始化（默认可直接 Enter）:
+
+  A) node-typescript (Node.js / TypeScript / React / Vue)
+  B) python (Python / Django / FastAPI)
+  C) go (Go / Gin)
+  D) rust (Rust / Cargo)
+  E) java (Java / Spring Boot)
+  F) universal (通用 / 不确定)
+
+你的选择 [F]: _
+```
+
+2. 询问项目名称（默认为当前目录名）：
+
+```
+项目名称 [{dirname}]: _
+一句话描述: _
+```
+
+3. 根据所选预设，向用户展示默认配置并确认（一行展示全部关键配置）：
+
+```
+检测到 {preset_name} 预设，默认配置:
+  缩进: {indent} | 引号: {quotes} | 分号: {semicolons} | 行宽: {line_length}
+  文件命名: {file_naming} | 测试框架: {test_framework}
+  commit 风格: conventional | 分支命名: feature/<name>
+  AI 输出语言: zh-CN | 严格模式: 开启
+
+确认以上默认配置？[Y/n]: _
+```
+
+用户确认后，直接创建文件（跳过再次确认）。如用户选择 `n`，针对需要修改的项逐一询问。
+
+4. **创建目录结构**：使用 `{shell}` 或 AI 自身的文件系统工具创建：
+
+```
+ai/state/  ai/memory/  ai/rules/custom/  ai/specs/  ai/changes/
+```
+
+5. **生成文件**：从技能包 `templates/` 目录读取模板，替换以下占位符后写入项目：
+
+| 模板文件 | 输出路径 | 关键占位符 |
+|---------|---------|-----------|
+| `templates/config.yaml` | `ai/config.yaml` | `{project_name}, {preset_name}, {code_indent}, {code_quotes}, ...` |
+| `templates/.version` | `ai/.version` | 直接写入 `v1.0.0`（当前版本号） |
+| `templates/state/*.md` | `ai/state/` (3 个文件) | `{date}, {current_change}, {next_actions}, ...` |
+| `templates/memory/*.{md,yaml}` | `ai/memory/` (3 个文件) | `{date}, {tech_stack}` |
+| `templates/rules/*.yaml` | `ai/rules/` (9 个文件) | `{testing_coverage_threshold}, {git_branch_naming}` |
+| `templates/specs/.gitkeep` | `ai/specs/.gitkeep` | — |
+| `templates/changes/.gitkeep` | `ai/changes/.gitkeep` | — |
+
+**占位符值对照表（从预设档案和用户输入获取）：**
+
+| 占位符 | 来源 | node-typescript 示例值 |
+|--------|------|----------------------|
+| `{project_name}` | 用户输入 / 目录名 | "my-app" |
+| `{project_description}` | 用户输入 | "在线协作平台" |
+| `{preset_name}` | 用户选择的预设 | "node-typescript" |
+| `{code_indent}` | 预设档案 | 2 |
+| `{code_quotes}` | 预设档案 | double |
+| `{code_semicolons}` | 预设档案 | true |
+| `{code_trailing_commas}` | 预设档案 | all |
+| `{code_max_line_length}` | 预设档案 | 80 |
+| `{naming_files}` | 预设档案 | kebab-case |
+| `{naming_functions}` | 预设档案 | camelCase |
+| `{naming_classes}` | 预设档案 | PascalCase |
+| `{naming_constants}` | 预设档案 | UPPER_SNAKE_CASE |
+| `{naming_variables}` | 预设档案 | camelCase |
+| `{git_commit_style}` | 预设档案 | conventional |
+| `{git_branch_naming}` | 预设档案 | feature/<name> |
+| `{git_sign_commits}` | 预设档案 | false |
+| `{testing_framework}` | 预设档案 | vitest |
+| `{testing_coverage_threshold}` | 预设档案 | 80 |
+| `{testing_require_integration}` | 预设档案 | true |
+| `{comments_language}` | 预设档案 | zh-CN |
+| `{aios_language}` | 预设档案 | zh-CN |
+| `{aios_strict_mode}` | 用户选择 (默认 true) | true |
+| `{current_change}` | 固定值 | None |
+| `{current_sprint}` | 固定值 | Project init |
+| `{blockers}` | 固定值 | None |
+| `{next_actions}` | 固定值 | Complete project setup |
+| `{task_summary}` | 固定值 | Project init |
+| `{date_range}` | 固定值 | (当前日期) |
+| `{tech_stack}` | 用户选择的预设 | node-typescript |
+| `{date}` | 当前日期 | 2026-05-16 |
+| `{iso8601}` | 当前时间戳 | 2026-05-16T... |
+
+**条件占位符**（仅特定预设产生）：
+
+| 占位符 | 触发条件 | 值 |
+|--------|---------|---|
+| `{indent_style_line}` | Go 预设 (indent=0) | `indent_style: tabs` |
+| `{naming_react_line}` | 预设含 react_components 字段 | `react_components: PascalCase` |
+
+6. 输出完成摘要，然后**自动继续步骤 6**（读取刚刚生成的 `ai/state/` 和 `ai/config.yaml`）。
+
+#### 5B. 如果 `ai/` 目录存在但无 `.version` → 补充版本文件
+
+使用 `{file-read}` 检查 `ai/.version` 是否存在：
+- 如果不存在 → 提示："检测到旧版 ai/ 目录（缺少 .version），是否补充？[Y/n]"
+- 用户确认后写入当前版本号
+
+#### 5C. 版本不匹配 → 提示更新
+
+- 如果 `ai/.version` 版本与 `{SKILL_PACK_VERSION}` 不匹配 → 提示："项目 AIOS 版本 (X) 与当前技能包版本 (Y) 不一致，建议运行 `aios update` 或让我帮你更新"
+- 用户可选择让 AI 执行更新（添加新规则模板，不覆盖用户已有文件）
+
+#### 5D. 版本一致 → 正常继续
 
 ### 步骤 6: 读取项目状态
 

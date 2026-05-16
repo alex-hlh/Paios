@@ -83,6 +83,7 @@
 └─────────────────────────────────────────────────────────────┘
 
 快捷方式:
+  (推荐) 无需脚本 — 安装插件后重启 AI，bootstrap 自动引导初始化
   aios init --defaults              → 全默认，不提问
   aios init --tech node,react       → 自动匹配 preset + 全默认
   aios init --preset python         → 指定 preset + 全默认

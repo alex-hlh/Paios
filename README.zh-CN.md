@@ -63,17 +63,15 @@ git clone https://github.com/alex-hlh/Paios.git
 
 ### 2. 初始化项目
 
+**自动初始化（推荐）：** 安装插件后重启 AI 工具。`pai:bootstrap` 检测到缺少 `ai/` 目录，自动引导初始化——回答几个问题，AI 完成其余工作。
+
+**手动初始化：** 使用 CLI 脚本（适用于 CI/CD 或批量初始化）：
+
 ```bash
 cd your-project
-
-# macOS / Linux
-./path/to/Paios/scripts/aios.sh init
-
-# Windows
-.\path\to\Paios\scripts\aios.ps1 init
-```
-
-跟随交互式提示（或使用 `--defaults` 全部跳过）。AIOS 会自动检测你的技术栈并应用合理默认值。
+./path/to/Paios/scripts/aios.sh init        # macOS/Linux
+.\path\to\Paios\scripts\aios.ps1 init       # Windows
+./path/to/Paios/scripts/aios.sh init --defaults  # 跳过提示
 
 ### 3. 开始编码
 
@@ -144,8 +142,9 @@ pai:bootstrap → pai:design → pai:spec → pai:build → (pai:debug / pai:rev
 
 | 技能 | 触发条件 | 做什么 |
 |------|---------|--------|
-| **pai:bootstrap** | 会话启动（自动） | 10 步启动：环境扫描、L1 红线、平台映射、Red Flags、压力测试、版本检查、状态加载、80 条规则注入、配置注入、技能链声明 |
-| **pai:design** | 用户提出新功能/修改需求 | 探索项目上下文 → 一次一问澄清需求 → 提出 2-3 方案对比利弊 → 分节展示设计逐节确认 → 写入 `proposal.md` + `design.md`。**设计未确认前不写代码。** |
+| **pai:bootstrap** | 会话启动（自动） | 10 步启动：环境扫描、L1 红线、平台映射、Red Flags、压力测试、版本检查、**自动初始化（如需）**、状态加载、80 条规则注入、配置注入、技能链声明 |
+| **pai:init** | 手动触发 / bootstrap 重定向 | 交互式项目初始化。选择预设 → 确认默认配置 → 生成完整 `ai/` 目录。与 bootstrap 自动初始化逻辑一致。 |
+| **pai:design** | 用户提出新功能/修改需求 | 探索项目上下文 → 一次一问澄清需求（5 个必问维度，详见 [pai-design](skills/pai-design/SKILL.md)）→ 提出 2-3 方案对比利弊 → 分节展示设计逐节确认 → 写入 `proposal.md` + `design.md`。**设计未确认前不写代码。** |
 | **pai:spec** | 设计确认后 | 读当前 specs → 生成 delta spec（ADDED/MODIFIED/REMOVED + Given/When/Then 场景）→ 生成 `tasks.md`（2-5 分钟粒度）→ 写入变更时间戳 |
 | **pai:build** | tasks 就绪 + 用户确认 | 严格红-绿-重构 TDD 循环，每个 task 独立。遵循项目规范（缩进/引号/命名/测试框架）。每个 task 完成后触发 `pai:review`。**必须先写测试，再写实现。** |
 | **pai:debug** | 测试失败/运行时报错/用户报 bug | 4 步系统调试：复现 → 定位根因（二分法，不猜测）→ 提出修复 → 修复并验证。可选记录反模式到 `ai/memory/anti-patterns.md`。 |

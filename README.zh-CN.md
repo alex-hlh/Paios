@@ -158,6 +158,7 @@ pai:bootstrap → pai:design → pai:spec → pai:build → (pai:debug / pai:rev
 | **pai:retro** | "aios retro" / "分析项目" | 对已有项目逆向分析。扫描代码/配置文件 → 自动检测技术栈、代码风格、commit 规范 → 生成 `ai/` 目录，不修改项目代码。 |
 | **pai:init** | 手动触发 / bootstrap 重定向 | 交互式项目初始化。选择预设 → 确认默认配置 → 生成完整 `ai/` 目录。与 bootstrap 自动初始化逻辑一致。 |
 | **pai:design** | 用户提出新功能/修改需求 | 探索项目上下文 → 一次一问澄清需求（5 个必问维度，详见 [pai-design](skills/pai-design/SKILL.md)）→ 提出 2-3 方案对比利弊 → 分节展示设计逐节确认 → 写入 `proposal.md` + `design.md`。**设计未确认前不写代码。** |
+| **pai:amend** | "还要加" / "需求变了" / "/pai:amend" | 需求变更入口。检测当前 change 状态 → 分析变更关系 → 推荐策略（追加/新建/延期）→ 协调文档更新。 |
 | **pai:spec** | 设计确认后 | 读当前 specs → 生成 delta spec（ADDED/MODIFIED/REMOVED + Given/When/Then 场景）→ 生成 `tasks.md`（2-5 分钟粒度）→ 写入变更时间戳 |
 | **pai:build** | tasks 就绪 + 用户确认 | 严格红-绿-重构 TDD 循环，每个 task 独立。遵循项目规范（缩进/引号/命名/测试框架）。每个 task 完成后触发 `pai:review`。**必须先写测试，再写实现。** |
 | **pai:debug** | 测试失败/运行时报错/用户报 bug | 4 步系统调试：复现 → 定位根因（二分法，不猜测）→ 提出修复 → 修复并验证。可选记录反模式到 `ai/memory/anti-patterns.md`。 |

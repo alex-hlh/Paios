@@ -520,6 +520,7 @@ AIOS控制: strict_mode={aios.strict_mode}, auto_archive={aios.auto_archive}, la
 | 当前状态 | 自动触发技能 |
 |---------|-------------|
 | 用户提出新功能/修改需求 | → pai:design |
+| 开发中途追加/变更需求 | → pai:amend |
 | 设计文档已确认 | → pai:spec |
 | tasks.md 就绪，用户确认开始编码 | → pai:build |
 | 测试失败 / 运行时错误 / 用户报告bug | → pai:debug |

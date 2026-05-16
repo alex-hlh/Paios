@@ -67,4 +67,5 @@ aios:
   auto_archive: false
   require_human_review: true
   language: {aios_language}
-  coexistence_mode: ask               # ask | standalone | complementary
+  coexistence_mode: ask               # ask | standalone | complementary | rules-only
+  rule_mode: full                      # full | summary (titles only, expand on violation)

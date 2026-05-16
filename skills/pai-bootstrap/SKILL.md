@@ -380,9 +380,56 @@ ai/state/  ai/memory/  ai/rules/custom/  ai/specs/  ai/changes/
 
 ### 步骤 7: 扫描并加载所有规则文件
 
-扫描 `ai/rules/` 下所有 `.yaml` 文件（包括 `custom/` 子目录），按优先级注入：
+<RULE-MODE-AWARE>
+读取 `ai/config.yaml` 中的 `aios.rule_mode` 字段，决定规则的注入方式：
+
+**full 模式（默认）：**
+扫描 `ai/rules/` 下所有 `.yaml` 文件（包括 `custom/` 子目录），注入全部规则全文：
 
 ```
+规则优先级（full 模式，~21KB）：
+  ai/rules/hard-rules.yaml      → L1 项目级红线（不可违抗）
+  ai/rules/arch-rules.yaml      → L2 架构约束
+  ai/rules/module-rules.yaml    → L2 模块边界与依赖规则
+  ai/rules/security-rules.yaml  → L2 安全规范 (OWASP)
+  ai/rules/error-rules.yaml     → L2 错误处理规范 (OWASP)
+  ai/rules/logging-rules.yaml   → L2 日志规范 (OWASP)
+  ai/rules/api-rules.yaml       → L2 API 设计规范
+  ai/rules/git-rules.yaml       → Git 规范
+  ai/rules/style-rules.yaml     → L3 代码风格
+  ai/rules/test-rules.yaml      → L3 测试规范
+  ai/rules/custom/*.yaml        → 用户自定义规则
+```
+
+**summary 模式（上下文紧张时推荐，~2KB）：**
+只注入规则摘要——ID + 一句话描述。当 `pai:review` 检测到违规时，再从对应文件读取完整规则：
+
+```
+规则摘要（summary 模式）：
+  H001-H008: L1 红线 — 禁止自主 git push / 禁止破坏性命令 / 禁止硬编码密钥 / ...
+  A001-A014: L2 架构 — 分层架构 / 统一响应格式 / 参数化查询 / 事务边界 / ...
+  M001-M012: L2 模块 — 依赖方向内指 / 禁止循环依赖 / 接口隔离 / 框架隔离 / ...
+  SEC001-SEC010: L2 安全 — 输入验证 / XSS防护 / SQL注入 / 密码哈希 / 文件上传 / ...
+  E001-E007: L2 错误 — 全局异常处理 / 状态码 / 消息脱敏 / RFC 7807 / 异步错误 / ...
+  LOG001-LOG009: L2 日志 — 安全事件 / 日志格式 / 敏感排除 / 注入防护 / traceId / ...
+  API001-API008: L2 API — 名词资源 / kebab路径 / 版本控制 / 分页 / 信封格式 / ...
+  G001-G006: L2 Git — Conventional Commits / 破坏性标记 / 分支命名 / ...
+  S001-S016: L3 风格 — 注释 / 禁止any / 结构化日志 / 函数长度≤50 / 嵌套≤3 / ...
+  T001-T010: L3 测试 — 覆盖率≥80% / 集成测试 / AAA / mock / TDD / 测试隔离 / ...
+```
+
+如果 `ai/config.yaml` 未设置 `rule_mode`，默认为 `full`。
+
+当上下文窗口剩余 <30% 时，优先建议用户切换为 `summary` 模式：
+```
++--------------------------------------------+
+|  Context usage: 72% (144K/200K)             |
+|  Rule mode: full (21KB)                     |
+|  Suggestion: switch to summary mode (~2KB)  |
+|  Run: edit ai/config.yaml, set rule_mode    |
++--------------------------------------------+
+```
+</RULE-MODE-AWARE>
 规则优先级：
   ai/rules/hard-rules.yaml      → L1 项目级红线（不可违抗）
   ai/rules/arch-rules.yaml      → L2 架构约束

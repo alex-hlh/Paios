@@ -11,6 +11,16 @@ triggers:
 
 # Review (pai:review)
 
+## Summary Mode Rule Expansion
+
+如果 `pai:bootstrap` 使用 `rule_mode: summary` 加载规则（仅 ID + 摘要），审查时遇到违规需要扩展：
+
+1. 从规则摘要中识别可能被违反的规则 ID
+2. 使用 {file-read} 读取对应规则文件 `ai/rules/<name>.yaml` 获取完整文本
+3. 对照完整规则报告违规
+
+审查流程不变，仅规则引用方式不同。
+
 ## Standalone Usage
 
 `pai:review` 可以独立审查任意代码，不需要完整 change 或 TDD 流程。

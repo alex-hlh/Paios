@@ -479,3 +479,26 @@ AIOS 当前运行在互补模式 (complementary)。
 ## 技能链
 
 bootstrap → design → spec → build → (debug / review) → done → reflect
+
+## 使用场景速查
+
+| 你的情况 | 操作 |
+|---------|------|
+| 全新项目，想用 AIOS 管全程 | `npx @huahu/paios init` → 重启 AI → 说需求 |
+| 已有 AIOS 项目，刚打开 | 无需操作，`pai:bootstrap` 自动加载 |
+| 已有项目，只想用调试功能 | 直接说"帮我调试"，`pai:debug` 独立可用 |
+| 已有项目，想走完整流程 | 先 `pai:init` 初始化 → 然后说需求 |
+| 想单独用某个技能 | 直接调用，如 `/pai:review` 审查一段代码 |
+| 多个技能包共存 | `pai:bootstrap` 会检测冲突，提供 coexist 模式 |
+
+## 技能独立性说明
+
+所有 `pai:*` 技能支持两种调用方式：
+
+1. **链式自动触发**（standalone 模式）：按 bootstrap → design → spec → build → ... 自动进入下一环
+2. **独立手动调用**：任何技能都可以通过 `/pai:xxx` 命令或自然语言直接调用。独立调用时，技能自身可工作，但不会触发技能链的上下游。例如：
+   - `/pai:debug` — 直接开始 4 步调试，不要求先走 design/spec
+   - `/pai:review` — 审查当前改动/指定文件，不要求先走 TDD
+   - `/pai:reflect` — 复盘任意阶段的工作，不要求已完成完整 change
+
+独立调用时，每个技能会检查必要的先决条件（如 `pai:build` 需要 tasks.md），缺失时会提示用户先完成前置步骤。

@@ -107,7 +107,16 @@ AI:  [pai:build] 任务1.1: 创建User模型测试
 AI:  [pai:done] 全量测试: 23/23通过。无冲突。已合并specs ✓。
      Git提示: git commit -m "feat(auth): add JWT user login"
      [pai:reflect] 流程: 无偏差。技能建议: 无。
-     变更已归档。下一个功能可以开始了！
+      变更已归档。下一个功能可以开始了！
+```
+
+也可以**单独使用某个技能**，不需要走完整链条：
+```
+你: "/pai:debug"
+AI:  [pai:debug] 步骤1:复现 → 步骤2:定位 → 步骤3:修复 → 步骤4:验证
+
+你: "/pai:review"
+AI:  [pai:review] 审查当前改动... Critical:0, Warning:1, Pass:5
 ```
 
 ---

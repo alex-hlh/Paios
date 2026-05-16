@@ -116,7 +116,16 @@ You: "Archive this change"
 AI:  [pai:done] Tests: 23/23 PASS. No conflicts. Merged specs ✓.
      Git hint: git commit -m "feat(auth): add JWT user login"
      [pai:reflect] Process: clean. Skill suggestions: none.
-     Change archived. Ready for next feature!
+      Change archived. Ready for next feature!
+```
+
+You can also use individual skills without the full chain:
+```
+You: "/pai:debug"
+AI:  [pai:debug] Step 1: REPRODUCE → Step 2: LOCATE → Step 3: FIX → Step 4: VERIFY
+
+You: "/pai:review"
+AI:  [pai:review] Reviewing current diff... Critical: 0, Warning: 1, Pass: 5
 ```
 
 ---

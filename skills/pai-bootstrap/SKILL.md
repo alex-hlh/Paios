@@ -418,15 +418,43 @@ ai/state/  ai/memory/  ai/rules/custom/  ai/specs/  ai/changes/
   T001-T010: L3 测试 — 覆盖率≥80% / 集成测试 / AAA / mock / TDD / 测试隔离 / ...
 ```
 
-如果 `ai/config.yaml` 未设置 `rule_mode`，默认为 `full`。
+如果 `ai/config.yaml` 未设置 `rule_mode`，默认为 `summary`。
 
-当上下文窗口剩余 <30% 时，优先建议用户切换为 `summary` 模式：
+切换模式方法：
+
+```
++============================================+
+|  RULE MODE SWITCHING                        |
++============================================+
+|                                            |
+|  Current: summary (~2KB context)            |
+|                                            |
+|  Switch to full mode:                      |
+|    直接说: "切换到 full 规则模式"             |
+|    或编辑 ai/config.yaml:                   |
+|      rule_mode: full                       |
+|    重启会话后生效                             |
+|                                            |
+|  Switch to summary:                        |
+|    直接说: "切换到 summary 规则模式"          |
+|    或编辑 ai/config.yaml:                   |
+|      rule_mode: summary                     |
+|    重启会话后生效                             |
+|                                            |
+|  临时查看完整规则:                           |
+|    /pai:review 时自动展开                       |
+|    "查看所有安全规则"                         |
+|                                            |
++============================================+
+```
+
+当上下文窗口剩余 <30% 时，自动提示：
 ```
 +--------------------------------------------+
 |  Context usage: 72% (144K/200K)             |
 |  Rule mode: full (21KB)                     |
 |  Suggestion: switch to summary mode (~2KB)  |
-|  Run: edit ai/config.yaml, set rule_mode    |
+|  Say "切换到 summary 规则模式" to free ~19KB |
 +--------------------------------------------+
 ```
 </RULE-MODE-AWARE>

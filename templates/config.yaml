@@ -68,4 +68,4 @@ aios:
   require_human_review: true
   language: {aios_language}
   coexistence_mode: ask               # ask | standalone | complementary | rules-only
-  rule_mode: full                      # full | summary (titles only, expand on violation)
+  rule_mode: summary                   # full | summary (default: summary, ~2KB vs ~21KB)

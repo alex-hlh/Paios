@@ -50,3 +50,4 @@ aios:
   require_human_review: true
   language: zh-CN
   coexistence_mode: ask
+  rule_mode: summary

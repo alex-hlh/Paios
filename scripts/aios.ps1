@@ -155,6 +155,7 @@ function Invoke-Init {
         testing_require_integration = $cfg['require_integration_tests']
         aios_language = $cfg['language']
         coexistence_mode = if ($cfg.ContainsKey('coexistence_mode')) { $cfg['coexistence_mode'] } else { 'ask' }
+        rule_mode = if ($cfg.ContainsKey('rule_mode')) { $cfg['rule_mode'] } else { 'summary' }
         current_change = "None"
         current_phase = "None"
         current_task = "None"

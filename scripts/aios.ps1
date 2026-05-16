@@ -19,6 +19,14 @@ $ErrorActionPreference = "Stop"
 $ScriptRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
 $TemplatesDir = Join-Path (Split-Path -Parent $ScriptRoot) "templates"
 $Version = "v1.0.0"
+$Utf8NoBom = New-Object System.Text.UTF8Encoding $false
+
+# Validate template directory exists
+if (-not (Test-Path $TemplatesDir)) {
+    Write-Error "Templates directory not found: $TemplatesDir"
+    Write-Host "Please ensure AIOS is installed correctly."
+    exit 1
+}
 
 function Get-CurrentDate { return (Get-Date -Format "yyyy-MM-dd") }
 function Get-ISO8601 { return (Get-Date -Format "yyyy-MM-ddTHH:mm:ssK") }
@@ -204,23 +212,23 @@ function Invoke-Init {
 
     $t = Get-Content (Join-Path $TemplatesDir "config.yaml") -Raw
     $r = Apply-Template $t $vars
-    [System.IO.File]::WriteAllText("$PWD\ai\config.yaml", $r, [System.Text.Encoding]::UTF8)
+    [System.IO.File]::WriteAllText("$PWD\ai\config.yaml", $r, $Utf8NoBom)
     Write-Success "  ai/config.yaml"
 
-    [System.IO.File]::WriteAllText("$PWD\ai\.version", $Version, [System.Text.Encoding]::UTF8)
+    [System.IO.File]::WriteAllText("$PWD\ai\.version", $Version, $Utf8NoBom)
     Write-Success "  ai/.version"
 
     foreach ($f in @("current.md", "tasks.md", "roadmap.md")) {
         $t = Get-Content (Join-Path $TemplatesDir "state\$f") -Raw
         $r = Apply-Template $t $vars
-        [System.IO.File]::WriteAllText("$PWD\ai\state\$f", $r, [System.Text.Encoding]::UTF8)
+        [System.IO.File]::WriteAllText("$PWD\ai\state\$f", $r, $Utf8NoBom)
     }
     Write-Success "  ai/state/ (3 files)"
 
     foreach ($f in @("decisions.md", "anti-patterns.md")) {
         $t = Get-Content (Join-Path $TemplatesDir "memory\$f") -Raw
         $r = Apply-Template $t $vars
-        [System.IO.File]::WriteAllText("$PWD\ai\memory\$f", $r, [System.Text.Encoding]::UTF8)
+        [System.IO.File]::WriteAllText("$PWD\ai\memory\$f", $r, $Utf8NoBom)
     }
     Copy-Item (Join-Path $TemplatesDir "memory\glossary.yaml") "ai\memory\glossary.yaml"
     Write-Success "  ai/memory/ (3 files)"
@@ -228,7 +236,7 @@ function Invoke-Init {
     foreach ($f in @("hard-rules.yaml", "arch-rules.yaml", "module-rules.yaml", "style-rules.yaml", "git-rules.yaml", "test-rules.yaml", "security-rules.yaml", "error-rules.yaml", "logging-rules.yaml", "api-rules.yaml")) {
         $t = Get-Content (Join-Path $TemplatesDir "rules\$f") -Raw
         $r = Apply-Template $t $vars
-        [System.IO.File]::WriteAllText("$PWD\ai\rules\$f", $r, [System.Text.Encoding]::UTF8)
+        [System.IO.File]::WriteAllText("$PWD\ai\rules\$f", $r, $Utf8NoBom)
     }
     Copy-Item (Join-Path $TemplatesDir "rules\custom\.gitkeep") "ai\rules\custom\.gitkeep"
     Write-Success "  ai/rules/ (11 files)"
@@ -327,7 +335,7 @@ function Invoke-Update {
         }
     }
 
-    [System.IO.File]::WriteAllText("$PWD\ai\.version", $Version, [System.Text.Encoding]::UTF8)
+    [System.IO.File]::WriteAllText("$PWD\ai\.version", $Version, $Utf8NoBom)
     Write-Success "  Version updated to $Version"
     Write-Host ""
 }

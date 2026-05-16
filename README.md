@@ -458,18 +458,6 @@ Register the marketplace and install:
 /plugin install paios@aios-marketplace
 ```
 
-### Manual (all platforms)
-
-```bash
-git clone https://github.com/alex-hlh/Paios.git
-cd your-project
-./path/to/Paios/scripts/aios.sh init   # macOS/Linux
-# or
-.\path\to\Paios\scripts\aios.ps1 init  # Windows
-```
-
----
-
 ## Acknowledgments
 
 AIOS builds on the ideas and patterns of several groundbreaking projects:

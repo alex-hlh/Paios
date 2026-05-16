@@ -70,13 +70,10 @@ paios init
 
 **自动初始化（推荐）：** 安装插件后重启 AI 工具。`pai:bootstrap` 检测到缺少 `ai/` 目录，自动引导初始化——回答几个问题，AI 完成其余工作。
 
-**手动初始化：** 使用 CLI 脚本（适用于 CI/CD 或批量初始化）：
+**手动初始化（CI/CD 或批量场景）：**
 
 ```bash
-cd your-project
-./path/to/Paios/scripts/aios.sh init        # macOS/Linux
-.\path\to\Paios\scripts\aios.ps1 init       # Windows
-./path/to/Paios/scripts/aios.sh init --defaults  # 跳过提示
+npx @huahu/paios init --defaults
 ```
 
 ### 3. 开始编码
@@ -463,14 +460,10 @@ npm install Paios@git+https://github.com/alex-hlh/Paios.git --prefix "$HOME\.con
 /plugin install paios@aios-marketplace
 ```
 
-### 手动安装（全平台通用）
+### 手动安装（CI/CD 或批量场景）
 
 ```bash
-git clone https://github.com/alex-hlh/Paios.git
-cd your-project
-./path/to/Paios/scripts/aios.sh init   # macOS/Linux
-# 或
-.\path\to\Paios\scripts\aios.ps1 init  # Windows
+npx @huahu/paios init --defaults
 ```
 
 ---

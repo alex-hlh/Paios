@@ -634,7 +634,7 @@ https://github.com/alex-hlh/Paios
 
 | 方式 | 命令 | 适用场景 |
 |------|------|---------|
-| Git Clone | `git clone ... && cd my-project && path/to/aios/aios init` | 全平台通用 |
+| Git Clone | `npx @huahu/paios init` | 全平台通用 |
 | OpenCode 插件 | `opencode.json` 加 `"plugin": ["aios@git+https://..."]` | OpenCode 用户 |
 | Claude Code 插件 | `/plugin marketplace add ... && /plugin install ...` | Claude Code 用户 |
 

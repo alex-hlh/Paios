@@ -27,7 +27,7 @@
 │  ┌─────────────────────────────────────────────────────┐    │
 │  │ 1. git clone https://github.com/alex-hlh/Paios.git     │    │
 │  │ 2. cd my-project                                     │    │
-│  │ 3. ./path/to/aios/scripts/aios init                  │    │
+│  │ 3. npx @huahu/paios init         │    │
 │  │ 4. 手动配置技能目录                                    │    │
 │  └─────────────────────────────────────────────────────┘    │
 │                                                             │

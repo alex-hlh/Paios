@@ -22,7 +22,7 @@
 
 ```
 $ cd my-project
-$ path/to/Paios/scripts/aios init
+$ npx @huahu/paios init
 ```
 
 完成初始化后，项目的 `ai/` 目录已被创建。下次启动 OpenCode 时，`pai:bootstrap` 会自动加载项目状态。

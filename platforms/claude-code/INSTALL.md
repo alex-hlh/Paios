@@ -37,7 +37,7 @@ git clone https://github.com/alex-hlh/Paios.git ~/.claude/plugins/paios
 
 ```
 $ cd my-project
-$ bash path/to/paios/scripts/aios.sh init
+$ npx @huahu/paios init
 ```
 
 ## 更新

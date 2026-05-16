@@ -1,0 +1,9 @@
+# This directory contains user-defined custom rules.
+# Any .yaml file here will be automatically scanned and loaded by pai:bootstrap.
+# 
+# Examples of custom rules:
+#   - api-conventions.yaml    # API 设计约定
+#   - review-checklist.yaml   # Code Review 检查清单
+#   - deployment-rules.yaml   # 部署流程约束
+#   - i18n-rules.yaml         # 国际化规范
+#   - accessibility.yaml      # 无障碍规范

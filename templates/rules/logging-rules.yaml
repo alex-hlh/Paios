@@ -1,0 +1,52 @@
+# 日志规范
+# 基于 OWASP Logging Cheat Sheet — 语言无关
+# https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html
+
+rules:
+  - id: "LOG001"
+    description: "以下安全事件必须记录到日志：认证成功/失败、授权拒绝、输入验证失败、会话异常、敏感操作（用户增删、权限变更、数据导出、配置修改）。"
+    reference: "OWASP Logging Cheat Sheet"
+    applies_to: "backend"
+    enforcement: "REVIEW_BLOCK"
+
+  - id: "LOG002"
+    description: "每条日志必须包含：ISO 8601 UTC 时间戳、日志级别、事件类型、用户标识（如已登录）、来源 IP、操作简述、结果（成功/失败）。"
+    applies_to: "backend"
+    enforcement: "STYLE"
+
+  - id: "LOG003"
+    description: "日志中严禁记录：密码（任何形式）、访问令牌/API Key、完整会话 ID（可记录哈希后的值）、信用卡号、身份证号/SSN、加密密钥。其他 PII（姓名、电话、邮箱）应在有合规要求时才记录。"
+    reference: "OWASP Logging — Data to Exclude"
+    applies_to: "all"
+    enforcement: "BLOCK_AND_WARN"
+
+  - id: "LOG004"
+    description: "写入日志前必须清洗内容（sanitization），过滤或转义换行符（\\n、\\r）、分隔符和不可打印字符。防止攻击者通过用户输入注入伪造的日志条目（log injection）。"
+    reference: "OWASP Log Injection / CWE-117"
+    applies_to: "backend"
+    enforcement: "BLOCK_AND_WARN"
+
+  - id: "LOG005"
+    description: "使用标准日志级别。ERROR：需立即关注的服务端错误。WARN：潜在问题或降级行为。INFO：关键业务流程节点（如'用户登录'、'订单创建'）。DEBUG：开发调试信息（生产环境默认关闭）。INFO 及以上为生产环境最低要求。"
+    applies_to: "all"
+    enforcement: "STYLE"
+
+  - id: "LOG006"
+    description: "日志系统故障不应影响业务正常运行。日志写入失败时静默降级（优先使用异步写入），禁止因日志异常而抛出错误中断业务。"
+    applies_to: "backend"
+    enforcement: "REVIEW_SUGGESTION"
+
+  - id: "LOG007"
+    description: "关键操作的日志应包含全链路追踪标识（traceId / requestId），便于跨服务关联请求和故障排查。该 ID 应从前端到后端透传。"
+    applies_to: "backend"
+    enforcement: "STYLE"
+
+  - id: "LOG008"
+    description: "日志文件设置严格访问权限（仅应用账户和运维人员可读写）。日志定期归档并设置保留策略，过期日志安全删除。"
+    applies_to: "backend"
+    enforcement: "REVIEW_SUGGESTION"
+
+  - id: "LOG009"
+    description: "5xx 服务端错误必须记录完整请求上下文（路径、方法、参数、用户标识、耗时），以便事后排查根因。"
+    applies_to: "backend"
+    enforcement: "WARN"

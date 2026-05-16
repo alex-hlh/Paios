@@ -1,0 +1,57 @@
+# Preset: python
+# 基于 PEP 8 + black/ruff 默认值 (line-length=88)
+# 适用: Python, Django, FastAPI, Flask
+
+name: python
+description: "Python 生态"
+
+match:
+  - python
+  - py
+  - django
+  - fastapi
+  - flask
+  - sqlalchemy
+  - poetry
+
+conventions:
+  git:
+    commit_style: conventional
+    branch_naming: "feature/<name>"
+    pr_title_prefix: ""
+    sign_commits: false
+
+  code:
+    indent: 4
+    quotes: double
+    semicolons: false
+    trailing_commas: all
+    max_line_length: 88
+
+  naming:
+    files: snake_case
+    functions: snake_case
+    classes: PascalCase
+    constants: UPPER_SNAKE_CASE
+    variables: snake_case
+
+  imports:
+    order: [stdlib, third-party, local]
+    allow_unused: false
+
+  comments:
+    language: zh-CN
+    require_jsdoc: false
+    require_function_comments: true
+
+testing:
+  framework: pytest
+  coverage_threshold: 80
+  require_integration_tests: true
+
+aios:
+  strict_mode: true
+  auto_archive: false
+  require_human_review: true
+  language: zh-CN
+  coexistence_mode: ask

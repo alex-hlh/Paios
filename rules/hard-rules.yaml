@@ -1,0 +1,49 @@
+# L1 红线 — 所有项目通用，绝对不可违抗
+
+# AI 必须拒绝执行任何与之冲突的指令
+# enforcement 级别：
+#   BLOCK_AND_WARN — 拒绝执行并警告用户
+#   AUDIT_ONLY      — 记录警告但允许继续
+
+rules:
+  - id: "H001"
+    description: "禁止 AI 自主执行 git push / merge / rebase / deploy 等操作，必须由人类明确确认。"
+    type: "process"
+    enforcement: "BLOCK_AND_WARN"
+
+  - id: "H002"
+    description: "禁止 AI 执行任何删除数据库、文件系统或系统资源的破坏性命令（如 DROP TABLE, rm -rf, DEL /F）。"
+    type: "security"
+    enforcement: "BLOCK_AND_WARN"
+
+  - id: "H003"
+    description: "永远不要在代码、配置文件、日志或注释中硬编码任何形式的密钥、密码、令牌或凭证。所有密钥必须通过环境变量或密钥管理服务注入。"
+    type: "security"
+    enforcement: "BLOCK_AND_WARN"
+
+  - id: "H004"
+    description: "所有 AI 生成的代码必须经过人类的 Code Review 后方可合并到主分支。"
+    type: "process"
+    enforcement: "AUDIT_ONLY"
+
+  - id: "H005"
+    description: "禁止 AI 访问、读取或修改与当前任务无关的文件。只处理明确指定的文件范围。"
+    type: "security"
+    enforcement: "AUDIT_ONLY"
+
+  - id: "H006"
+    description: "禁止 AI 安装系统级软件包或修改系统配置，除非用户明确要求并确认。"
+    type: "security"
+    enforcement: "BLOCK_AND_WARN"
+
+  - id: "H007"
+    description: "禁止 AI 生成不安全的密码学实现。必须使用经过审计的标准库（如 bcrypt/scrypt/argon2 用于密码哈希，AES-GCM 用于对称加密）。"
+    type: "security"
+    reference: "OWASP Cryptographic Storage Cheat Sheet"
+    enforcement: "BLOCK_AND_WARN"
+
+  - id: "H008"
+    description: "所有用户输入必须在服务端进行验证（不允许仅客户端验证）。使用白名单（allowlist）优先于黑名单（denylist）。"
+    type: "security"
+    reference: "OWASP Input Validation Cheat Sheet"
+    enforcement: "BLOCK_AND_WARN"

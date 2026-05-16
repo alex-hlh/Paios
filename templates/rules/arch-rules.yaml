@@ -1,0 +1,104 @@
+# L2 架构约束
+# 保持系统可维护性和一致性的架构基石
+#
+# enforcement 级别：
+#   BLOCK_AND_WARN       — 拒绝执行并警告
+#   REFACTOR_SUGGESTION   — 建议重构
+#   WARN                 — 警告但允许继续
+#
+# applies_to（若设置，表示该规则仅适用于特定技术栈）：
+#   all       — 所有项目通用（默认）
+#   backend   — 所有后端
+#   api       — 所有 API 层
+#   web       — Web 应用
+#   specific  — 特定语言/框架，见 description 中的说明
+
+rules:
+  # ─── 层次结构 ───
+  - id: "A001"
+    description: |
+      严格遵循分层架构，层间单向依赖。
+      各层按语言惯例命名，如：
+        Node/TS: Controller/Route → Service → Repository/DAO
+        Python:   View/Route → Service → Model/Repository
+        Go:       Handler → Service → Repository/Store
+        Java:     Controller → Service → Repository
+        Rust:     Handler → Service → Repository
+      禁止跨层调用（如 API 层直接操作数据库）。
+    applies_to: "backend"
+    enforcement: "REFACTOR_SUGGESTION"
+
+  - id: "A002"
+    description: "所有 API 接口必须返回统一响应格式（信封模式）。"
+    applies_to: "api"
+    enforcement: "REFACTOR_SUGGESTION"
+
+  - id: "A003"
+    description: "数据库操作必须通过数据访问层（ORM/Repository/DAO），禁止在业务逻辑层直接拼接 SQL。所有 SQL 必须使用参数化查询。"
+    applies_to: "backend"
+    reference: "OWASP SQL Injection Prevention"
+    enforcement: "BLOCK_AND_WARN"
+
+  - id: "A004"
+    description: "事务边界应明确在业务逻辑层（Service/UseCase）定义，包含回滚策略。事务范围应尽可能小。"
+    applies_to: "backend"
+    enforcement: "REFACTOR_SUGGESTION"
+
+  - id: "A005"
+    description: "所有外部调用（HTTP、RPC、MQ）必须有超时（timeout）和重试策略，实现断路器（circuit breaker）模式防止级联故障。"
+    applies_to: "backend"
+    enforcement: "REFACTOR_SUGGESTION"
+
+  - id: "A006"
+    description: "新增依赖必须与项目现有技术栈一致。禁止引入技术栈未声明的重量级依赖，或与现有依赖冲突的版本。"
+    applies_to: "all"
+    enforcement: "BLOCK_AND_WARN"
+
+  # ─── 数据一致性 ───
+  - id: "A007"
+    description: "所有异步任务（消息队列消费、定时任务、事件处理）必须设计为幂等（idempotent），防止重复执行导致数据不一致。"
+    applies_to: "backend"
+    enforcement: "REFACTOR_SUGGESTION"
+
+  # ─── API 设计 ───
+  - id: "A008"
+    description: "API 端点遵循 RESTful 约定：资源用名词复数（/users 而非 /getUsers），HTTP 方法语义正确（GET=读取, POST=创建, PUT=全量更新, PATCH=部分更新, DELETE=删除）。"
+    applies_to: "api"
+    enforcement: "REFACTOR_SUGGESTION"
+
+  - id: "A009"
+    description: "列表接口必须支持分页（pagination），防止一次性返回过多数据。"
+    applies_to: "api"
+    enforcement: "REFACTOR_SUGGESTION"
+
+  - id: "A010"
+    description: "对外的 API 接口应实现速率限制（rate limiting），防止滥用。"
+    applies_to: "api"
+    reference: "OWASP REST Security"
+    enforcement: "REFACTOR_SUGGESTION"
+
+  # ─── 安全架构 ───
+  - id: "A011"
+    description: "不得将内部错误详情（堆栈跟踪、SQL 语句、框架及版本号）返回给客户端。使用全局异常处理器返回通用错误响应。"
+    applies_to: "backend"
+    reference: "OWASP Error Handling Cheat Sheet"
+    enforcement: "BLOCK_AND_WARN"
+
+  - id: "A012"
+    description: "所有涉及用户数据的接口必须在服务端进行权限校验，不得仅依赖前端隐藏入口实现访问控制。"
+    applies_to: "backend"
+    reference: "OWASP Access Control"
+    enforcement: "BLOCK_AND_WARN"
+
+  # ─── 前端架构 ───
+  - id: "A013"
+    description: "前端状态管理采用单向数据流。UI 组件分为容器组件（负责数据获取和逻辑）与展示组件（负责渲染），后者不包含业务逻辑。"
+    applies_to: "web"
+    enforcement: "REFACTOR_SUGGESTION"
+
+  - id: "A014"
+    description: "前端 API 调用统一通过封装的 HTTP 客户端模块，集中处理认证令牌（token）注入、错误处理、重试逻辑。不得在各组件中散落原始 fetch/axios 调用。"
+    applies_to: "web"
+    enforcement: "REFACTOR_SUGGESTION"
+
+  # ─── 在此添加项目特有架构规则 ───

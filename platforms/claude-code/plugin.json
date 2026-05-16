@@ -1,0 +1,19 @@
+{
+  "name": "aios",
+  "version": "1.0.0",
+  "description": "AIOS - Personal AI Engineering Operating System skill pack",
+  "author": "",
+  "repository": "https://github.com/<user>/aios-skill-pack",
+  "marketplace": "aios-marketplace",
+  "skills": [
+    "skills/pai-bootstrap",
+    "skills/pai-design",
+    "skills/pai-spec", 
+    "skills/pai-build",
+    "skills/pai-debug",
+    "skills/pai-review",
+    "skills/pai-done",
+    "skills/pai-reflect"
+  ],
+  "bootstrap": "skills/pai-bootstrap/SKILL.md"
+}

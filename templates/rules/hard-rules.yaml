@@ -1,0 +1,21 @@
+# L1 项目级红线
+# 此文件中的规则绝对不可违反
+# 继承自技能包通用 rules/hard-rules.yaml
+# 此处可添加项目特有的 L1 规则
+
+rules:
+  # 项目特有红线示例（以下为可选扩展）：
+  # - id: "P001"
+  #   description: "所有数据库迁移必须包含回滚脚本"
+  #   type: "process"
+  #   enforcement: "BLOCK_AND_WARN"
+
+  # - id: "P002"
+  #   description: "禁止在生产环境直接修改数据，必须通过审批的迁移脚本"
+  #   type: "security"
+  #   enforcement: "BLOCK_AND_WARN"
+
+  # - id: "P003"
+  #   description: "所有第三方 API 密钥必须通过密钥管理服务（KMS/Vault）获取，不得在代码仓库中存储"
+  #   type: "security"
+  #   enforcement: "BLOCK_AND_WARN"

@@ -1,0 +1,53 @@
+# Preset: rust
+# 基于 Rust Style Guide + rustfmt 默认值
+# 适用: Rust
+
+name: rust
+description: "Rust 生态"
+
+match:
+  - rust
+  - rs
+  - cargo
+
+conventions:
+  git:
+    commit_style: conventional
+    branch_naming: "feature/<name>"
+    pr_title_prefix: ""
+    sign_commits: false
+
+  code:
+    indent: 4
+    quotes: double
+    semicolons: true
+    trailing_commas: all
+    max_line_length: 100
+
+  naming:
+    files: snake_case
+    functions: snake_case
+    classes: PascalCase
+    constants: UPPER_SNAKE_CASE
+    variables: snake_case
+
+  imports:
+    order: [stdlib, external, crate]
+    allow_unused: false
+
+  comments:
+    language: zh-CN
+    require_jsdoc: false
+    require_function_comments: true
+
+testing:
+  framework: cargo test
+  coverage_threshold: 80
+  require_integration_tests: true
+
+aios:
+  strict_mode: true
+  auto_archive: false
+  require_human_review: true
+  language: zh-CN
+  coexistence_mode: ask

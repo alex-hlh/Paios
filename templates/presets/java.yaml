@@ -1,0 +1,56 @@
+# Preset: java
+# 基于 Google Java Style Guide + Checkstyle 默认值
+# 适用: Java, Spring Boot, Kotlin
+
+name: java
+description: "Java / JVM 生态"
+
+match:
+  - java
+  - spring
+  - spring-boot
+  - kotlin
+  - maven
+  - gradle
+
+conventions:
+  git:
+    commit_style: conventional
+    branch_naming: "feature/<name>"
+    pr_title_prefix: ""
+    sign_commits: false
+
+  code:
+    indent: 4
+    quotes: double
+    semicolons: true
+    trailing_commas: all
+    max_line_length: 120
+
+  naming:
+    files: PascalCase
+    functions: camelCase
+    classes: PascalCase
+    constants: UPPER_SNAKE_CASE
+    variables: camelCase
+
+  imports:
+    order: [java, javax, third-party, local]
+    allow_unused: false
+
+  comments:
+    language: zh-CN
+    require_jsdoc: true
+    require_function_comments: true
+
+testing:
+  framework: junit
+  coverage_threshold: 80
+  require_integration_tests: true
+
+aios:
+  strict_mode: true
+  auto_archive: false
+  require_human_review: true
+  language: zh-CN
+  coexistence_mode: ask

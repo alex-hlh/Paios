@@ -1,0 +1,40 @@
+# Git 操作与 Commit 规范
+# 基于 Conventional Commits 1.0.0
+# https://www.conventionalcommits.org/en/v1.0.0/
+
+rules:
+  - id: "G001"
+    description: "Commit message 必须遵循 Conventional Commits 格式：<type>(scope): <description>"
+    example: |
+      正确格式：
+        feat(auth): add JWT token refresh endpoint
+        fix(ui): correct button alignment on mobile
+        docs: update API documentation
+        refactor(db): extract query builder to util
+        test(auth): add login failure test cases
+
+      允许的 type：feat, fix, docs, style, refactor, perf, test, chore, ci, build, revert
+    enforcement: "REVIEW_BLOCK"
+
+  - id: "G002"
+    description: "破坏性变更必须使用 ! 前缀或 BREAKING CHANGE footer 标记"
+    example: |
+      feat!: drop support for Node 14
+      feat(api)!: change response format to JSON:API
+    enforcement: "REVIEW_BLOCK"
+
+  - id: "G003"
+    description: "分支命名遵循 {git_branch_naming} 模板"
+    enforcement: "WARN"
+
+  - id: "G004"
+    description: "禁止 AI 在未经人类确认的情况下执行 git push / merge / rebase"
+    enforcement: "BLOCK_AND_WARN"
+
+  - id: "G005"
+    description: "每次 commit 的变更范围应聚焦于一个逻辑单元，禁止混合无关变更"
+    enforcement: "REVIEW_SUGGESTION"
+
+  - id: "G006"
+    description: "commit body 使用中文描述变更原因（what & why），而非英文清单"
+    enforcement: "STYLE"

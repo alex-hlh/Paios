@@ -1,0 +1,13 @@
+# Claude Code 平台工具映射
+# pai:bootstrap 启动时读取此文件，将工具名注入上下文
+
+tools:
+  task-manager: TaskCreate
+  skill-loader: Skill
+  subagent: Task
+  file-read: Read
+  file-edit: Edit
+  shell: Bash
+  search-grep: Grep
+  search-glob: Glob
+  web-fetch: WebFetch

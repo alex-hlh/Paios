@@ -1,0 +1,52 @@
+# Preset: universal
+# 通用默认值，适用于不确定技术栈的混合项目
+
+name: universal
+description: "通用 / 混合技术栈"
+
+match:
+  - universal
+  - mixed
+  - other
+
+conventions:
+  git:
+    commit_style: conventional
+    branch_naming: "feature/<name>"
+    pr_title_prefix: ""
+    sign_commits: false
+
+  code:
+    indent: 2
+    quotes: double
+    semicolons: false
+    trailing_commas: all
+    max_line_length: 100
+
+  naming:
+    files: kebab-case
+    functions: camelCase
+    classes: PascalCase
+    constants: UPPER_SNAKE_CASE
+    variables: camelCase
+
+  imports:
+    order: [third-party, internal, relative]
+    allow_unused: false
+
+  comments:
+    language: zh-CN
+    require_jsdoc: false
+    require_function_comments: true
+
+testing:
+  framework: "通用"
+  coverage_threshold: 80
+  require_integration_tests: true
+
+aios:
+  strict_mode: true
+  auto_archive: false
+  require_human_review: true
+  language: zh-CN
+  coexistence_mode: ask

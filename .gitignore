@@ -1,0 +1,47 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build
+dist/
+build/
+*.tsbuildinfo
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+logs/
+
+# Test
+coverage/
+.nyc_output/
+
+# Paios reference docs (not part of the skill pack)
+ai.01.*.md
+ai.02.*.md
+CLAUDE.md
+AGENTS.md
+
+# Opencode config
+.opencode/
+opencode.json
+opencode.jsonc
+
+# Temp
+tmp/
+temp/

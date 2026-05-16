@@ -1,0 +1,3 @@
+# Changes 目录
+# 存放变更提案和已归档的历史变更
+# 每个 change 一个文件夹，包含 proposal.md / design.md / tasks.md / specs/

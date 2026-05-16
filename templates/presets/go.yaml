@@ -1,0 +1,56 @@
+# Preset: go
+# 基于 Effective Go + gofmt 默认值
+# 适用: Go, Gin, Echo
+
+name: go
+description: "Go 生态"
+
+match:
+  - go
+  - golang
+  - gin
+  - echo
+  - fiber
+
+conventions:
+  git:
+    commit_style: conventional
+    branch_naming: "feature/<name>"
+    pr_title_prefix: ""
+    sign_commits: false
+
+  code:
+    indent: 0                # 0 = tabs (gofmt 使用 tabs)
+    indent_style: tabs
+    quotes: double
+    semicolons: false        # Go 自动插入分号，源码中不需要
+    trailing_commas: all
+    max_line_length: 0       # 0 = 无限制 (Go 无行宽限制)
+
+  naming:
+    files: snake_case
+    functions: camelCase
+    classes: PascalCase
+    constants: PascalCase
+    variables: camelCase
+
+  imports:
+    order: [stdlib, third-party, local]
+    allow_unused: false
+
+  comments:
+    language: zh-CN
+    require_jsdoc: false
+    require_function_comments: true
+
+testing:
+  framework: go test
+  coverage_threshold: 80
+  require_integration_tests: true
+
+aios:
+  strict_mode: true
+  auto_archive: false
+  require_human_review: true
+  language: zh-CN
+  coexistence_mode: ask

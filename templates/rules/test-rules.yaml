@@ -1,0 +1,42 @@
+# 测试规范
+
+rules:
+  - id: "T001"
+    description: "核心业务逻辑单元测试覆盖率 >= {testing_coverage_threshold}%"
+    enforcement: "REVIEW_BLOCK"
+
+  - id: "T002"
+    description: "所有 API 端点至少一个集成测试"
+    enforcement: "REVIEW_BLOCK"
+
+  - id: "T003"
+    description: "测试必须遵循 AAA 模式：Arrange → Act → Assert"
+    enforcement: "STYLE"
+
+  - id: "T004"
+    description: "禁止在测试中使用真实的外部服务（数据库、API、消息队列），统一使用 mock/stub/fake。集成测试可使用测试专用实例。"
+    enforcement: "REVIEW_SUGGESTION"
+
+  - id: "T005"
+    description: "TDD 循环：先写测试 → 确认红灯 → 最小实现 → 确认绿灯 → 重构"
+    enforcement: "BLOCK_AND_WARN"
+
+  - id: "T006"
+    description: "测试用例命名应描述被测行为：test_<函数名>_<场景>_<期望结果>"
+    enforcement: "STYLE"
+
+  - id: "T007"
+    description: "每个 bug 修复必须包含对应的回归测试，确保同一个 bug 不会再次出现。"
+    enforcement: "REVIEW_BLOCK"
+
+  - id: "T008"
+    description: "测试之间必须相互独立（test isolation），不能有执行顺序依赖。每个测试负责自己的数据准备（setup）和清理（teardown）。"
+    enforcement: "REVIEW_BLOCK"
+
+  - id: "T009"
+    description: "禁止提交会间歇性失败的测试（flaky tests）。发现 flaky test 必须立即修复或标记为 skip 并记录 issue。"
+    enforcement: "REVIEW_BLOCK"
+
+  - id: "T010"
+    description: "测试应验证行为（behavior）而非实现细节（implementation details）。重构代码不应导致测试失败。"
+    enforcement: "STYLE"

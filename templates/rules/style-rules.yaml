@@ -1,0 +1,79 @@
+# L3 编码风格规范
+#
+# enforcement 级别：
+#   STYLE  — 风格建议，不阻断
+#   WARN   — 警告，累积 3+ 时建议修复
+
+rules:
+  # ─── 注释与文档 ───
+  - id: "S001"
+    description: "所有公开函数/方法必须包含注释，说明用途、参数、返回值。注释解释 why（为什么这样做），代码解释 what（做了什么）。"
+    reference: "Google Code Review Standards"
+    enforcement: "STYLE"
+
+  - id: "S002"
+    description: "禁止使用无类型声明（如 any / Object / dynamic），应使用具体类型或泛型。弱类型语言同理，避免隐式类型转换。"
+    enforcement: "WARN"
+
+  - id: "S003"
+    description: "禁止使用临时调试输出（print / console.log / echo 等）。统一使用结构化日志框架，区分日志级别（debug/info/warn/error）。"
+    enforcement: "WARN"
+
+  - id: "S004"
+    description: "只捕获可处理的异常，捕获后必须显式处理或传播。禁止空 catch 块或仅注释'ignore'的 catch 块。"
+    enforcement: "STYLE"
+
+  # ─── 命名 ───
+  - id: "S005"
+    description: "遵循 ai/config.yaml 中定义的命名规范（文件、函数、类、常量、变量）。全项目命名风格统一。"
+    enforcement: "WARN"
+
+  - id: "S006"
+    description: "命名应自解释（self-documenting）。好名字：长到能说清用途，短到不至于难读。避免缩写（除了业界公认的如 id, url, http）。"
+    reference: "Google Code Review — Naming"
+    enforcement: "STYLE"
+
+  - id: "S007"
+    description: "遵循 ai/config.yaml 中定义的导入排序规则。禁止存在未使用的导入（unused imports）。"
+    enforcement: "STYLE"
+
+  # ─── 结构与复杂度 ───
+  - id: "S008"
+    description: "函数/方法保持短小。若超过 50 行（不含注释和空行），应拆分为更小的函数。每个函数只做一件事。"
+    reference: "Google Code Review — Complexity"
+    enforcement: "WARN"
+
+  - id: "S009"
+    description: "避免深嵌套（建议不超过 3 层）。使用提前返回（early return / guard clause）代替深层 if-else。"
+    enforcement: "STYLE"
+
+  - id: "S010"
+    description: "禁止魔法数字/字符串（magic numbers/strings）。常量应提取为命名常量或枚举。例外：数学公式中的 0, 1, 2 等显而易见的值。"
+    enforcement: "WARN"
+
+  - id: "S011"
+    description: "函数参数不超过 5 个。超过时使用参数对象/Option Object/DTO 封装。"
+    enforcement: "STYLE"
+
+  - id: "S012"
+    description: "避免布尔参数。如需区分行为，拆分为两个独立函数（如 setVisible(true) → show() + hide()），或使用选项对象。"
+    enforcement: "STYLE"
+
+  # ─── 代码质量 ───
+  - id: "S013"
+    description: "布尔表达式不直接与 true/false 比较（写 if (valid) 而非 if (valid == true)）。"
+    enforcement: "STYLE"
+
+  - id: "S014"
+    description: "优先使用不可变（immutable）数据。避免修改传入的参数，返回新值代替原地修改。"
+    enforcement: "STYLE"
+
+  - id: "S015"
+    description: "避免重复代码（DRY 原则）。同一逻辑出现 3 次及以上，提取为共用函数/模块。但不过早抽象——2 次以内若边界清晰可保持重复。"
+    enforcement: "WARN"
+
+  - id: "S016"
+    description: "硬编码的配置值（端口号、URL、超时时间、开关）抽取到配置文件或环境变量中，不得散落在代码各处。"
+    enforcement: "WARN"
+
+  # ─── 在此添加项目特有风格规则 ───

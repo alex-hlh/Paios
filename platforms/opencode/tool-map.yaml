@@ -1,0 +1,14 @@
+# OpenCode 平台工具映射
+# pai:bootstrap 启动时读取此文件，将工具名注入上下文
+# 技能 SKILL.md 中使用 {tool-name} 引用，不硬编码具体工具名
+
+tools:
+  task-manager: todowrite
+  skill-loader: skill
+  subagent: task
+  file-read: read
+  file-edit: edit
+  shell: bash
+  search-grep: grep
+  search-glob: glob
+  web-fetch: webfetch

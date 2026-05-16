@@ -1,0 +1,69 @@
+# ai/config.yaml
+# AIOS 项目个性化配置文件
+# 由 aios init --preset {preset_name} 生成于 {date}
+
+project:
+  name: "{project_name}"
+  description: "{project_description}"
+
+preset: "{preset_name}"
+
+# ─── 编码规范 ───
+conventions:
+  git:
+    commit_style: {git_commit_style}
+    commit_scopes: ""
+    branch_naming: "{git_branch_naming}"
+    pr_title_prefix: ""
+    sign_commits: {git_sign_commits}
+
+  code:
+    indent: {code_indent}
+    {indent_style_line}
+    quotes: {code_quotes}
+    semicolons: {code_semicolons}
+    trailing_commas: {code_trailing_commas}
+    max_line_length: {code_max_line_length}
+
+  naming:
+    files: {naming_files}
+    functions: {naming_functions}
+    classes: {naming_classes}
+    constants: {naming_constants}
+    variables: {naming_variables}
+    {naming_react_line}
+
+  imports:
+    order: [third-party, internal, relative]
+    allow_unused: false
+
+  comments:
+    language: {comments_language}
+    require_jsdoc: {comments_require_jsdoc}
+    require_function_comments: {comments_require_function_comments}
+
+# ─── 测试规范 ───
+testing:
+  framework: "{testing_framework}"
+  coverage_threshold: {testing_coverage_threshold}
+  require_integration_tests: {testing_require_integration}
+
+# ─── 规则文件（pai:bootstrap 启动时自动扫描） ───
+# ai/rules/hard-rules.yaml     — L1: 项目级安全红线
+# ai/rules/arch-rules.yaml     — L2: 架构约束
+# ai/rules/security-rules.yaml — L2: 安全规范 (OWASP)
+# ai/rules/error-rules.yaml    — L2: 错误处理规范 (OWASP)
+# ai/rules/logging-rules.yaml  — L2: 日志规范 (OWASP)
+# ai/rules/api-rules.yaml      — L2: API 设计规范
+# ai/rules/git-rules.yaml      — L2: Git 规范
+# ai/rules/style-rules.yaml    — L3: 代码风格
+# ai/rules/test-rules.yaml     — L3: 测试规范
+# ai/rules/custom/             — 用户自由扩展
+
+# ─── AIOS 行为控制 ───
+aios:
+  strict_mode: true
+  auto_archive: false
+  require_human_review: true
+  language: {aios_language}
+  coexistence_mode: ask               # ask | standalone | complementary

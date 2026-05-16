@@ -1,0 +1,64 @@
+# 安全规范
+# 基于 OWASP Cheat Sheet Series — 语言无关
+# https://cheatsheetseries.owasp.org/
+
+rules:
+  - id: "SEC001"
+    description: "所有用户输入必须在服务端验证。使用白名单（allowlist：只放行已知安全的输入）优先于黑名单（denylist：试图过滤已知危险的输入）。白名单更安全，黑名单易被绕过。"
+    reference: "OWASP Input Validation Cheat Sheet"
+    applies_to: "backend"
+    enforcement: "BLOCK_AND_WARN"
+
+  - id: "SEC002"
+    description: "渲染用户数据到页面时必须进行上下文相关的转义处理（context-aware escaping），防止 XSS 攻击。HTML 中做 HTML 实体编码，JavaScript 中做 JS 编码，URL 中做 URL 编码。"
+    reference: "OWASP XSS Prevention Cheat Sheet"
+    applies_to: "web"
+    enforcement: "BLOCK_AND_WARN"
+
+  - id: "SEC003"
+    description: "数据库查询必须使用参数化（parameterized）方式，利用语言/框架提供的占位符机制。绝对禁止用字符串拼接或模板字面量构建 SQL/NoSQL 查询语句。"
+    reference: "OWASP SQL Injection Prevention Cheat Sheet"
+    applies_to: "backend"
+    enforcement: "BLOCK_AND_WARN"
+
+  - id: "SEC004"
+    description: "用户密码存储必须使用专门的密码哈希算法（bcrypt / scrypt / argon2）。不得使用通用摘要算法（MD5 / SHA1 / SHA256）存储密码。每个密码使用独立的随机盐值。"
+    reference: "OWASP Password Storage Cheat Sheet"
+    applies_to: "backend"
+    enforcement: "BLOCK_AND_WARN"
+
+  - id: "SEC005"
+    description: "反序列化不可信数据是高风险操作。如必须反序列化来自外部的数据，应使用白名单限制允许的类型，并在隔离环境中处理。优先使用纯数据格式（JSON/CSV）替代原生序列化。"
+    reference: "OWASP Deserialization Cheat Sheet"
+    applies_to: "backend"
+    enforcement: "BLOCK_AND_WARN"
+
+  - id: "SEC006"
+    description: "文件上传必须进行三重验证：(1) 类型白名单——只允许特定扩展名和 MIME 类型；(2) 大小限制——拒绝超大文件；(3) 内容验证——检查文件头（magic bytes）。存储时使用随机生成的文件名，不信任用户提供的文件名。上传文件存储在 Web 不可直接访问的目录。"
+    reference: "OWASP File Upload Cheat Sheet"
+    applies_to: "backend"
+    enforcement: "BLOCK_AND_WARN"
+
+  - id: "SEC007"
+    description: "外部重定向目标必须限定为白名单中的域名。禁止将用户输入的 URL 直接用作重定向目标（否则攻击者可构造钓鱼链接）。"
+    reference: "OWASP Unvalidated Redirects Cheat Sheet"
+    applies_to: "web"
+    enforcement: "BLOCK_AND_WARN"
+
+  - id: "SEC008"
+    description: "敏感操作（改密、删号、支付、权限变更）必须要求用户重新认证或二次确认，防止跨站请求伪造（CSRF）和点击劫持。"
+    reference: "OWASP CSRF Prevention Cheat Sheet"
+    applies_to: "web"
+    enforcement: "REVIEW_SUGGESTION"
+
+  - id: "SEC009"
+    description: "项目依赖项应定期检查已知漏洞。禁止引入存在已知高危漏洞（Critical / High CVE）的依赖版本。使用包管理器的审计命令（npm audit / pip audit / cargo audit 等）检查。"
+    reference: "OWASP Vulnerable Dependency Management"
+    applies_to: "all"
+    enforcement: "REVIEW_SUGGESTION"
+
+  - id: "SEC010"
+    description: "禁止在客户端（浏览器 localStorage / sessionStorage / 移动端明文存储）存放敏感数据。认证令牌使用 HttpOnly + Secure + SameSite Cookie 或安全的短期内存存储。"
+    reference: "OWASP Session Management Cheat Sheet"
+    applies_to: "web"
+    enforcement: "BLOCK_AND_WARN"

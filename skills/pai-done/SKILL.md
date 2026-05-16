@@ -101,10 +101,14 @@ triggers:
 ```
 +-- Soft Completion Check
 |
-+-- [ ] .gitignore 是否存在？
-+-- [ ] pyproject.toml / package.json 是否存在？
++-- [ ] .gitignore 是否存在（避免产物被提交）？
++-- [ ] 项目打包/构建文件是否存在？
+|     Python: pyproject.toml | Node: package.json
+|     Rust: Cargo.toml       | Go: go.mod
 +-- [ ] 所有声明的资源文件（GIF、图标、配置模板）是否存在于正确路径？
-+-- [ ] 依赖文件（requirements.txt / Cargo.toml）是否覆盖所有实际 import？
++-- [ ] 依赖文件是否覆盖所有实际导入？
+|     Python: requirements.txt | Node: package.json
+|     Rust: Cargo.toml         | Go: go.sum
 ```
 
 如果以上有未完成项，输出提醒但不阻止归档：

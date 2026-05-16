@@ -58,8 +58,9 @@ triggers:
 - [ ] spec 中定义的 Scenario 是否都有对应测试？（检查边界情况）
 - [ ] 是否有遗漏的场景？
 - [ ] 如果是当前 change 的最后一个 task，检查：
-  - [ ] .gitignore 是否存在（排除 __pycache__/*.pyc/.pytest_cache/node_modules）
+  - [ ] .gitignore 是否存在（排除语言特定产物：__pycache__/node_modules/target/build/.gradle）
   - [ ] 声明过的资源文件（GIF、图标、配置模板）是否存在
+  - [ ] 项目构建文件是否存在（pyproject.toml/package.json/Cargo.toml/go.mod）
 
 ### 步骤 2: 正确性检查 (Correctness)
 
@@ -79,8 +80,14 @@ triggers:
 - [ ] **代码风格**：检查是否符合 `ai/config.yaml` 的 conventions.code
 - [ ] **命名规范**：检查是否符合 `ai/config.yaml` 的 conventions.naming
 - [ ] **测试规范**：检查是否符合 `ai/rules/test-rules.yaml`
-- [ ] **依赖声明**：代码中的 import 是否在 requirements.txt / package.json / Cargo.toml 中有声明？（实现方式：扫描变更文件中的 import 语句，与依赖文件交叉比对）
-- [ ] **死代码**：是否有定义了但未被调用的函数或未使用的 import？
+- [ ] **依赖声明**：代码中的导入语句是否在项目依赖文件中有声明？
+  - Python: import vs requirements.txt / pyproject.toml
+  - Node:   import/require vs package.json dependencies
+  - Rust:   use vs Cargo.toml dependencies
+  - Go:     import vs go.mod
+  （实现方式：扫描变更文件中的 import 语句，与依赖文件交叉比对）
+- [ ] **死代码**：是否有定义了但未被调用的函数或未使用的导入？
+  - 通过语言相关工具检测（ruff/F401、eslint/no-unused-vars、cargo deadlinks、go vet）
 
 ### 步骤 4: 集成完整性检查 (Integration)
 

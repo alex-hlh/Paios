@@ -186,11 +186,23 @@ RED: 3  |  GREEN: 5  |  REFACTOR: 2  |  PENDING: 5
 +-- Infrastructure Checklist
 |
 +-- [ ] .gitignore 是否生成？
-|     排除: __pycache__/*.pyc/.pytest_cache/node_modules/.env
-+-- [ ] pyproject.toml / package.json / Cargo.toml 是否存在？
+|     排除语言特定产物:
+|     Python:   __pycache__/*.pyc/.pytest_cache
+|     Node/TS:  node_modules/.next/dist
+|     Rust:     target/
+|     Go:       bin/
+|     Java:     build/.gradle/target/
+|     (检查项目根，无则自动生成)
++-- [ ] 项目配置/打包文件是否存在？
+|     Python: pyproject.toml  |  Node: package.json
+|     Rust:   Cargo.toml     |  Go:   go.mod
+|     Java:   pom.xml/build.gradle
 |     (消除 sys.path.insert / NODE_PATH hack)
-+-- [ ] requirements.txt 或等效依赖文件？
-|     (覆盖所有实际 import 的第三方依赖)
++-- [ ] 依赖声明文件是否存在？覆盖所有实际 import？
+|     Python: requirements.txt / pyproject.toml
+|     Node:   package-lock.json / yarn.lock
+|     Rust:   Cargo.toml (dependencies section)
+|     Go:     go.sum
 +-- [ ] 首个可运行测试能否通过？
 |     (验证基础设施完整性)
 ```

@@ -373,9 +373,10 @@ ai/state/  ai/memory/  ai/rules/custom/  ai/specs/  ai/changes/
 
 ```
 规则优先级：
-  ai/rules/hard-rules.yaml     → L1 项目级红线（不可违抗）
-  ai/rules/arch-rules.yaml     → L2 架构约束
-  ai/rules/security-rules.yaml → L2 安全规范 (OWASP)
+  ai/rules/hard-rules.yaml      → L1 项目级红线（不可违抗）
+  ai/rules/arch-rules.yaml      → L2 架构约束
+  ai/rules/module-rules.yaml    → L2 模块边界与依赖规则
+  ai/rules/security-rules.yaml  → L2 安全规范 (OWASP)
   ai/rules/error-rules.yaml    → L2 错误处理规范 (OWASP)
   ai/rules/logging-rules.yaml  → L2 日志规范 (OWASP)
   ai/rules/api-rules.yaml      → L2 API 设计规范

@@ -297,7 +297,7 @@ cmd_init() {
     ok "  ai/memory/* (3 个文件)"
 
     # rules files
-    for f in hard-rules.yaml arch-rules.yaml style-rules.yaml git-rules.yaml test-rules.yaml security-rules.yaml error-rules.yaml logging-rules.yaml api-rules.yaml; do
+    for f in hard-rules.yaml arch-rules.yaml module-rules.yaml style-rules.yaml git-rules.yaml test-rules.yaml security-rules.yaml error-rules.yaml logging-rules.yaml api-rules.yaml; do
         local tmpl=$(cat "$TEMPLATES_DIR/rules/$f")
         apply_template "$tmpl" > "ai/rules/$f"
     done

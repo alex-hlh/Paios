@@ -225,13 +225,13 @@ function Invoke-Init {
     Copy-Item (Join-Path $TemplatesDir "memory\glossary.yaml") "ai\memory\glossary.yaml"
     Write-Success "  ai/memory/ (3 files)"
 
-    foreach ($f in @("hard-rules.yaml", "arch-rules.yaml", "style-rules.yaml", "git-rules.yaml", "test-rules.yaml", "security-rules.yaml", "error-rules.yaml", "logging-rules.yaml", "api-rules.yaml")) {
+    foreach ($f in @("hard-rules.yaml", "arch-rules.yaml", "module-rules.yaml", "style-rules.yaml", "git-rules.yaml", "test-rules.yaml", "security-rules.yaml", "error-rules.yaml", "logging-rules.yaml", "api-rules.yaml")) {
         $t = Get-Content (Join-Path $TemplatesDir "rules\$f") -Raw
         $r = Apply-Template $t $vars
         [System.IO.File]::WriteAllText("$PWD\ai\rules\$f", $r, [System.Text.Encoding]::UTF8)
     }
     Copy-Item (Join-Path $TemplatesDir "rules\custom\.gitkeep") "ai\rules\custom\.gitkeep"
-    Write-Success "  ai/rules/ (10 files)"
+    Write-Success "  ai/rules/ (11 files)"
 
     Copy-Item (Join-Path $TemplatesDir "specs\.gitkeep") "ai\specs\.gitkeep"
     Copy-Item (Join-Path $TemplatesDir "changes\.gitkeep") "ai\changes\.gitkeep"

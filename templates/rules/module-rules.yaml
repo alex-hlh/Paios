@@ -1,0 +1,128 @@
+# 模块边界与依赖规则
+# 基于 Clean Architecture (Robert C. Martin) + 通用软件工程原则
+# 语言无关，所有技术栈通用
+
+rules:
+  # ─── 依赖方向 ───
+  - id: "M001"
+    description: |
+      依赖规则 (Dependency Rule)：源码依赖只能指向内层。
+      外层不能依赖内层，内层不能知晓外层的存在。
+      
+      通用分层模型（从内到外）：
+        核心层 (Entities/Domain) → 用例层 (Use Cases/Services) → 适配器层 (Adapters/Controllers) → 框架层 (Frameworks/Drivers)
+      
+      禁止：核心层 import 框架层代码，适配器层 import 用例层接口但用例层引用适配器实现。
+    reference: "Clean Architecture — The Dependency Rule"
+    applies_to: "all"
+    enforcement: "BLOCK_AND_WARN"
+
+  - id: "M002"
+    description: |
+      禁止循环依赖 (Circular Dependency)。模块 A 依赖 B，则 B 不能直接或间接依赖 A。
+      检测方法：在脑中画依赖图，若出现环则必须打破。
+      打破手段：提取共同接口到共享层、使用依赖反转（注入接口而非具体实现）、拆分模块。
+    applies_to: "all"
+    enforcement: "BLOCK_AND_WARN"
+
+  # ─── 模块边界 ───
+  - id: "M003"
+    description: |
+      每个模块必须有明确的职责边界和公开接口 (Public API)。
+      判断模块是否过大的标准：能否一句话描述这个模块做什么？
+      公开接口是指模块内部实现的外部契约——修改内部实现不应破坏接口。
+    applies_to: "all"
+    enforcement: "REFACTOR_SUGGESTION"
+
+  - id: "M004"
+    description: |
+      模块的公开接口应是稳定的 (Stable)。频繁变更的模块不应被多个模块直接依赖。
+      稳定的模块（如工具库）可以广泛依赖；不稳定的模块（如业务逻辑）应尽量减少被依赖。
+    reference: "SDP: Stable Dependencies Principle"
+    applies_to: "all"
+    enforcement: "REFACTOR_SUGGESTION"
+
+  - id: "M005"
+    description: |
+      高内聚低耦合 (High Cohesion, Low Coupling)：
+      - 高内聚：模块内的组件因共同目的聚在一起，一起变更
+      - 低耦合：模块间的依赖尽可能少。如果修改模块 A 经常导致模块 B 需要修改，说明耦合过高
+      耦合阈值：模块 A 的接口变更不应导致 >2 个其他模块需要修改。
+    applies_to: "all"
+    enforcement: "REFACTOR_SUGGESTION"
+
+  # ─── 数据跨越边界 ───
+  - id: "M006"
+    description: |
+      跨模块/跨层传递数据时，使用简单数据结构 (DTO / 值对象 / 基本类型 / 参数列表)。
+      禁止跨层传递：数据库 Row 对象、框架特定对象 (如 HttpRequest)、第三方库的复杂类型。
+      这些对象只能在其所属的层内使用，不能泄露到内层。
+    reference: "Clean Architecture — What Data Crosses Boundaries"
+    applies_to: "all"
+    enforcement: "BLOCK_AND_WARN"
+
+  # ─── 接口隔离 ───
+  - id: "M007"
+    description: |
+      模块间的接口应遵循 ISP (Interface Segregation Principle)：
+      调用方不应依赖它不使用的接口。
+      大接口应拆分为小而聚焦的接口。一个模块 10 个方法只用了 2 个 → 拆分。
+    reference: "SOLID — Interface Segregation Principle"
+    applies_to: "all"
+    enforcement: "WARN"
+
+  # ─── 依赖注入 ───
+  - id: "M008"
+    description: |
+      模块应通过依赖注入 (DI) 获取其依赖，而非直接 new/import 具体实现。
+      好处：测试时可替换为 mock/stub，内层不依赖外层的具体实现。
+      实现方式：构造函数注入、方法参数注入、框架 DI 容器。
+    applies_to: "all"
+    enforcement: "REFACTOR_SUGGESTION"
+
+  # ─── 独立可测 ───
+  - id: "M009"
+    description: |
+      每个模块应能独立测试，不依赖真实的外部服务。
+      测试一个模块时，它的依赖应该是可 mock 的接口，而不是需要启动的真实服务。
+      如果测试某个模块必须启动数据库/外部 API，说明边界设计有问题。
+    applies_to: "all"
+    enforcement: "WARN"
+
+  # ─── 跨模块通信 ───
+  - id: "M010"
+    description: |
+      模块间通信优先使用以下模式（按推荐优先级排列）：
+      1. 直接方法调用（同进程、同层模块间）
+      2. 接口 + DI（跨层调用：外层→内层通过接口反转）
+      3. 事件/消息（异步、松耦合场景）
+      4. 共享数据库（仅限遗留系统适配，不推荐新设计）
+      禁止模块 A 直接修改模块 B 的数据表/存储。每个模块拥有自己的数据。
+    applies_to: "all"
+    enforcement: "REFACTOR_SUGGESTION"
+
+  # ─── 模块拆分指南 ───
+  - id: "M011"
+    description: |
+      拆分模块的时机 (满足任一即应考虑拆分)：
+      1. 文件 >300 行
+      2. 目录下文件 >15 个且无子目录组织
+      3. 同一模块被 4+ 个其他模块依赖
+      4. 模块内包含了 2+ 个独立的业务领域
+
+      新建模块时验证：
+      - 一句话能否清晰描述模块职责？
+      - 能否独立测试模块？
+      - 修改模块内部实现是否不影响消费者？
+    applies_to: "all"
+    enforcement: "WARN"
+
+  # ─── 框架隔离 ───
+  - id: "M012"
+    description: |
+      业务逻辑不应直接依赖框架代码。
+      框架（Web 框架、ORM、消息队列库）应被限制在适配器/基础设施层。
+      Controller/Handler 可以使用框架注解/装饰器，但 Service/UseCase 层必须完全独立于框架。
+    reference: "Clean Architecture — Independent of Frameworks"
+    applies_to: "all"
+    enforcement: "REFACTOR_SUGGESTION"

@@ -4,7 +4,7 @@
 [![Version](https://img.shields.io/badge/version-v1.0.0-green)]()
 <br>[中文](README.zh-CN.md)
 
-AIOS transforms your AI coding agent from a forgetful assistant into a disciplined engineering collaborator. It combines the **skill chain** pattern from [Superpowers](https://github.com/obra/superpowers) with the **spec/change management** system from [OpenSpec](https://github.com/Fission-AI/OpenSpec), augmented with 80 actionable engineering rules based on OWASP, Google Code Review, and language community standards.
+AIOS transforms your AI coding agent from a forgetful assistant into a disciplined engineering collaborator. It combines the **skill chain** pattern from [Superpowers](https://github.com/obra/superpowers) with the **spec/change management** system from [OpenSpec](https://github.com/Fission-AI/OpenSpec), augmented with 100 actionable engineering rules based on OWASP, Google Code Review, and language community standards.
 
 ---
 
@@ -15,7 +15,7 @@ AIOS transforms your AI coding agent from a forgetful assistant into a disciplin
 - [How It Works](#how-it-works)
 - [Skills](#skills)
 - [Project Structure](#project-structure)
-- [Rules System (80 Rules)](#rules-system-80-rules)
+- [Rules System (100 Rules)](#rules-system-100-rules)
 - [Preset Profiles](#preset-profiles)
 - [CLI Commands](#cli-commands)
 - [Coexistence with Other Skill Packs](#coexistence-with-other-skill-packs)
@@ -32,7 +32,7 @@ AI coding assistants are powerful but unreliable without constraints. They forge
 AIOS solves this by injecting **memory, rules, and process** into every session:
 
 - **Memory** — `ai/state/` remembers project focus, tasks, and roadmap across sessions
-- **Rules** — 80 enforcement rules (L1 red lines, L2 architecture, L3 style) constrain every code action
+- **Rules** — 100 enforcement rules (L1 red lines, L2 architecture, L3 style) constrain every code action
 - **Process** — An 8-skill chain enforces design-before-code, test-before-implement, review-before-done
 - **Personalization** — `ai/config.yaml` captures your naming conventions, code style, commit format, and test framework
 - **Safety** — 8 L1 red lines prevent dangerous operations (git push, destructive commands, secret leakage)
@@ -97,11 +97,11 @@ AI:  [pai:retro] Scanning project...
 
 ### 3. Start coding
 
-Restart your AI tool. On the next session, `pai:bootstrap` auto-activates, loads your project state, injects 80 rules, and declares the skill chain. Just describe what you want to build.
+Restart your AI tool. On the next session, `pai:bootstrap` auto-activates, loads your project state, injects 100 rules, and declares the skill chain. Just describe what you want to build.
 
 ```
 You: "Add user login with JWT"
-AI:  [pai:bootstrap] AIOS Ready. Platform: OpenCode, Mode: standalone, Rules: 80 loaded.
+AI:  [pai:bootstrap] AIOS Ready. Platform: OpenCode, Mode: standalone, Rules: 100 loaded.
      [pai:design] Q1: What authentication method would you prefer? [JWT / Session / OAuth / Other]
      ... design discussion ...
      ✓ ai/changes/add-login/proposal.md
@@ -173,14 +173,14 @@ Three coexistence modes handle other skill packs automatically:
 
 | Skill | Trigger | What It Does |
 |-------|---------|--------------|
-| **pai:bootstrap** | Session start (auto) | 10-step startup: env scan, L1 rules, platform mapping, Red Flags, pressure test, version check, **auto-init if needed**, state load, 80 rules injection, config injection, skill chain declaration |
+| **pai:bootstrap** | Session start (auto) | 10-step startup: env scan, L1 rules, platform mapping, Red Flags, pressure test, version check, **auto-init if needed**, state load, 100 rules injection, config injection, skill chain declaration |
 | **pai:retro** | "aios retro" / "analyze project" | Reverse-engineers an existing project. Scans code/style files → auto-detects tech stack, conventions → generates `ai/` without modifying code. |
 | **pai:init** | Manual trigger or bootstrap redirect | Interactive project initialization. Select preset → confirm defaults → generates entire `ai/` directory. Same logic as bootstrap auto-init. |
 | **pai:design** | "Add / build / design / implement X" | Explores project context → asks clarifying questions one at a time (5 mandatory dimensions, see [pai-design](skills/pai-design/SKILL.md)) → proposes 2-3 approaches with trade-offs → presents design in sections for incremental approval → writes `proposal.md` + `design.md`. **No code before design approval.** |
 | **pai:spec** | Design approved | Reads current specs → generates delta spec (ADDED/MODIFIED/REMOVED using Given/When/Then scenarios) → generates `tasks.md` (2-5 min granularity) → writes change timestamp for conflict detection |
 | **pai:build** | Tasks ready, user confirms | Strict RED-GREEN-REFACTOR TDD cycle per task. Follows project conventions (indent, quotes, naming, test framework). Each task completion triggers `pai:review`. **Tests before implementation, always.** |
 | **pai:debug** | Test failure / runtime error / bug report | 4-step systematic debugging: Reproduce → Locate root cause (binary search, no guessing) → Propose fix → Fix + verify. Optionally records anti-pattern to `ai/memory/anti-patterns.md`. |
-| **pai:review** | After each task complete | 3D code review: Completeness (vs spec scenarios), Correctness (logic + edge cases + security), Compliance (80 rules across L1/L2/L3). Outputs Critical/Warning/OK classification. Critical issues block progress. |
+| **pai:review** | After each task complete | 3D code review: Completeness (vs spec scenarios), Correctness (logic + edge cases + security), Compliance (80 rules → 100 rules). Outputs Critical/Warning/OK classification. Critical issues block progress. |
 | **pai:done** | All tasks complete | Runs full test suite → conflict detection (checks if other unarchived changes touch same specs) → merges delta specs → archives change → updates state → generates git commit hint (Conventional Commits format) → triggers `pai:reflect` |
 | **pai:reflect** | After archive | Reviews the completed change cycle: Were there process deviations? Unexpected situations? Skill instruction improvements needed? Writes findings to `ai/memory/decisions.md`. |
 
@@ -201,7 +201,7 @@ your-project/
 │   │   ├── decisions.md             #   Tech decisions + pai:reflect retrospectives
 │   │   ├── anti-patterns.md         #   Forbidden patterns learned from bugs
 │   │   └── glossary.yaml           #   Unified project terminology
-│   ├── rules/                       # 80 engineering rules (auto-scanned by paibootstrap)
+│   ├── rules/                       # 100 engineering rules (auto-scanned by paibootstrap)
 │   │   ├── hard-rules.yaml          #   L1: Project-level red lines
 │   │   ├── arch-rules.yaml          #   L2: Architecture constraints (14 rules)
 │   │   ├── security-rules.yaml      #   L2: OWASP security (10 rules)
@@ -262,7 +262,7 @@ aios:
 
 ---
 
-## Rules System (80 Rules)
+## Rules System (100 Rules)
 
 All rules are automatically loaded by `pai:bootstrap` and enforced by `pai:review`. Rules in `ai/rules/custom/` are auto-scanned — add any `.yaml` file there.
 
@@ -426,7 +426,7 @@ Your choice is saved to `ai/config.yaml` for future sessions.
 
 In complementary mode, AIOS acts as a **background rules engine**:
 
-- All 80 rules are injected and enforced
+- All 100 rules are injected and enforced
 - Code conventions are applied to every code action
 - L1 red lines protect against dangerous operations
 - Skill chain is NOT injected — your other skill pack drives the workflow
@@ -442,7 +442,7 @@ In complementary mode, AIOS acts as a **background rules engine**:
 | **Red lines never off** | L1 safety rules persist across ALL sessions regardless of mode |
 | **Plan then build** | Design approval gate prevents premature implementation |
 | **Memory over amnesia** | `ai/state/` and `ai/memory/` maintain project context across sessions |
-| **Constraints as guardrails** | 80 rules prevent common mistakes; strict mode blocks violations |
+| **Constraints as guardrails** | 100 rules prevent common mistakes; strict mode blocks violations |
 | **Personalization over dogma** | `ai/config.yaml` captures YOUR conventions, not someone else's |
 | **Coexistence over lock-in** | Detects other tools, offers complementary mode, never forces a choice |
 | **Platform independence** | Same skills work on OpenCode, Claude Code, and any future platform via `tool-map.yaml` |

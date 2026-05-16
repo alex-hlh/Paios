@@ -69,7 +69,7 @@ Next: Task 2.1 - JWT token utility
    - `当前 Task: <task-id> <描述>`
    - `当前 TDD 状态: red`
 3. 只做这一个 task，不跳到其他
-3. **先写测试代码**：
+4. **先写测试代码**：
    - 遵循 `ai/config.yaml` 的 `testing.framework` 指定的测试框架
    - 遵循 `ai/rules/test-rules.yaml` 的测试规范
    - 遵循 AAA 模式：Arrange → Act → Assert
@@ -84,7 +84,7 @@ Next: Task 2.1 - JWT token utility
 
 1. **写入中断恢复点**：更新 `ai/state/current.md` → `当前 TDD 状态: green`
 2. 写**最少**的代码让测试通过——不要多写一行
-2. 遵循 `ai/config.yaml` 的 conventions.code 和 conventions.naming
+3. 遵循 `ai/config.yaml` 的 conventions.code 和 conventions.naming
 3. 遵循 `ai/rules/arch-rules.yaml` 的架构约束
 4. 遵循 `ai/rules/style-rules.yaml` 的代码风格
 5. 运行测试，确认通过（GREEN）

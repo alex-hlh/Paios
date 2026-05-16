@@ -237,7 +237,7 @@ src/
 5. Submit PR with Conventional Commits title
 ```
 
-### 步骤 6: 生成 CHANGE_AND_UPDATE.md
+### 步骤 6: 生成 CHANGELOG.md
 
 ```markdown
 # Changelog
@@ -274,7 +274,7 @@ src/
 |  API_REFERENCE.md     ⏭️  skipped (no API)  |
 |  CONTRIBUTING.md      ✅  generated        |
 |  DEVELOPMENT.md       ✅  generated        |
-|  CHANGE_AND_UPDATE.md    ✅  updated        |
+|  CHANGELOG.md    ✅  updated        |
 |                                            |
 +============================================+
 |  Source: ai/ files + project code analysis |

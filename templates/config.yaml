@@ -63,7 +63,7 @@ testing:
 
 # ─── AIOS 行为控制 ───
 aios:
-  strict_mode: true
+  strict_mode: {aios_strict_mode}
   auto_archive: false
   require_human_review: true
   language: {aios_language}

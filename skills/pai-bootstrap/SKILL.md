@@ -67,15 +67,19 @@ triggers:
 
 ```
 coexistence_mode 行为:
-  ask (默认)       → 检测到冲突时，暂停启动序列，向用户展示检测结果，
-                      询问选择模式。将用户选择写入 ai/config.yaml 以记住偏好。
-  standalone        → AIOS 完全接管。忽略其他技能包的技能链。
-                      仅 AIOS 的 Red Flags 和规则生效。强制执行 AIOS 技能链。
-  complementary     → AIOS 退化为"上下文注入器"模式：
+  ask (默认)        → 检测到冲突时，暂停启动序列，向用户展示检测结果，
+                       询问选择模式。将用户选择写入 ai/config.yaml 以记住偏好。
+  standalone         → AIOS 完全接管。忽略其他技能包的技能链。
+                       仅 AIOS 的 Red Flags 和规则生效。强制执行 AIOS 技能链。
+  complementary      → AIOS 退化为"上下文注入器"模式：
                        - 仍然加载 L1 红线 + 项目规则 + 状态 + 配置
                        - 仍然注入 Red Flags 表和压力测试
-                       - 不注入 AIOS 技能链触发规则
+                       - **不注入** AIOS 技能链触发规则
                        - 不覆盖或干扰其他技能包的工作流
+  rules-only         → 最轻模式：
+                       - 仅注入 L1 红线 + 项目规则 + 配置
+                       - 不注入 Red Flags 表、压力测试、技能链触发规则
+                       - 不输出就绪摘要和状态仪表盘
 ```
 
 如果 `ai/config.yaml` 不存在或未设置 `coexistence_mode`，默认为 `ask`。
@@ -94,11 +98,18 @@ coexistence_mode 行为:
 为避免指令冲突，请选择共存模式:
 
   A) AIOS 完全接管 (忽略其他技能包)
-  B) 互补模式 (AIOS 仅提供规则和状态，工作流由其他技能包驱动)
-  C) 本会话禁用 AIOS 技能链 (仅注入规则)
+   B) 互补模式 (AIOS 仅提供规则和状态，工作流由其他技能包驱动)
+   C) 仅注入规则 (无技能链提示，规则作为背景约束)
 
 你的选择: _
+
+用户选择后，将选择持久化到 `ai/config.yaml`：
+
+选择 A → coexistence_mode: "standalone"
+选择 B → coexistence_mode: "complementary"
+选择 C → coexistence_mode: "rules-only"
 ```
+
 
 用户选择后，将选择持久化到 `ai/config.yaml`：
 
@@ -254,7 +265,7 @@ ai/state/  ai/memory/  ai/rules/custom/  ai/specs/  ai/changes/
 | `templates/.version` | `ai/.version` | 直接写入 `v1.0.0`（当前版本号） |
 | `templates/state/*.md` | `ai/state/` (3 个文件) | `{date}, {current_change}, {next_actions}, ...` |
 | `templates/memory/*.{md,yaml}` | `ai/memory/` (3 个文件) | `{date}, {tech_stack}` |
-| `templates/rules/*.yaml` | `ai/rules/` (9 个文件) | `{testing_coverage_threshold}, {git_branch_naming}` |
+| `templates/rules/*.yaml` | `ai/rules/` (10 个文件) | `{testing_coverage_threshold}, {git_branch_naming}` |
 | `templates/specs/.gitkeep` | `ai/specs/.gitkeep` | — |
 | `templates/changes/.gitkeep` | `ai/changes/.gitkeep` | — |
 
@@ -484,9 +495,9 @@ AIOS 当前运行在互补模式 (complementary)。
 |                                            |
 +-- Rules Loaded -----------------------------+
 |                                            |
-|  L1 (red lines):    8/8    ✅              |
-|  L2 (arch/security):  53/54   ⚠️ 1 skipped|
-|  L3 (style/test):   26/26  ✅              |
+|  L1 (red lines):      8/8    ✅              |
+|  L2 (arch/module/sec): 65/66   ⚠️ 1 skipped |
+|  L3 (style/test):     26/26  ✅              |
 |                                            |
 +-- Next Actions -----------------------------+
 |                                            |
@@ -504,7 +515,7 @@ AIOS 当前运行在互补模式 (complementary)。
 +------------------------------------+
 |  Platform: OpenCode  |  Mode: standalone  |
 |  Project: MyApp      |  Preset: node...  |
-|  Rules:  80/80 loaded   ✅                |
+|  Rules:  100/100 loaded   ✅                |
 |  Change: none — say what you want to build |
 +------------------------------------+
 ```

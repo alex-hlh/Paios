@@ -64,7 +64,11 @@ Next: Task 2.1 - JWT token utility
 ### RED: 写测试（先！）
 
 1. 从 `ai/changes/<change-name>/tasks.md` 取下一个未完成的 task
-2. 只做这一个 task，不跳到其他
+2. **写入中断恢复点**：用 {file-edit} 更新 `ai/state/current.md`：
+   - `当前阶段: build`
+   - `当前 Task: <task-id> <描述>`
+   - `当前 TDD 状态: red`
+3. 只做这一个 task，不跳到其他
 3. **先写测试代码**：
    - 遵循 `ai/config.yaml` 的 `testing.framework` 指定的测试框架
    - 遵循 `ai/rules/test-rules.yaml` 的测试规范
@@ -78,7 +82,8 @@ Next: Task 2.1 - JWT token utility
 
 ### GREEN: 最小实现
 
-1. 写**最少**的代码让测试通过——不要多写一行
+1. **写入中断恢复点**：更新 `ai/state/current.md` → `当前 TDD 状态: green`
+2. 写**最少**的代码让测试通过——不要多写一行
 2. 遵循 `ai/config.yaml` 的 conventions.code 和 conventions.naming
 3. 遵循 `ai/rules/arch-rules.yaml` 的架构约束
 4. 遵循 `ai/rules/style-rules.yaml` 的代码风格
@@ -87,7 +92,8 @@ Next: Task 2.1 - JWT token utility
 
 ### REFACTOR: 改进代码
 
-1. 在测试保持通过的前提下重构：
+1. **写入中断恢复点**：更新 `ai/state/current.md` → `当前 TDD 状态: refactor`
+2. 在测试保持通过的前提下重构：
    - 消除重复
    - 改善命名
    - 提取方法/函数
@@ -97,7 +103,8 @@ Next: Task 2.1 - JWT token utility
 ### 勾选 Task
 
 1. 用 {file-edit} 将 tasks.md 中对应 task 的 `- [ ]` 改为 `- [x]`
-2. **立即触发 pai:review** 审查本次 task 的代码
+2. **清除中断恢复点**：更新 `ai/state/current.md` → `当前 TDD 状态: 无`, `当前 Task: 无`
+3. **立即触发 pai:review** 审查本次 task 的代码
 
 ### 进度展示
 

@@ -148,6 +148,9 @@ function Invoke-Init {
         aios_language = $cfg['language']
         coexistence_mode = if ($cfg.ContainsKey('coexistence_mode')) { $cfg['coexistence_mode'] } else { 'ask' }
         current_change = "None"
+        current_phase = "None"
+        current_task = "None"
+        tdd_state = "None"
         current_sprint = "Project init"
         blockers = "None"
         next_actions = "Complete project setup"

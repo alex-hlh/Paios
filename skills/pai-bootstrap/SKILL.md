@@ -326,6 +326,47 @@ ai/state/  ai/memory/  ai/rules/custom/  ai/specs/  ai/changes/
 4. `ai/state/roadmap.md` → 版本路线图
 5. `ai/memory/glossary.yaml` → 项目统一术语表
 
+**中断恢复检测：**
+
+读取 `ai/state/current.md` 后，如果发现存在"进行中"的 change 且 tasks.md 有未完成的 task，输出中断恢复提示：
+
+```
++============================================+
+|  INTERRUPTION DETECTED                      |
++============================================+
+|                                            |
+|  Previous session was interrupted during:  |
+|    Change:  add-user-login                 |
+|    Phase:   pai:build (TDD cycle)          |
+|    Task:    2.2 Auth middleware ← was ON   |
+|                                            |
+|  Resume options:                           |
+|                                            |
+|  A) Continue where I left off (recommended)|
+|     → pai:build resumes from Task 2.2     |
+|                                            |
+|  B) Review what was completed              |
+|     → pai:review checks all done tasks     |
+|                                            |
+|  C) Start fresh (archive current change)   |
+|     → pai:done archives as-is              |
+|                                            |
++============================================+
+
+你的选择 [A]: _
+```
+
+**中断恢复时各技能行为：**
+
+| 中断于 | 恢复技能 | 恢复行为 |
+|--------|---------|---------|
+| pai:design 中 | pai:design | 读已有 proposal/design，从上次确认的节继续 |
+| pai:spec 中 | pai:spec | 读已有 proposal/design，继续生成剩余 artifact |
+| pai:build 中 | pai:build | 读 tasks.md，从第一个未勾选 task 继续 TDD |
+| pai:debug 中 | pai:debug | 重新复现问题，定位状态从上次记录恢复 |
+| pai:review 中 | pai:review | 重新审查当前 task，上次结果仅供参考 |
+| pai:done 中 | pai:done | 检查是否所有步骤已完成，继续未完成的步骤 |
+
 ### 步骤 7: 扫描并加载所有规则文件
 
 扫描 `ai/rules/` 下所有 `.yaml` 文件（包括 `custom/` 子目录），按优先级注入：

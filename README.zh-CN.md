@@ -1,7 +1,7 @@
 ﻿# AIOS —— 个人 AI 工程操作系统
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-v1.1.0-green)]()
+[![Version](https://img.shields.io/badge/version-v1.2.0-green)]()
 <br>[English](README.md)
 
 AIOS 将你的 AI 编码助手从健忘的帮手升级为有纪律的工程协作伙伴。融合 [Superpowers](https://github.com/obra/superpowers) 的**技能链**模式、[OpenSpec](https://github.com/Fission-AI/OpenSpec) 的 **Spec/Change 管理**体系，并基于 OWASP、Google Code Review 和各语言社区标准内置了 **100 条可执行的工程规则**。

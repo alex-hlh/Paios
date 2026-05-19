@@ -519,6 +519,7 @@ AIOS控制: strict_mode={aios.strict_mode}, auto_archive={aios.auto_archive}, la
 
 | 当前状态 | 自动触发技能 |
 |---------|-------------|
+| 用户提出产品级需求（需PRD） | → pai:prd |
 | 用户提出新功能/修改需求 | → pai:design |
 | 开发中途追加/变更需求 | → pai:amend |
 | 设计文档已确认 | → pai:spec |
@@ -607,13 +608,13 @@ AIOS 当前运行在互补模式 (complementary)。
 
 ## 技能链
 
-bootstrap → design → (amend) → spec → build → (debug / review) → done → reflect
+prd → story → design → (amend) → spec → build → (debug / review) → done → reflect
 
 ## 使用场景速查
 
 | 你的情况 | 操作 |
 |---------|------|
-| 全新项目，想用 AIOS 管全程 | `npx @huahu/paios init` → 重启 AI → 说需求 |
+| 全新项目，想从产品规划开始 | `/pai:prd` → 7 阶段 PRD |
 | **有项目计划书，想系统执行** | **重启 AI → 说"根据这份计划书设计" → 粘贴/附上文档 → pai:design 导入模式** |
 | 已有项目，想适配现有代码 | `/pai:retro` → AI 自动检测技术栈和风格 → 生成配置 |
 | 已有 AIOS 项目，刚打开 | 无需操作，`pai:bootstrap` 自动加载 |
@@ -634,6 +635,7 @@ bootstrap → design → (amend) → spec → build → (debug / review) → don
 | 技能 | 必需要素（不能降级） | 可降级（没有时用默认值） | 完全独立可用？ |
 |------|---------------------|----------------------|:---:|
 | **pai:init** | 无 | — | ✅ |
+| **pai:prd** | 无 | `ai/config.yaml` → 使用项目名 + universal 默认 | ✅ |
 | **pai:bootstrap** | 无（无 ai/ 则引导 init） | — | ✅ |
 | **pai:design** | 无 | `ai/config.yaml` → universal 预设 | ✅ |
 | **pai:amend** | 活跃 change (ai/state/current.md) | 无活跃 change → 降级为 pai:design | ✅ |

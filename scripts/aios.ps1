@@ -18,7 +18,7 @@ param(
 $ErrorActionPreference = "Stop"
 $ScriptRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
 $TemplatesDir = Join-Path (Split-Path -Parent $ScriptRoot) "templates"
-$Version = "v1.1.1"
+$Version = "v1.2.0"
 $Utf8NoBom = New-Object System.Text.UTF8Encoding $false
 
 # Validate template directory exists

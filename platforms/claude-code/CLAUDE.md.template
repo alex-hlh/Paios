@@ -15,6 +15,7 @@
 
 - `pai:bootstrap` — 启动引导、加载规则和状态
 - `pai:prd` — 产品规划（PRD 文档生成）
+- `pai:story` — 需求分析与原型设计
 - `pai:init` — 项目初始化
 - `pai:retro` — 已有项目逆向适配
 - `pai:docs` — 项目文档生成

@@ -614,7 +614,7 @@ prd → story → design → (amend) → spec → build → (debug / review) →
 
 | 你的情况 | 操作 |
 |---------|------|
-| 全新项目，想从产品规划开始 | `/pai:prd` → 7 阶段 PRD |
+| 全新项目，想从产品规划开始 | `/pai:prd` → `/pai:story` → `/pai:design` |
 | **有项目计划书，想系统执行** | **重启 AI → 说"根据这份计划书设计" → 粘贴/附上文档 → pai:design 导入模式** |
 | 已有项目，想适配现有代码 | `/pai:retro` → AI 自动检测技术栈和风格 → 生成配置 |
 | 已有 AIOS 项目，刚打开 | 无需操作，`pai:bootstrap` 自动加载 |
@@ -636,6 +636,7 @@ prd → story → design → (amend) → spec → build → (debug / review) →
 |------|---------------------|----------------------|:---:|
 | **pai:init** | 无 | — | ✅ |
 | **pai:prd** | 无 | `ai/config.yaml` → 使用项目名 + universal 默认 | ✅ |
+| **pai:story** | prd.md (可选) | 无 prd.md → 直接询问用户功能描述 | ✅ |
 | **pai:bootstrap** | 无（无 ai/ 则引导 init） | — | ✅ |
 | **pai:design** | 无 | `ai/config.yaml` → universal 预设 | ✅ |
 | **pai:amend** | 活跃 change (ai/state/current.md) | 无活跃 change → 降级为 pai:design | ✅ |

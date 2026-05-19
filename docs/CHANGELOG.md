@@ -1,20 +1,17 @@
 # Changelog
 
-## v1.1.1 (2026-05-16)
+## v1.3.0 (2026-05-16)
 
 ### Added
-- `pai:prd` skill — 7-stage product requirements document generation
-- PRD outputs: `prd.md` + `personas.md` with ASCII user journey diagrams
+- `pai:story` skill — 5-step requirements analysis and prototype design
+- ASCII prototype wireframes (`docs/prototype.md`)
+- Page element data flow diagrams (`docs/data-flows.md`)
+- Backend business flow swimlane diagrams (`docs/backend-flows.md`)
+- API endpoint list and backend module summary (`docs/api-list.md`)
+- Full-stack feature point tracking with PRD traceability (`docs/feature-points.md`)
+- Seamless handoff to pai:design and pai:spec via auto-read of feature-points.md
 
-### Fixed
-- Cross-domain integration auto-detection in pai:spec (P0)
-- Integration task generation for 3+ modules in pai:build (P0)
-- 4-step review with import consistency and dead code detection
-- Signal wiring diagrams in pai:design
-- Soft-completion checks in pai:done
-- Language-agnostic checks for Python/Node/Rust/Go/Java
-
-## v1.0.0 (2026-05-16)
+## v1.2.0 (2026-05-16)
 
 ### Added
 - 14 个核心技能：bootstrap / prd / init / retro / docs / design / amend / spec / build / debug / review / done / reflect / status

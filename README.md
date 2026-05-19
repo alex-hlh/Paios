@@ -1,7 +1,7 @@
 # AIOS — Personal AI Engineering Operating System
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-v1.2.0-green)]()
+[![Version](https://img.shields.io/badge/version-v1.3.0-green)]()
 <br>[中文](README.zh-CN.md)
 
 AIOS transforms your AI coding agent from a forgetful assistant into a disciplined engineering collaborator. It combines the **skill chain** pattern from [Superpowers](https://github.com/obra/superpowers) with the **spec/change management** system from [OpenSpec](https://github.com/Fission-AI/OpenSpec), augmented with 100 actionable engineering rules based on OWASP, Google Code Review, and language community standards.
@@ -175,6 +175,7 @@ Three coexistence modes handle other skill packs automatically:
 |-------|---------|--------------|
 | **pai:bootstrap** | Session start (auto) | 10-step startup: env scan, L1 rules, platform mapping, Red Flags, pressure test, version check, **auto-init if needed**, state load, 100 rules injection, config injection, skill chain declaration |
 | **pai:prd** | "帮我写 PRD" / "/pai:prd" | 7-stage structured PRD: problem → personas → journey → MoSCoW → NFR → milestones → risks. Produces `prd.md` + `personas.md`. |
+| **pai:story** | "出原型" / "/pai:story" | 5-step requirements analysis: prototype ASCII wireframes → data flows → backend flows → API list → feature points. Outputs 5 `docs/*.md` files. Connects PRD to design. |
 | **pai:retro** | "aios retro" / "analyze project" | Reverse-engineers an existing project. Scans code/style files → auto-detects tech stack, conventions → generates `ai/` without modifying code. |
 | **pai:init** | Manual trigger or bootstrap redirect | Interactive project initialization. Select preset → confirm defaults → generates entire `ai/` directory. Same logic as bootstrap auto-init. |
 | **pai:design** | "Add / build / design / implement X" | Explores project context → asks 5-dim mandatory questions → proposes 2-3 approaches → presents design with ASCII diagrams → writes proposal + design. **No code before approval.** |

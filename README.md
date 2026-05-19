@@ -44,29 +44,21 @@ AIOS solves this by injecting **memory, rules, and process** into every session:
 
 ### 1. Install
 
-**npx (recommended — no install required):**
-```bash
-npx @huahu/paios init
-```
-
-**Or install globally:**
 ```bash
 npm install -g @huahu/paios
-paios init
 ```
 
-**OpenCode plugin:**
-```json
-{ "plugin": ["paios@git+https://github.com/alex-hlh/Paios.git"] }
-```
+This gives you both the CLI tool and all 14 AI skills.
 
-**Claude Code plugin:**
+### 2. Register skills with your AI tool
+
 ```bash
-/plugin marketplace add alex-hlh/aios-marketplace
-/plugin install paios@aios-marketplace
+paios install
 ```
 
-### 2. Initialize your project
+Auto-detects Claude Code, OpenCode, and other AI tools — registers all skills with zero manual config. Skills become available to the AI on next session.
+
+### 3. Initialize your project
 
 **Automatic (recommended):** After installing the AI tool plugin, restart. `pai:bootstrap` detects the missing `ai/` directory and offers to initialize — just answer a few questions and AI does the rest.
 
@@ -339,11 +331,10 @@ To customize: edit `ai/config.yaml` after init, or answer the interactive prompt
 ```bash
 # Interactive initialization
 npx @huahu/paios init
-npx @huahu/paios init --defaults
-npx @huahu/paios init --defaults --tech node,react
-npx @huahu/paios init --preset python --name "MyAPI"
+npx @huahu/paios install
 npx @huahu/paios status
-npx @huahu/paios update
+npx @huahu/paios init --defaults
+npx @huahu/paios init --preset python --name "MyAPI"
 ```
 
 ### `npx paios init` Interactive Flow
@@ -455,11 +446,31 @@ In complementary mode, AIOS acts as a **background rules engine**:
 
 ## Installation Reference
 
-### OpenCode
+### Quick install
 
-Add to `opencode.json` (project or global):
-```json
-{ "plugin": ["aios@git+https://github.com/alex-hlh/Paios.git"] }
+```bash
+npm install -g @huahu/paios
+paios install         # Register skills with all detected AI tools
+cd your-project
+paios init --defaults
+```
+
+### Platform-specific
+
+**OpenCode:** Already configured by `paios install`. The `opencode.json` at `~/.config/opencode/opencode.json` will have `skills.paths` pointing to the package.
+
+**Claude Code:** Already configured by `paios install`. Skills are linked to `~/.claude/skills/paios-*`.
+
+**Manual (no CLI):**
+```bash
+# Install
+npm install -g @huahu/paios
+
+# Find skills directory
+ls $(npm root -g)/@huahu/paios/skills
+
+# Claude Code
+ln -s $(npm root -g)/@huahu/paios/skills/* ~/.claude/skills/paios-*/
 ```
 
 To pin a version:

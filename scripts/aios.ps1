@@ -99,8 +99,70 @@ function Read-Default([string]$Prompt, [string]$Default) {
 }
 
 # ================================================
-# COMMAND: init
+# COMMAND: install — register skills with AI tools
 # ================================================
+function Invoke-Install {
+    Write-Host ""
+    Write-Host "======== AIOS Install ========" -ForegroundColor Cyan
+    Write-Host "  Registering skills with AI tools..."
+    Write-Host ""
+
+    $skillsDir = Join-Path (Split-Path -Parent $ScriptRoot) "skills"
+    $done = @()
+
+    # ─── Claude Code ───
+    $claudeSkills = Join-Path $env:USERPROFILE ".claude\skills"
+    if (Test-Path (Join-Path $env:USERPROFILE ".claude\plugins")) {
+        if (-not (Test-Path $claudeSkills)) { New-Item -ItemType Directory -Path $claudeSkills -Force | Out-Null }
+        Get-ChildItem $skillsDir -Directory | ForEach-Object {
+            $dest = Join-Path $claudeSkills "paios-$($_.Name)"
+            if (-not (Test-Path $dest)) {
+                New-Item -ItemType Junction -Path $dest -Target $_.FullName -Force | Out-Null
+            }
+        }
+        Write-Success "  Claude Code: $((Get-ChildItem $claudeSkills -Filter 'paios-*').Count) skills registered"
+        $done += "Claude Code ($((Get-ChildItem $claudeSkills -Filter 'paios-*').Count) skills)"
+    } else {
+        Write-Warn "  Claude Code: not detected (skip)"
+    }
+
+    # ─── OpenCode ───
+    $opencodeConfig = Join-Path $env:USERPROFILE ".config\opencode\opencode.json"
+    if (Test-Path $opencodeConfig) {
+        $cfg = Get-Content $opencodeConfig -Raw | ConvertFrom-Json
+        $pkgSkills = $skillsDir -replace '\\', '/'
+        $needsUpdate = $true
+        if ($cfg.skills -and $cfg.skills.paths) {
+            foreach ($p in $cfg.skills.paths) {
+                if ($p -eq $pkgSkills) { $needsUpdate = $false; break }
+            }
+        }
+        if ($needsUpdate) {
+            if (-not $cfg.skills) { $cfg = $cfg | Add-Member -NotePropertyName "skills" -NotePropertyValue @{paths=@()} -Force }
+            $cfg.skills.paths += $pkgSkills
+            $cfg | ConvertTo-Json -Depth 10 | Set-Content $opencodeConfig -Encoding UTF8
+            Write-Success "  OpenCode: skills path added"
+            $done += "OpenCode"
+        } else {
+            Write-Success "  OpenCode: already configured"
+            $done += "OpenCode (already set)"
+        }
+    } else {
+        Write-Warn "  OpenCode: not detected (skip)"
+    }
+
+    # ─── Summary ───
+    Write-Host ""
+    if ($done.Count -gt 0) {
+        Write-Host "AIOS install complete: $($done -join ', ')"
+        Write-Host "Restart your AI tool for changes to take effect."
+    } else {
+        Write-Warn "No supported AI tools detected."
+        Write-Warn "Supported: Claude Code (claude), OpenCode (opencode)"
+        Write-Host "Manual install docs: https://github.com/alex-hlh/Paios"
+    }
+    Write-Host ""
+}
 function Invoke-Init {
     Write-Host ""
     Write-Host "========================================" -ForegroundColor Cyan
@@ -346,6 +408,7 @@ function Invoke-Update {
 # ================================================
 switch ($Command.ToLower()) {
     "init"   { Invoke-Init }
+    "install" { Invoke-Install }
     "status" { Invoke-Status }
     "update" { Invoke-Update }
     default {
@@ -353,6 +416,7 @@ switch ($Command.ToLower()) {
         Write-Host ""
         Write-Host "Usage:"
         Write-Host "  aios init [--defaults] [--preset name] [--name name] [--tech list]"
+        Write-Host "  aios install                 Register skills with AI tools"
         Write-Host "  aios status"
         Write-Host "  aios update"
         Write-Host ""

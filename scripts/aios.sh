@@ -420,10 +420,82 @@ cmd_update() {
 }
 
 # ═══════════════════════════════════════════════
+# COMMAND: install — register skills with AI tools
+# ═══════════════════════════════════════════════
+cmd_install() {
+    echo ""
+    echo -e "${C_CYAN}======== AIOS Install ========${C_RESET}"
+    echo "  Registering skills with AI tools..."
+    echo ""
+
+    local skills_dir="$ROOT_DIR/skills"
+    local done_list=""
+
+    # Claude Code
+    if [[ -d "$HOME/.claude/plugins" ]]; then
+        local claude_dir="$HOME/.claude/skills"
+        mkdir -p "$claude_dir"
+        for skill in "$skills_dir"/*/; do
+            local name=$(basename "$skill")
+            if [[ ! -L "$claude_dir/paios-$name" ]]; then
+                ln -s "$skill" "$claude_dir/paios-$name" 2>/dev/null
+            fi
+        done
+        local count=$(ls -d "$claude_dir"/paios-* 2>/dev/null | wc -l)
+        ok "  Claude Code: $count skills registered"
+        done_list="$done_list, Claude Code ($count skills)"
+    else
+        warn "  Claude Code: not detected (skip)"
+    fi
+
+    # OpenCode
+    if [[ -f "$HOME/.config/opencode/opencode.json" ]]; then
+        local config_file="$HOME/.config/opencode/opencode.json"
+        local skills_path="$skills_dir"
+        if grep -q "$skills_path" "$config_file" 2>/dev/null; then
+            ok "  OpenCode: already configured"
+            done_list="$done_list, OpenCode (already set)"
+        else
+            # Add skills.paths entry
+            local tmp=$(mktemp)
+            python3 -c "
+import json
+with open('$config_file') as f:
+    cfg = json.load(f)
+if 'skills' not in cfg:
+    cfg['skills'] = {}
+if 'paths' not in cfg['skills']:
+    cfg['skills']['paths'] = []
+if '$skills_path' not in cfg['skills']['paths']:
+    cfg['skills']['paths'].append('$skills_path')
+with open('$config_file', 'w') as f:
+    json.dump(cfg, f, indent=2)
+" 2>/dev/null
+            ok "  OpenCode: skills path added"
+            done_list="$done_list, OpenCode"
+        fi
+    else
+        warn "  OpenCode: not detected (skip)"
+    fi
+
+    echo ""
+    if [[ -n "$done_list" ]]; then
+        done_list="${done_list#, }"
+        echo "AIOS install complete: $done_list"
+        echo "Restart your AI tool for changes to take effect."
+    else
+        warn "No supported AI tools detected."
+        echo "Supported: Claude Code (claude), OpenCode (opencode)"
+    fi
+    echo ""
+}
+
+# ═══════════════════════════════════════════════
 # MAIN
 # ═══════════════════════════════════════════════
 case "$COMMAND" in
     init)   cmd_init ;;
+    install) cmd_install ;;
     status) cmd_status ;;
     update) cmd_update ;;
     *)
@@ -431,6 +503,7 @@ case "$COMMAND" in
         echo ""
         echo "Usage:"
         echo "  aios init [--defaults] [--preset <name>] [--name <name>] [--tech <list>]"
+        echo "  aios install                 Register skills with AI tools"
         echo "  aios status"
         echo "  aios update"
         echo ""

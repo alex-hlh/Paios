@@ -44,27 +44,21 @@ AIOS 通过在每个会话中注入**记忆、规则和流程**来解决：
 
 ### 1. 安装
 
-**npx（推荐，无需安装）：**
-```bash
-npx @huahu/paios init
-```
-
-**或全局安装：**
 ```bash
 npm install -g @huahu/paios
-paios init
 ```
 
-**OpenCode 插件：**
-```json
-{ "plugin": ["paios@git+https://github.com/alex-hlh/Paios.git"] }
-```
+安装后包含 CLI 工具 + 全部 14 个 AI 技能。
 
-**Claude Code 插件：**
+### 2. 注册技能到 AI 工具
+
 ```bash
-/plugin marketplace add alex-hlh/aios-marketplace
-/plugin install paios@aios-marketplace
+paios install
 ```
+
+自动检测 Claude Code、OpenCode 等 AI 工具——一键注册所有技能，零手动配置。重启 AI 后技能即生效。
+
+### 3. 初始化项目
 
 ### 2. 初始化项目
 

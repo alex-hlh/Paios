@@ -1,4 +1,4 @@
----
+﻿---
 name: pai-story
 description: 需求分析与原型设计 — 将 PRD 中的功能需求转化为 ASCII 原型图 → 数据流 → 后台流程 → 接口列表 → 前后端功能清单。从"做什么"到"怎么做（业务层）"的完整落地。
 triggers:
@@ -38,17 +38,17 @@ triggers:
 
 | 文件 | 内容 |
 |:---|:---|
-| `docs/prototype.md` | ASCII 原型图（页面线框图） |
-| `docs/data-flows.md` | 页面元素交互与数据流 |
-| `docs/backend-flows.md` | 后台业务流程图 |
-| `docs/api-list.md` | 接口清单与功能描述 |
-| `docs/feature-points.md` | 前后端全部功能点 |
+| `ai/prototype.md` | ASCII 原型图（页面线框图） |
+| `ai/data-flows.md` | 页面元素交互与数据流 |
+| `ai/backend-flows.md` | 后台业务流程图 |
+| `ai/api-list.md` | 接口清单与功能描述 |
+| `ai/feature-points.md` | 前后端全部功能点 |
 
 ## 5 步工作流
 
 使用 {task-manager} 创建 5 个任务，逐步执行。**每步产出需经用户确认才能进入下一步**。
 
-> **新功能发现处理**：在任何步骤中，如果用户提出超出当前范围的新功能，遵循 Step 1 的路径 B 规则——不打断当前流程，记录到 `docs/feature-points.md` 的待定区，在当前 story 完成后单独处理。
+> **新功能发现处理**：在任何步骤中，如果用户提出超出当前范围的新功能，遵循 Step 1 的路径 B 规则——不打断当前流程，记录到 `ai/feature-points.md` 的待定区，在当前 story 完成后单独处理。
 
 ---
 
@@ -73,11 +73,11 @@ triggers:
 |  本次分析: 用户登录与注册                  |
 |                                            |
 |  将产出:                                    |
-|    1. ASCII 原型图  → docs/prototype.md   |
-|    2. 数据流描述     → docs/data-flows.md  |
-|    3. 后台流程       → docs/backend-flows.md|
-|    4. 接口清单       → docs/api-list.md    |
-|    5. 功能点汇总     → docs/feature-points.md  |
+|    1. ASCII 原型图  → ai/prototype.md   |
+|    2. 数据流描述     → ai/data-flows.md  |
+|    3. 后台流程       → ai/backend-flows.md|
+|    4. 接口清单       → ai/api-list.md    |
+|    5. 功能点汇总     → ai/feature-points.md  |
 |                                            |
 +============================================+
 ```
@@ -92,7 +92,7 @@ triggers:
 - 必须逐页绘制，一次只画一个页面
 - 画完一页必须展示给用户确认
 - 用户不同意则修改后再确认
-- 确认后写入 `docs/prototype.md`
+- 确认后写入 `ai/prototype.md`
 
 **流程**：
 
@@ -174,7 +174,7 @@ triggers:
 | "再加个第三方支付" | B | 新功能域，新 API |
 | "这里再加个筛选功能" | B | 独立的功能模块 |
 
-路径 A 直接在循环内处理，路径 B 记录到 `docs/feature-points.md` 的待定区：
+路径 A 直接在循环内处理，路径 B 记录到 `ai/feature-points.md` 的待定区：
 
 ```markdown
 ## 待定功能（当前轮次不分析）
@@ -217,11 +217,11 @@ AI: 已更新登录页原型，添加了"记住我"复选框。
 **规则**：
 - 一次只处理一个可操作元素
 - 每个元素必须经过"用户描述 → AI 生成 → 用户确认"循环
-- 所有元素确认后一次性写入 `docs/data-flows.md`
+- 所有元素确认后一次性写入 `ai/data-flows.md`
 
 **流程**：
 
-1. 从已确认的 `docs/prototype.md` 中提取可操作元素清单并展示：
+1. 从已确认的 `ai/prototype.md` 中提取可操作元素清单并展示：
 
 ```
 从原型图中识别到以下可操作元素:
@@ -258,7 +258,7 @@ AI: 已更新登录页原型，添加了"记住我"复选框。
 
 3. 每个元素确认后记录，然后进入下一个
 
-4. 所有元素确认后，生成完整数据流并输出到 `docs/data-flows.md`：
+4. 所有元素确认后，生成完整数据流并输出到 `ai/data-flows.md`：
 
 ```
 ## 登录页数据流
@@ -289,7 +289,7 @@ AI: 已更新登录页原型，添加了"记住我"复选框。
 
 **流程**：
 
-1. 从 `docs/api-list.md`（如已存在）或第二步结果中提取 API 清单：
+1. 从 `ai/api-list.md`（如已存在）或第二步结果中提取 API 清单：
 
 ```
 需要绘制后台流程的 API:
@@ -356,7 +356,7 @@ API 1: POST /api/auth/login
 正确吗？[Y/n]
 ```
 
-4. 用户确认后追加到 `docs/backend-flows.md`，进入下一个 API
+4. 用户确认后追加到 `ai/backend-flows.md`，进入下一个 API
 
 5. 所有 API 完成后输出摘要
 
@@ -371,11 +371,11 @@ API 1: POST /api/auth/login
 **规则**：
 - 一次只定义一个 API 端点
 - 必须覆盖请求/响应结构、状态码、关联功能
-- 逐个确认后写入 `docs/api-list.md`
+- 逐个确认后写入 `ai/api-list.md`
 
 **流程**：
 
-1. 从已确认的 `docs/backend-flows.md` 中提取 API 清单：
+1. 从已确认的 `ai/backend-flows.md` 中提取 API 清单：
 
 ```
 从后台流程中识别出以下接口:
@@ -419,7 +419,7 @@ POST /api/auth/login
 正确吗？[Y/n]
 ```
 
-4. 用户确认后追加到 `docs/api-list.md`，进入下一个接口
+4. 用户确认后追加到 `ai/api-list.md`，进入下一个接口
 
 5. 所有接口确认后，汇总后端功能模块：
 
@@ -487,7 +487,7 @@ POST /api/auth/login
 后端功能点正确完整吗？[Y/n]
 ```
 
-3. 确认后生成功能追溯表并写入 `docs/feature-points.md`：
+3. 确认后生成功能追溯表并写入 `ai/feature-points.md`：
 
 ```
 | 功能点 | 来源 PRD | MoSCoW | 关联 Story |
@@ -514,11 +514,11 @@ POST /api/auth/login
 |  分析功能: 用户登录与注册                    |
 |                                            |
 |  产出物:                                    |
-|    docs/prototype.md       ✅ 2 个页面      |
-|    docs/data-flows.md      ✅ 2 条数据流    |
-|    docs/backend-flows.md   ✅ 2 条流程      |
-|    docs/api-list.md        ✅ 2 个接口     |
-|    docs/feature-points.md  ✅ 15 个功能点   |
+|    ai/prototype.md       ✅ 2 个页面      |
+|    ai/data-flows.md      ✅ 2 条数据流    |
+|    ai/backend-flows.md   ✅ 2 条流程      |
+|    ai/api-list.md        ✅ 2 个接口     |
+|    ai/feature-points.md  ✅ 15 个功能点   |
 |                                            |
 |  待定功能 (在当前 story 中发现):             |
 |    ⏳ 生物识别登录（可规划到后继 sprint）    |
@@ -534,11 +534,11 @@ POST /api/auth/login
 |  分析功能: 用户登录与注册                    |
 |                                            |
 |  产出物:                                    |
-|    docs/prototype.md       ✅ 2 个页面      |
-|    docs/data-flows.md      ✅ 2 条数据流    |
-|    docs/backend-flows.md   ✅ 2 条流程      |
-|    docs/api-list.md        ✅ 2 个接口     |
-|    docs/feature-points.md  ✅ 15 个功能点   |
+|    ai/prototype.md       ✅ 2 个页面      |
+|    ai/data-flows.md      ✅ 2 条数据流    |
+|    ai/backend-flows.md   ✅ 2 条流程      |
+|    ai/api-list.md        ✅ 2 个接口     |
+|    ai/feature-points.md  ✅ 15 个功能点   |
 |                                            |
 +============================================+
 |  下一步: 运行 /pai:design 开始技术设计       |
@@ -550,8 +550,8 @@ POST /api/auth/login
 
 `pai:story` 完成后，`pai:design` 的阶段 0 自动读取：
 
-- `docs/feature-points.md` → 导入功能点列表，跳过发现式提问
-- `docs/api-list.md` → 作为 `pai:spec` 的 API 层 delta spec 输入
+- `ai/feature-points.md` → 导入功能点列表，跳过发现式提问
+- `ai/api-list.md` → 作为 `pai:spec` 的 API 层 delta spec 输入
 
 后续技能链中的 `pai:spec` 可直接从功能点生成 ADDED requirements：
 

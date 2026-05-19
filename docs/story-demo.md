@@ -1,4 +1,4 @@
-# pai:story 执行示例 — 用户登录与注册
+﻿# pai:story 执行示例 — 用户登录与注册
 
 > 以"二手相机交易平台"的登录注册功能为例，展示完整的 5 步对话流程。
 
@@ -30,7 +30,7 @@ AI:  登录注册涉及几个关键页面？页面间跳转关系是？
 AI:  好的，我生成原型：
 ```
 
-然后 AI 生成 **`docs/prototype.md`**：
+然后 AI 生成 **`ai/prototype.md`**：
 
 ```
 # 原型图
@@ -100,7 +100,7 @@ AI:  我扫描了原型图，识别出可操作元素：
     写入 data-flows.md：
 ```
 
-**`docs/data-flows.md`**：
+**`ai/data-flows.md`**：
 
 ```
 ## 登录页数据流
@@ -159,7 +159,7 @@ AI:  现在从后端视角绘制业务处理流程：
 ## 第四步：接口清单
 
 ```
-AI:  从后台流程提取到 2 个接口，写入 docs/api-list.md：
+AI:  从后台流程提取到 2 个接口，写入 ai/api-list.md：
 
 ## POST /api/auth/login
 - 请求: { email, password }
@@ -183,7 +183,7 @@ AI:  从后台流程提取到 2 个接口，写入 docs/api-list.md：
 ## 第五步：功能点汇总
 
 ```
-AI:  综合前面 4 步，生成 docs/feature-points.md：
+AI:  综合前面 4 步，生成 ai/feature-points.md：
 
 ## 前端
 ├─ 登录页 (邮箱/密码/提交/忘记密码/三方登录)
@@ -211,11 +211,11 @@ AI:  综合前面 4 步，生成 docs/feature-points.md：
 +============================================+
 |  pai:story 完成                              |
 +============================================+
-|  docs/prototype.md       ✅ 2 个页面        |
-|  docs/data-flows.md      ✅ 2 条数据流      |
-|  docs/backend-flows.md   ✅ 2 条流程        |
-|  docs/api-list.md        ✅ 2 个接口        |
-|  docs/feature-points.md  ✅ 15 个功能点     |
+|  ai/prototype.md       ✅ 2 个页面        |
+|  ai/data-flows.md      ✅ 2 条数据流      |
+|  ai/backend-flows.md   ✅ 2 条流程        |
+|  ai/api-list.md        ✅ 2 个接口        |
+|  ai/feature-points.md  ✅ 15 个功能点     |
 +============================================+
 |  下一步: /pai:design                        |
 |  pai:design 将自动读取 feature-points.md    |

@@ -1,7 +1,7 @@
 # AIOS — Personal AI Engineering Operating System
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-v1.3.2-green)]()
+[![Version](https://img.shields.io/badge/version-v1.3.3-green)]()
 <br>[中文](README.zh-CN.md)
 
 AIOS transforms your AI coding agent from a forgetful assistant into a disciplined engineering collaborator. It combines the **skill chain** pattern from [Superpowers](https://github.com/obra/superpowers) with the **spec/change management** system from [OpenSpec](https://github.com/Fission-AI/OpenSpec), augmented with 100 actionable engineering rules based on OWASP, Google Code Review, and language community standards.

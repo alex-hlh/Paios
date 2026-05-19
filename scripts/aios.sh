@@ -30,7 +30,7 @@ done
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 ROOT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 TEMPLATES_DIR="$ROOT_DIR/templates"
-VERSION="v1.3.2"
+VERSION="v1.3.3"
 
 # Colors
 C_RESET="\033[0m"

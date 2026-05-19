@@ -18,7 +18,7 @@ param(
 $ErrorActionPreference = "Stop"
 $ScriptRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
 $TemplatesDir = Join-Path (Split-Path -Parent $ScriptRoot) "templates"
-$Version = "v1.3.1"
+$Version = "v1.3.2"
 $Utf8NoBom = New-Object System.Text.UTF8Encoding $false
 
 # Validate template directory exists
@@ -111,20 +111,9 @@ function Invoke-Install {
     $done = @()
 
     # ─── Claude Code ───
-    $claudeSkills = Join-Path $env:USERPROFILE ".claude\skills"
-    if (Test-Path (Join-Path $env:USERPROFILE ".claude\plugins")) {
-        if (-not (Test-Path $claudeSkills)) { New-Item -ItemType Directory -Path $claudeSkills -Force | Out-Null }
-        Get-ChildItem $skillsDir -Directory | ForEach-Object {
-            $dest = Join-Path $claudeSkills "paios-$($_.Name)"
-            if (-not (Test-Path $dest)) {
-                New-Item -ItemType Junction -Path $dest -Target $_.FullName -Force | Out-Null
-            }
-        }
-        Write-Success "  Claude Code: $((Get-ChildItem $claudeSkills -Filter 'paios-*').Count) skills registered"
-        $done += "Claude Code ($((Get-ChildItem $claudeSkills -Filter 'paios-*').Count) skills)"
-    } else {
-        Write-Warn "  Claude Code: not detected (skip)"
-    }
+    # Claude Code uses its own plugin marketplace.
+    # Install via: /plugin marketplace add alex-hlh/aios-marketplace
+    #             /plugin install paios@aios-marketplace
 
     # ─── OpenCode ───
     $opencodeConfig = Join-Path $env:USERPROFILE ".config\opencode\opencode.json"
@@ -156,6 +145,10 @@ function Invoke-Install {
     if ($done.Count -gt 0) {
         Write-Host "AIOS install complete: $($done -join ', ')"
         Write-Host "Restart your AI tool for changes to take effect."
+        Write-Host ""
+        Write-Host "Claude Code users: use marketplace instead"
+        Write-Host "  /plugin marketplace add alex-hlh/aios-marketplace"
+        Write-Host "  /plugin install paios@aios-marketplace"
     } else {
         Write-Warn "No supported AI tools detected."
         Write-Warn "Supported: Claude Code (claude), OpenCode (opencode)"

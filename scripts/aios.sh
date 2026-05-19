@@ -30,7 +30,7 @@ done
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 ROOT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 TEMPLATES_DIR="$ROOT_DIR/templates"
-VERSION="v1.3.1"
+VERSION="v1.3.2"
 
 # Colors
 C_RESET="\033[0m"
@@ -431,22 +431,9 @@ cmd_install() {
     local skills_dir="$ROOT_DIR/skills"
     local done_list=""
 
-    # Claude Code
-    if [[ -d "$HOME/.claude/plugins" ]]; then
-        local claude_dir="$HOME/.claude/skills"
-        mkdir -p "$claude_dir"
-        for skill in "$skills_dir"/*/; do
-            local name=$(basename "$skill")
-            if [[ ! -L "$claude_dir/paios-$name" ]]; then
-                ln -s "$skill" "$claude_dir/paios-$name" 2>/dev/null
-            fi
-        done
-        local count=$(ls -d "$claude_dir"/paios-* 2>/dev/null | wc -l)
-        ok "  Claude Code: $count skills registered"
-        done_list="$done_list, Claude Code ($count skills)"
-    else
-        warn "  Claude Code: not detected (skip)"
-    fi
+    # Claude Code — uses its own plugin marketplace
+    # /plugin marketplace add alex-hlh/aios-marketplace
+    # /plugin install paios@aios-marketplace
 
     # OpenCode
     if [[ -f "$HOME/.config/opencode/opencode.json" ]]; then

@@ -44,21 +44,24 @@ AIOS solves this by injecting **memory, rules, and process** into every session:
 
 ### 1. Install
 
+**Claude Code (marketplace):**
 ```bash
-npm install -g @huahu/paios
+/plugin marketplace add alex-hlh/aios-marketplace
+/plugin install paios@aios-marketplace
 ```
 
-This gives you both the CLI tool and all 14 AI skills.
+**OpenCode (plugin):**
+```json
+{ "plugin": ["paios@git+https://github.com/alex-hlh/Paios.git"] }
+```
 
-### 2. Register skills with your AI tool
-
+**npm (for CLI tool):**
 ```bash
+npm install -g @huahu/paios
 paios install
 ```
 
-Auto-detects Claude Code, OpenCode, and other AI tools — registers all skills with zero manual config. Skills become available to the AI on next session.
-
-### 3. Initialize your project
+### 2. Initialize your project
 
 **Automatic (recommended):** After installing the AI tool plugin, restart. `pai:bootstrap` detects the missing `ai/` directory and offers to initialize — just answer a few questions and AI does the rest.
 
@@ -449,28 +452,15 @@ In complementary mode, AIOS acts as a **background rules engine**:
 ### Quick install
 
 ```bash
-npm install -g @huahu/paios
-paios install         # Register skills with all detected AI tools
-cd your-project
-paios init --defaults
-```
-
-### Platform-specific
-
-**OpenCode:** Already configured by `paios install`. The `opencode.json` at `~/.config/opencode/opencode.json` will have `skills.paths` pointing to the package.
-
-**Claude Code:** Already configured by `paios install`. Skills are linked to `~/.claude/skills/paios-*`.
-
-**Manual (no CLI):**
-```bash
-# Install
+# CLI tool
 npm install -g @huahu/paios
 
-# Find skills directory
-ls $(npm root -g)/@huahu/paios/skills
+# Register with OpenCode (auto-detect)
+paios install
 
-# Claude Code
-ln -s $(npm root -g)/@huahu/paios/skills/* ~/.claude/skills/paios-*/
+# Claude Code (marketplace)
+/plugin marketplace add alex-hlh/aios-marketplace
+/plugin install paios@aios-marketplace
 ```
 
 To pin a version:

@@ -57,7 +57,7 @@ triggers:
 自动执行，不提问：
 
 1. 用 {file-read} 尝试读取 `prd.md` → 提取功能范围和用户角色
-2. 用 {search-glob} 检查 `docs/` 下是否已有 prototype/data-flows 等文件
+2. 用 {search-glob} 检查 `ai/` 下是否已有原型、数据流、接口、功能点等文件
 3. 询问用户："本次分析哪个功能？"（可从 PRD 的 Must have 列表中选择）
 4. 输出启动横幅：
 

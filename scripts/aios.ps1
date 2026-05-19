@@ -337,8 +337,8 @@ function Invoke-Status {
 
     if (Test-Path "ai\state\current.md") {
         $sc = Get-Content "ai\state\current.md" -Raw
-        if ($sc -match '## Current Change\s*\n(.+)') { Write-Host "  Current Change: $($Matches[1].Trim())" }
-        if ($sc -match '\*Last updated: (.+)') { Write-Host "  Last updated: $($Matches[1])" }
+        if ($sc -match '## 当前激活的 Change\s*\n(.+)') { Write-Host "  Current Change: $($Matches[1].Trim())" }
+        if ($sc -match '\*最后更新: (.+)') { Write-Host "  Last updated: $($Matches[1])" }
     }
 
     if (Test-Path "ai\changes") {

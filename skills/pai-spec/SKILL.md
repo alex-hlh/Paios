@@ -2,6 +2,13 @@
 name: pai-spec
 description: Spec 与 Change 管理 — 生成 delta spec（ADDED/MODIFIED/REMOVED）、tasks.md、变更时间戳。归档时合并 delta 到主 spec。
 triggers:
+  - "technical spec"
+  - "implementation plan"
+  - "task breakdown"
+  - "change log"
+  - "技术规格"
+  - "实现计划"
+  - "任务拆分"
   - "design approved"
   - "spec"
   - "generate tasks"

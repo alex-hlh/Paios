@@ -4,7 +4,6 @@
     "description":  "AIOS - Personal AI Engineering Operating System skill pack",
     "author":  "",
     "repository":  "https://github.com/alex-hlh/Paios",
-    "marketplace":  "paios-marketplace",
     "skills":  [
                    "skills/pai-bootstrap",
                    "skills/pai-init",

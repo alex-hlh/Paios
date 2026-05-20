@@ -2,16 +2,23 @@
 name: pai-debug
 description: 系统调试 — 4 步法：复现 → 定位根因 → 修复 → 验证。修复后记录反模式。禁止盲猜修复。
 triggers:
+  - "fix bug"
+  - "troubleshoot"
+  - "issue investigation"
+  - "root cause"
+  - "bug fix"
+  - "故障排查"
+  - "问题定位"
+  - "debug"
   - "bug"
   - "error"
-  - "failing test"
-  - "doesn't work"
-  - "not working"
+  - "issue"
+  - "crash"
+  - "异常"
   - "报错"
+  - "问题"
+  - "错误"
   - "调试"
-  - "debug"
-  - "不对"
-  - "修一下"
 ---
 
 # Debug (pai:debug)

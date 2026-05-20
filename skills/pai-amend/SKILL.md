@@ -2,18 +2,23 @@
 name: pai-amend
 description: 需求变更入口 — 开发中途新增/修改需求时使用。检测当前 change 状态，根据变更规模推荐策略（追加/新建/延期），协调变更文档和相关技能。
 triggers:
+  - "追加"
+  - "change request"
+  - "requirement change"
+  - "mid-development change"
+  - "scope creep"
   - "scope change"
   - "amend"
   - "change scope"
   - "add requirement"
+  - "amendment"
   - "追加需求"
   - "新增功能"
   - "改需求"
-  - "需求变了"
+  - "需求变"
   - "还要加"
   - "顺便做"
   - "也做一个"
-  - "amendment"
 ---
 
 # Amend (pai:amend)

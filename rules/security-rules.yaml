@@ -1,0 +1,60 @@
+# 安全规范
+# 基于 OWASP Cheat Sheet Series — 语言无关
+# https://cheatsheetseries.owasp.org/
+
+rules:
+  - id: "SEC001"
+    description: "所有用户输入必须在服务端验证。使用白名单（allowlist: 只放行已知安全的输入）优先于黑名单（denylist: 试图过滤已知危险的输入）。白名单更安全，黑名单易被绕过。"
+    reference: "OWASP Input Validation Cheat Sheet"
+    applies_to: "backend"
+    enforcement: "BLOCK_AND_WARN"
+
+  - id: "SEC002"
+    description: "渲染用户数据到页面时必须进行上下文相关的转义处理（context-aware escaping），防止 XSS 攻击。HTML 中做 HTML 实体编码，JavaScript 中做 JS 编码，URL 中做 URL 编码。"
+    reference: "OWASP XSS Prevention Cheat Sheet"
+    applies_to: "web"
+    enforcement: "BLOCK_AND_WARN"
+
+  - id: "SEC003"
+    description: "数据库查询必须使用参数化（parameterized）方式，利用语言/框架提供的占位符机制。绝对禁止用字符串拼接或模板字面量构建 SQL/NoSQL 查询语句。"
+    reference: "OWASP SQL Injection Prevention Cheat Sheet"
+    applies_to: "backend"
+    enforcement: "BLOCK_AND_WARN"
+
+  - id: "SEC004"
+    description: "密码必须使用经过审计的哈希算法存储（如 bcrypt/scrypt/argon2），并加盐。绝对禁止使用明文存储或 MD5/SHA1 等快速哈希。API 密钥存储同理。"
+    reference: "OWASP Password Storage Cheat Sheet"
+    applies_to: "backend"
+    enforcement: "BLOCK_AND_WARN"
+
+  - id: "SEC005"
+    description: "所有 HTTP API 在生产环境必须使用 HTTPS（TLS 1.2+）。禁止在 URL 参数中传递敏感信息（token、密码、密钥）。敏感信息应放在请求头或请求体中。"
+    applies_to: "api"
+    enforcement: "BLOCK_AND_WARN"
+
+  - id: "SEC006"
+    description: "认证令牌（JWT/Session）应设置合理的过期时间。JWT 建议使用短有效期（15min-24h）并结合刷新令牌。Session ID 应使用加密安全的随机数生成器生成。"
+    applies_to: "backend"
+    enforcement: "BLOCK_AND_WARN"
+
+  - id: "SEC007"
+    description: "实现最小权限原则（Principle of Least Privilege）。API 端点和函数应检查调用者是否有权限执行该操作。每个用户/服务只拥有完成其任务所需的最小权限集。"
+    reference: "OWASP Access Control Cheat Sheet"
+    applies_to: "api"
+    enforcement: "BLOCK_AND_WARN"
+
+  - id: "SEC008"
+    description: "文件上传必须限制：文件类型（白名单）、文件大小、存储路径。上传文件应重命名以防止路径遍历攻击。上传目录禁止可直接执行脚本。"
+    reference: "OWASP File Upload Cheat Sheet"
+    applies_to: "backend"
+    enforcement: "BLOCK_AND_WARN"
+
+  - id: "SEC009"
+    description: "跨域请求（CORS）配置应严格限制允许的来源、方法和头。生产环境不允许使用 Access-Control-Allow-Origin: *。仅开放必要的 HTTP 方法。"
+    applies_to: "api"
+    enforcement: "BLOCK_AND_WARN"
+
+  - id: "SEC010"
+    description: "依赖项（npm/pip/go modules/gems 等）应定期扫描已知漏洞。CI 流程中应集成依赖安全扫描。禁止使用标记为 deprecated 或有已知 CVE 的版本。"
+    applies_to: "all"
+    enforcement: "REFACTOR_SUGGESTION"

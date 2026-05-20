@@ -1,0 +1,43 @@
+# L2 架构约束
+# 保持系统可维护性和一致性的架构基石
+#
+# enforcement 级别:
+#   BLOCK_AND_WARN        — 拒绝执行并警告
+#   REFACTOR_SUGGESTION    — 建议重构
+#   WARN                  — 警告但允许继续
+
+rules:
+  # ─── 层次结构 ───
+  - id: "A001"
+    description: |
+      严格遵循分层架构，层间单向依赖。
+      各层按语言惯例命名:
+        Node/TS: Controller/Route → Service → Repository/DAO
+        Python:   View/Route → Service → Model/Repository
+        Go:       Handler → Service → Repository/Store
+        Java:     Controller → Service → Repository
+        Rust:     Handler → Service → Repository
+      禁止跨层调用（如 API 层直接操作数据库）。
+    applies_to: "backend"
+    enforcement: "REFACTOR_SUGGESTION"
+
+  - id: "A002"
+    description: "所有 API 接口必须返回统一响应格式（信封模式）。"
+    applies_to: "api"
+    enforcement: "REFACTOR_SUGGESTION"
+
+  - id: "A003"
+    description: "数据库操作必须通过数据访问层（ORM/Repository/DAO），禁止在业务逻辑层直接拼接 SQL。所有 SQL 必须使用参数化查询。"
+    applies_to: "backend"
+    enforcement: "BLOCK_AND_WARN"
+
+  # ─── 技术选型 ───
+  - id: "A004"
+    description: "禁止引入无依赖的独立工具库。如仅使用 1-2 个函数，应自行实现而非引入完整三方库。"
+    applies_to: "all"
+    enforcement: "REFACTOR_SUGGESTION"
+
+  - id: "A005"
+    description: "框架/库的升级需有明确的迁移计划和回滚方案。大版本升级（含 breaking changes）需创建独立的 change 进行。"
+    applies_to: "all"
+    enforcement: "WARN"

@@ -2,13 +2,20 @@
 name: pai-docs
 description: 项目文档生成 — 基于 ai/ 目录文件和项目代码，自动生成/更新标准项目文档（README、架构、API、贡献指南、开发指南、变更日志）。支持增量更新，不覆盖用户手写内容。
 triggers:
+  - "documentation"
+  - "readme"
+  - "api docs"
+  - "technical writing"
+  - "write docs"
+  - "技术文档"
+  - "api文档"
   - "generate docs"
   - "pai:docs"
   - "update documentation"
+  - "doc"
   - "生成文档"
   - "更新文档"
   - "项目文档"
-  - "doc"
 ---
 
 # Docs (pai:docs)

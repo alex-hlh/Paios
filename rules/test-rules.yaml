@@ -1,0 +1,43 @@
+# 测试规范
+# TDD 流程和测试质量要求
+
+rules:
+  - id: "T001"
+    description: "核心业务逻辑单元测试覆盖率需 >= 80%。新代码必须包含对应的单元测试。"
+    enforcement: "REFACTOR_SUGGESTION"
+
+  - id: "T002"
+    description: "所有 API 端点至少一个集成测试，验证 HTTP 状态码和响应结构的正确性。"
+    enforcement: "REFACTOR_SUGGESTION"
+
+  - id: "T003"
+    description: "测试必须遵循 AAA 模式：Arrange（准备）→ Act（执行）→ Assert（断言）。三部分之间用空行分隔。"
+    enforcement: "STYLE"
+
+  - id: "T004"
+    description: "单元测试中禁止使用真实的外部服务（数据库、API、消息队列），统一使用 mock/stub/fake。集成测试可使用测试专用实例。"
+    enforcement: "REFACTOR_SUGGESTION"
+
+  - id: "T005"
+    description: "TDD 循环：先写测试 → 确认红灯 → 最小实现 → 确认绿灯 → 重构。这是 pai:build 的核心流程，任何功能实现都必须遵循。"
+    enforcement: "REFACTOR_SUGGESTION"
+
+  - id: "T006"
+    description: "测试用例命名应描述被测行为：test_<函数名>_<场景>_<期望结果>。测试名就是活的文档。"
+    enforcement: "STYLE"
+
+  - id: "T007"
+    description: "每个 bug 修复必须包含对应的回归测试，确保同一个 bug 不会再次出现。"
+    enforcement: "REFACTOR_SUGGESTION"
+
+  - id: "T008"
+    description: "测试之间必须相互独立（test isolation），不能有执行顺序依赖。每个测试负责自己的数据准备（setup）和清理（teardown）。"
+    enforcement: "REFACTOR_SUGGESTION"
+
+  - id: "T009"
+    description: "禁止提交间歇性失败的测试（flaky tests）。发现 flaky test 必须立即修复或标记为 skip 并记录 issue。"
+    enforcement: "REFACTOR_SUGGESTION"
+
+  - id: "T010"
+    description: "测试应验证行为（behavior）而非实现细节（implementation details）。重构代码不应导致测试失败。"
+    enforcement: "STYLE"

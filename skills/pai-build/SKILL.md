@@ -2,6 +2,13 @@
 name: pai-build
 description: TDD 开发循环 — 严格的 RED-GREEN-REFACTOR 流程。先写测试，确认红灯，写最小实现，确认绿灯，重构。每个 task 完成触发 pai:review。
 triggers:
+  - "start coding"
+  - "write code"
+  - "tdd"
+  - "red-green"
+  - "build feature"
+  - "implement feature"
+  - "开发"
   - "start implementation"
   - "ready to code"
   - "implement"

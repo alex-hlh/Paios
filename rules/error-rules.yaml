@@ -1,0 +1,39 @@
+# 错误处理规范
+# 基于 OWASP Error Handling Cheat Sheet — 语言无关
+
+rules:
+  - id: "ERR001"
+    description: "禁止吞没异常（empty catch / except pass）。每个 catch/except 块必须至少记录错误或做有意义处理。如确需忽略，注释说明理由。"
+    enforcement: "BLOCK_AND_WARN"
+
+  - id: "ERR002"
+    description: "错误信息不得泄露敏感实现细节（堆栈跟踪、SQL 语句、服务器路径、内部 IP 地址等）给客户端。生产环境应返回通用错误消息，详情记录在服务器日志中。"
+    reference: "OWASP Error Handling Cheat Sheet"
+    applies_to: "backend"
+    enforcement: "BLOCK_AND_WARN"
+
+  - id: "ERR003"
+    description: "使用自定义异常/错误类型而非仅用字符串或数字错误码。每个业务领域应有对应的异常类，便于调用方精确处理。"
+    enforcement: "REFACTOR_SUGGESTION"
+
+  - id: "ERR004"
+    description: "外部调用（HTTP、RPC、MQ、数据库）必须处理超时和网络错误。必须实施重试策略（含退避 backoff）和熔断（circuit breaker）机制。"
+    enforcement: "BLOCK_AND_WARN"
+
+  - id: "ERR005"
+    description: "事务边界在 Service 层，明确回滚策略。方法入口开启事务，出口提交，异常时回滚。避免在循环中开启事务。"
+    applies_to: "backend"
+    enforcement: "REFACTOR_SUGGESTION"
+
+  - id: "ERR006"
+    description: "异步任务（MQ 消费、定时任务）必须设计幂等（idempotent）。消费端应能安全处理重复消息，使用幂等键（idempotency key）去重。"
+    applies_to: "backend"
+    enforcement: "BLOCK_AND_WARN"
+
+  - id: "ERR007"
+    description: "资源清理必须在 finally/defer/ensure 块中进行（文件句柄、数据库连接、网络连接、锁等）。使用语言的 try-with-resources/using 语句优先。"
+    enforcement: "BLOCK_AND_WARN"
+
+  - id: "ERR008"
+    description: "禁止使用异常控制正常业务流程（exception for control flow）。预期内的条件判断使用 if/else，仅在真正异常时才抛出异常。"
+    enforcement: "WARN"

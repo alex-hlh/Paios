@@ -1,0 +1,10 @@
+{
+  "name": "@aios/mcp-server",
+  "version": "1.0.0",
+  "description": "AIOS - MCP server providing access to rules, templates, and project state",
+  "type": "module",
+  "main": "server.js",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0"
+  }
+}

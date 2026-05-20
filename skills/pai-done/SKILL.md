@@ -2,6 +2,14 @@
 name: pai-done
 description: 归档收尾 — 全部 tasks 完成后激活。运行全量测试、冲突检测、merge specs、归档 change、更新状态、提示 git 操作。自动触发 pai:reflect。
 triggers:
+  - "complete"
+  - "finish task"
+  - "archive"
+  - "wrap up"
+  - "submit pr"
+  - "merge ready"
+  - "提交"
+  - "完成开发"
   - "all tasks complete"
   - "finish"
   - "done"

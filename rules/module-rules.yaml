@@ -1,0 +1,53 @@
+# 模块边界与依赖规则
+# 基于 Clean Architecture (Robert C. Martin) + 通用软件工程原则
+
+rules:
+  # ─── 依赖方向 ───
+  - id: "M001"
+    description: |
+      依赖规则 (Dependency Rule): 源码依赖只能指向内层。
+      外层不能依赖内层，内层不能知道外层的存在。
+      通用分层模型（从内到外）:
+        核心层(Entities/Domain) → 用例层(Use Cases/Services) → 适配器层(Adapters/Controllers) → 框架层(Frameworks/Drivers)
+      禁止: 核心层 import 框架层代码。
+    reference: "Clean Architecture — The Dependency Rule"
+    enforcement: "BLOCK_AND_WARN"
+
+  - id: "M002"
+    description: |
+      禁止循环依赖 (Circular Dependency)。模块 A 依赖 B，则 B 不能直接或间接依赖 A。
+      检测方法：在脑中画依赖图，若出现环则必须打破。
+      打破手段：提取共同接口到共享层、使用依赖反转（注入接口而非具体实现）、拆分模块。
+    enforcement: "BLOCK_AND_WARN"
+
+  # ─── 接口与抽象 ───
+  - id: "M003"
+    description: "模块间通信通过接口（interface/protocol/trait）进行，而非直接引用具体实现。使用依赖注入（DI）在运行时注入实现。"
+    reference: "GoF — Program to an Interface, not an Implementation"
+    enforcement: "REFACTOR_SUGGESTION"
+
+  - id: "M004"
+    description: |
+      接口应遵循接口隔离原则 (ISP): 接口应精简，调用者不应依赖其不使用的方法。
+      若接口超过 5 个方法，考虑拆分。客户端只应依赖他们实际调用的方法。
+    reference: "SOLID — Interface Segregation Principle"
+    enforcement: "WARN"
+
+  # ─── 模块粒度 ───
+  - id: "M005"
+    description: "一个模块/包应只有一个职责变更理由（单一职责原则 SRP）。若一个模块因多个不同原因变更，应拆分。"
+    reference: "SOLID — Single Responsibility Principle"
+    enforcement: "REFACTOR_SUGGESTION"
+
+  - id: "M006"
+    description: "模块公开 API 应精简明确。对外暴露的类/函数/类型数量应尽量少（public surface area 最小化）。"
+    enforcement: "WARN"
+
+  # ─── 复用策略 ───
+  - id: "M007"
+    description: "跨模块共享代码应提取到 shared/common 模块。禁止在不同模块中复制同一段代码。"
+    enforcement: "REFACTOR_SUGGESTION"
+
+  - id: "M008"
+    description: "公共模块不应依赖业务模块。shared/common 层应仅包含纯工具函数和数据模型。"
+    enforcement: "BLOCK_AND_WARN"

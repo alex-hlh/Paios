@@ -1,7 +1,13 @@
-﻿---
+---
 name: pai-prd
 description: 产品规划 — 在编码前运行，通过 7 阶段结构化对话生成产品需求文档（PRD）。包含问题陈述、用户画像、旅程图、MoSCoW 优先级、NFR、里程碑、风险假设。每个阶段有输出和门禁确认。
 triggers:
+  - "requirements"
+  - "product spec"
+  - "product plan"
+  - "需求文档"
+  - "产品文档"
+  - "spec doc"
   - "prd"
   - "product requirements"
   - "产品规划"
@@ -9,7 +15,7 @@ triggers:
   - "产品设计"
   - "需求规划"
   - "prd文档"
-  - "写 prd"
+  - "写prd"
 ---
 
 # PRD — Product Requirements Document (pai:prd)

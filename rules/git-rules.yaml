@@ -1,0 +1,28 @@
+# Git 规范
+# 语言无关的版本控制约定
+
+rules:
+  - id: "GIT001"
+    description: "禁止 AI 自主执行 git push / merge / rebase / deploy 等操作。所有涉及远程仓库写操作的命令必须由人类明确确认。"
+    enforcement: "BLOCK_AND_WARN"
+
+  - id: "GIT002"
+    description: "提交信息使用 Conventional Commits 格式: <type>(<scope>): <description>。类型: feat(功能), fix(修复), refactor(重构), docs(文档), test(测试), chore(杂项), style(格式), perf(性能)。描述使用祈使句、小写开头、不加句号。"
+    reference: "https://www.conventionalcommits.org/"
+    enforcement: "REFACTOR_SUGGESTION"
+
+  - id: "GIT003"
+    description: "每个提交应保持原子性：一个提交只做一件事。一个功能可以拆分为多个提交，但一个提交不应包含不相关的变更。便于回滚和 code review。"
+    enforcement: "REFACTOR_SUGGESTION"
+
+  - id: "GIT004"
+    description: "禁止提交以下内容：编译产物（dist/build/target）、依赖（node_modules/vendor）、IDE 配置（.idea/.vscode/）、系统文件（.DS_Store/Thumbs.db）、环境文件（.env）。确保 .gitignore 覆盖这些模式。"
+    enforcement: "BLOCK_AND_WARN"
+
+  - id: "GIT005"
+    description: "分支命名约定：feature/<change-id>-<description>、bugfix/<issue-id>-<description>、refactor/<description>。所有分支使用连字符分隔单词。"
+    enforcement: "STYLE"
+
+  - id: "GIT006"
+    description: "提交前必须确保测试通过（如适用）。不提交包含失败测试或 lint 错误的代码。提交前运行本地测试套件。"
+    enforcement: "WARN"

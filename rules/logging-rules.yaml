@@ -1,0 +1,33 @@
+# 日志规范
+# 基于 OWASP Logging Cheat Sheet — 语言无关
+
+rules:
+  - id: "LOG001"
+    description: "使用统一的日志框架，禁止使用 print/console.log 直接输出。项目应确定一个标准日志库（如 logback, winston, log4j, slog, structlog）。"
+    enforcement: "BLOCK_AND_WARN"
+
+  - id: "LOG002"
+    description: "日志级别使用标准分级: ERROR（系统不可用/数据丢失）、WARN（异常但不影响主流程）、INFO（关键业务事件）、DEBUG（开发调试，生产环境关闭）、TRACE（详细跟踪）。"
+    enforcement: "WARN"
+
+  - id: "LOG003"
+    description: "关键业务操作必须记录审计日志：用户登录/登出、数据创建/修改/删除、权限变更、敏感操作（如支付、删除资源）。审计日志不可篡改。"
+    applies_to: "backend"
+    enforcement: "REFACTOR_SUGGESTION"
+
+  - id: "LOG004"
+    description: "禁止在日志中记录敏感信息：密码、令牌、密钥、PII（个人身份信息）、会话 ID。生产环境日志必须经过脱敏处理。"
+    reference: "OWASP Logging Cheat Sheet — Sensitive Data"
+    enforcement: "BLOCK_AND_WARN"
+
+  - id: "LOG005"
+    description: "错误日志需要包含足够的上下文信息以便定位问题：请求 ID（trace ID）、用户 ID（如适用）、操作标识、参数快照（不含敏感信息）。"
+    enforcement: "REFACTOR_SUGGESTION"
+
+  - id: "LOG006"
+    description: "每个请求/事务应携带唯一的追踪 ID（trace/correlation ID），贯穿整个调用链。在分布式系统中，该 ID 需在服务间传递。"
+    enforcement: "REFACTOR_SUGGESTION"
+
+  - id: "LOG007"
+    description: "日志输出使用结构化格式（JSON 优先），便于日志聚合系统（ELK/Loki/CloudWatch）解析和查询。避免纯文本格式。"
+    enforcement: "STYLE"

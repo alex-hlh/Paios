@@ -2,17 +2,17 @@
 name: pai-design
 description: 需求讨论与设计 — 在任何编码前使用。通过一问一答澄清需求、探索方案、分节展示设计，用户确认后生成 proposal + design 文档。
 triggers:
-  - "new feature"
-  - "add feature"
-  - "implement"
-  - "build"
+  - "technical design"
+  - "architecture"
+  - "solution design"
+  - "system design"
+  - "系统设计"
+  - "技术方案"
+  - "架构设计"
   - "design"
-  - "create"
-  - "modify behavior"
-  - "我要做"
-  - "帮我设计"
-  - "增加功能"
-  - "新功能"
+  - "架构"
+  - "设计"
+  - "方案"
 ---
 
 # Design (pai:design)

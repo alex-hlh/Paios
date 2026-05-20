@@ -1,0 +1,63 @@
+# 代码风格规范
+
+rules:
+  # ─── 命名约定 ───
+  - id: "S001"
+    description: "遵循语言社区命名惯例：camelCase（JS/TS/Java），snake_case（Python/Rust），PascalCase（类名）。文件命名使用 kebab-case（前端）或 snake_case（后端）。"
+    enforcement: "STYLE"
+
+  - id: "S002"
+    description: "布尔变量/函数以 is/has/should/can/will 开头，返回布尔值的函数使用肯定式命名（isValid 而非 isInvalid）。"
+    enforcement: "STYLE"
+
+  - id: "S003"
+    description: "常量使用全大写+下划线命名（MAX_RETRY_COUNT）。Magic number/string 必须定义为命名常量。"
+    enforcement: "STYLE"
+
+  - id: "S004"
+    description: "React 组件使用 PascalCase，非组件 hook 以 use 开头。文件命名为组件的 kebab-case 版本。"
+    applies_to: "web"
+    enforcement: "STYLE"
+
+  # ─── 注释与文档 ───
+  - id: "S005"
+    description: "公共 API（导出函数、类方法、接口）必须包含注释说明用途、参数和返回值。实现细节不需要注释，好代码自解释。"
+    enforcement: "WARN"
+
+  - id: "S006"
+    description: "注释中使用中文或英文不强制，但同一项目内应统一。注释解释 WHY 而非 WHAT（代码本身说明 WHAT）。"
+    enforcement: "STYLE"
+
+  # ─── 结构与复杂度 ───
+  - id: "S007"
+    description: "函数/方法保持短小。若超过 50 行（不含注释和空行），应拆分为更小的函数。每个函数只做一件事。"
+    enforcement: "WARN"
+
+  - id: "S008"
+    description: "避免深嵌套（建议不超过 3 层）。使用提前返回（early return / guard clause）替代深层 if-else。"
+    enforcement: "STYLE"
+
+  - id: "S009"
+    description: "禁止魔法数字/字符串（magic numbers/strings）。常量应提取为命名常量或枚举。例外：数学公式中的 0, 1, 2 等显而易见的值。"
+    enforcement: "WARN"
+
+  - id: "S010"
+    description: "函数参数不超过 5 个。超过时使用参数对象/Option Object/DTO 封装。"
+    enforcement: "STYLE"
+
+  - id: "S011"
+    description: "避免布尔参数。如需区分行为，拆分为两个独立函数（如 setVisible(true) → show() + hide()），或使用选项对象。"
+    enforcement: "STYLE"
+
+  # ─── 代码质量 ───
+  - id: "S012"
+    description: "优先使用不可变（immutable）数据。避免修改传入的参数，返回新值代替原地修改。"
+    enforcement: "STYLE"
+
+  - id: "S013"
+    description: "避免重复代码（DRY 原则）。同一逻辑出现 3 次及以上，提取为公用函数/模块。但不过早抽象——3 次以内若边界清晰可保持重复。"
+    enforcement: "WARN"
+
+  - id: "S014"
+    description: "硬编码的配置值（端口号、URL、超时时间、开关）抽取到配置文件或环境变量中，不得散落在代码各处。"
+    enforcement: "WARN"

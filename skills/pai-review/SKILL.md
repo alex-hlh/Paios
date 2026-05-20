@@ -2,6 +2,13 @@
 name: pai-review
 description: 代码审查 — 每个 task 完成后自动触发。对照 spec、规则和配置进行三维审查：完整性、正确性、合规性。Critical 问题阻断继续。
 triggers:
+  - "review code"
+  - "audit"
+  - "inspect"
+  - "check code"
+  - "qa"
+  - "代码审查"
+  - "质量检查"
   - "task complete"
   - "after TDD cycle"
   - "code review"

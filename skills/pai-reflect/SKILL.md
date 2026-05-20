@@ -2,6 +2,12 @@
 name: pai-reflect
 description: 自我反思 — 每次 pai:done 完成后自动激活。回顾本次 change 的执行偏差、意外情况和技能改进机会。结果写入 ai/memory/decisions.md。
 triggers:
+  - "retrospective"
+  - "review session"
+  - "post-mortem"
+  - "lessons learned"
+  - "回顾"
+  - "总结"
   - "after archive"
   - "after pai:done"
   - "reflect"

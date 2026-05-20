@@ -1,0 +1,35 @@
+# API 设计规范
+# 语言无关的 RESTful API 设计指南
+
+rules:
+  - id: "API001"
+    description: "端点使用名词复数表示资源集合（users、orders）。使用 HTTP 方法表示操作语义：GET=读取，POST=创建，PUT=全量替换，PATCH=部分修改，DELETE=删除。不在 URL 中使用动词（如 /getUsers）。RPC 风格接口例外（如 /send-email），但应有明确规范。"
+    enforcement: "REFACTOR_SUGGESTION"
+
+  - id: "API002"
+    description: "API 路径使用 kebab-case（如 /user-profiles），避免使用 camelCase 或 snake_case。与前端的路由风格保持一致。"
+    enforcement: "STYLE"
+
+  - id: "API003"
+    description: "API 必须实现版本控制策略。推荐在 URL 路径中标明版本（/api/v1/users），或在请求头中使用版本协商。"
+    enforcement: "REFACTOR_SUGGESTION"
+
+  - id: "API004"
+    description: "列表类接口必须支持分页。支持基于偏移量（offset/limit）或游标（cursor）的分页方式。响应体中包含分页元数据（total / nextCursor / hasMore）。"
+    enforcement: "REFACTOR_SUGGESTION"
+
+  - id: "API005"
+    description: "所有 API 响应使用统一的信封格式。正常响应：{ code: 0, data: ... } 或 { success: true, data: ... }。错误响应：{ code: <error_code>, message: '...' }。不改变已有项目的格式约定，但同一项目内必须统一。"
+    enforcement: "REFACTOR_SUGGESTION"
+
+  - id: "API006"
+    description: "返回语义正确的 HTTP 状态码。常用：200(成功), 201(创建成功), 204(无内容), 400(参数错误), 401(未认证), 403(无权限), 404(不存在), 409(冲突), 422(验证失败), 429(频率限制), 500(服务端错误)。"
+    enforcement: "WARN"
+
+  - id: "API007"
+    description: "对外的 API 应实现速率限制（rate limiting）。在响应头中返回限制信息：X-RateLimit-Limit（总量）、X-RateLimit-Remaining（剩余）、X-RateLimit-Reset（重置时间）。"
+    enforcement: "REFACTOR_SUGGESTION"
+
+  - id: "API008"
+    description: "支持按需返回字段（字段筛选 / sparse fieldsets）。允许客户端通过查询参数指定需要的字段（?fields=id,name,email），减少不必要的数据传输和数据库查询。"
+    enforcement: "STYLE"

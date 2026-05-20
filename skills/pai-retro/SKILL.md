@@ -2,13 +2,18 @@
 name: pai-retro
 description: 项目逆向分析 — 扫描已有项目的代码和配置文件，自动检测技术栈、测试框架、代码风格等，生成 ai/ 目录初始化文件。适用于对非 AIOS 创建的项目进行改造。
 triggers:
-  - "aios retro"
-  - "pai:retro"
-  - "analyze project"
+  - "reverse engineering"
+  - "codebase analysis"
+  - "existing code"
+  - "逆向分析"
+  - "代码适配"
+  - "已有项目"
+  - "retro"
   - "retrofit"
-  - "反向生成"
-  - "分析项目"
-  - "适配现有项目"
+  - "逆向"
+  - "适配"
+  - "分析代码"
+  - "retrofit"
 ---
 
 # Retro (pai:retro)

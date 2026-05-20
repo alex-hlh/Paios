@@ -2,9 +2,13 @@
 name: pai-init
 description: 项目初始化 — 手动触发 AIOS 项目初始化。交互式选择技术栈预设，自动生成 ai/ 目录及所有配置文件。
 triggers:
+  - "setup project"
+  - "initialize"
+  - "new project setup"
+  - "start new project"
+  - "项目初始化"
   - "aios init"
   - "pai:init"
-  - "初始化项目"
   - "init project"
 ---
 
@@ -68,6 +72,31 @@ AIOS 初始化完成！
 
 下次 AI 启动时，pai:bootstrap 会自动加载项目配置。
 ```
+
+
+## Git Hooks 安装（可选）
+
+AIOS 提供 git hooks 自动检查提交质量。
+
+**macOS / Linux**:
+```bash
+bash path/to/Paios/scripts/hooks/install.sh
+```
+
+**Windows**:
+```powershell
+& path\\to\\Paios\\scripts\\hooks\\install.ps1
+```
+
+安装后：
+- **pre-commit hook**: 密钥扫描 + 调试代码检查 + state 更新提醒
+- **commit-msg hook**: Conventional Commits 格式校验
+
+紧急跳过：
+```bash
+git commit --no-verify -m "fix: critical hotfix"
+```
+
 
 ## 预设档案参考
 

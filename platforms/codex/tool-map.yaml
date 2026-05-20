@@ -1,0 +1,22 @@
+# Codex CLI/Desktop 平台工具映射
+# pai:bootstrap 启动时读取此文件，将工具名注入上下文
+# 注意: Codex CLI 不直接支持自定义工具名注入，此映射供人类和 AI 参考
+# 实际调用时, AI 应使用 Codex 原生工具名
+
+tools:
+  task-manager: update_plan
+  skill-loader: "(Codex 通过自动加载 Skills 列表, 无需手动调用)"
+  subagent: spawn_agent
+  file-read: "(Codex 通过 apply_patch 系列工具 + read_mcp_resource)"
+  file-edit: apply_patch
+  shell: shell
+  search-grep: shell (powershell: Select-String)
+  search-glob: shell (powershell: Get-ChildItem -Recurse)
+  web-fetch: web_search
+
+# Codex 独特能力 (未在 Claude Code / OpenCode 中提供)
+codex_specific:
+  - mcp_servers: "支持 MCP 服务器，可通过 list_mcp_resources + read_mcp_resource 读取外部数据"
+  - image_view: "支持 view_image 查看本地图片"
+  - in_app_browser: "内置浏览器，可通过 @browser 指令导航和截图"
+  - spawn_agent: "可派生子 agent 并行执行子任务"
